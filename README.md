@@ -3,7 +3,7 @@ Scheduler App
 Team Memebers
 Sonny
 Sanket
-Dipen
+Dipen (SM)
 Shalin
 Ruby
 Devraj
