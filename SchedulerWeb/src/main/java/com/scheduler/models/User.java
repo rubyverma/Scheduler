@@ -2,7 +2,8 @@ package com.scheduler.models;
 
 import lombok.Data;
 
-public @Data class User {
+@Data
+public class User {
 	 
 	Integer id;
 	String email;

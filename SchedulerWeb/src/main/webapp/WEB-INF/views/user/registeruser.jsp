@@ -19,7 +19,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" class="btn btn-primary" />
         </td>
     </tr>
 </table>  

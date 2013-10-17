@@ -2,8 +2,6 @@ package com.scheduler.controllers;
 
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
@@ -20,7 +18,6 @@ import com.scheduler.services.UserService;
 
 @RequestMapping("/user")
 @Controller
-@Slf4j
 public class UserController {
 	
 	@Autowired(required = true)
@@ -96,7 +93,7 @@ public class UserController {
 	public String deleteUser(@PathVariable("user_id") int user_id, RedirectAttributes ra, Model model) { 
 		
 		
-		int result = userService.deleteUser(user_id);
+		int result;
 		
 		try
 		{

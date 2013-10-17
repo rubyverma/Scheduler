@@ -3,7 +3,7 @@ Status: ${ result }
 
 <h3>Users From Database</h3>
 <c:if  test="${!empty users}">
-<table border="1">
+<table class="table table-hover">
 <tr>
     <th>ID</th>
     <th>Name</th>

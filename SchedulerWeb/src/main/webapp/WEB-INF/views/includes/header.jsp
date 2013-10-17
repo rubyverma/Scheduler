@@ -1,18 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
 <title>Scheduler Web Application</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/project/resources/css/bootstrap.css" rel="stylesheet">
+<!-- Bootstrap theme -->
+<link href="/project/resources/css/bootstrap-theme.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/project/resources/css/theme.css" rel="stylesheet">
+
 </head>
+
 <body>
-<c:if test="${!empty error}">
-<p>
-	<h4>The following error occured: </h4> 
-	${ error }
-</p>
-</c:if>
+
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Scheduler</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">Lisa Harper <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">Your Account</li>
+							<li><a href="#">My Profile</a></li>
+							<li><a href="#">Account Settings</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Logout</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+
+	<div class="container theme-showcase">
+		<c:if test="${!empty error}">
+			<p>
+			<h4>The following error occured:</h4> 
+				${ error }
+			</p>
+		</c:if>
+<div class="row">
+  	<div class="col-md-3">
+  		<%@ include file="left_sidebar.jsp"%>
+  	</div>
+	<div class="col-md-6">
