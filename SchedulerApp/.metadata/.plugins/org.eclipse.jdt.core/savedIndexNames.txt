@@ -1,4 +1,0 @@
-INDEX VERSION 1.126+C:\Dropbox\Dropbox\My Development Environment\WORKSPACE\Spring\REPO\Scheduler\SchedulerApp\.metadata\.plugins\org.eclipse.jdt.core
-3239235929.index
-721244231.index
-3197155348.index
