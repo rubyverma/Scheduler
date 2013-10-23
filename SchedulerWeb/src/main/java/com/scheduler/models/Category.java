@@ -1,25 +1,17 @@
 package com.scheduler.models;
+import java.sql.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
 	
-	private int m_categoryId;
-	private int m_officialId;
-	private String m_categoryName;
-	
-	public Category()
-	{
-		
-	}
-	
-	public Category(int _categoryId, int _officialId, String _categoryName)
-	{
-		this.m_categoryId = _categoryId;
-		this.m_officialId = _officialId;
-		this.m_categoryName = _categoryName;
-		
-	}
-
+	private int categoryId;
+	private int officialId;
+	private String categoryName;
 }
