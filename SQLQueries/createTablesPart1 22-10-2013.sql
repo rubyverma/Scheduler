@@ -2,7 +2,8 @@
 SQLyog Community v11.21 (64 bit)
 MySQL - 5.6.12-log : Database - scheduler
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -41,6 +42,7 @@ CREATE TABLE `appointment` (
   `userId` int(50) NOT NULL,
   `officialId` int(50) DEFAULT NULL,
   `purposeOfVisit` varchar(255) DEFAULT NULL,
+  `appointmentDate` date NOT NULL,
   `startTime` time NOT NULL,
   `endTime` time NOT NULL,
   `meetingFinished` varchar(1) DEFAULT NULL,
