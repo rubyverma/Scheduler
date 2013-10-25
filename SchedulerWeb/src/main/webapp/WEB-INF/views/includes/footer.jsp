@@ -8,8 +8,8 @@
 Copyright &copy; 2013
 </div>
 <!-- /container -->
-<script src="/project/resources/js/jquery.js"></script>
-<script src="/project/resources/js/bootstrap.min.js"></script>
-<script src="/project/resources/js/holder.js"></script>
+<script src="/Scheduler/resources/js/jquery.js"></script>
+<script src="/Scheduler/resources/js/bootstrap.min.js"></script>
+<script src="/Scheduler/resources/js/holder.js"></script>
 </body>
 </html>
