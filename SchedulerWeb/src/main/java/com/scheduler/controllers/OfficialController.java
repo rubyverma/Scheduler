@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scheduler.models.Appointment;
-import com.scheduler.models.User;
 import com.scheduler.services.NotificationService;
-import com.scheduler.services.UserService;
 import com.scheduler.services.AppointmentService;
 
 @RequestMapping("/official")
