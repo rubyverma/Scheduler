@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Appointment {
-        
+
         private int appointmentId;
         private int departmentTimeId;
         private int userId;
@@ -23,3 +23,4 @@ public class Appointment {
         private String meetingNotes;
         private Date dateCreated;
 }
+

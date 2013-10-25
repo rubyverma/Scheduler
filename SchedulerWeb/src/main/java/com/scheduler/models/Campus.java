@@ -1,20 +1,19 @@
 package com.scheduler.models;
 import java.sql.Date;
+import java.sql.Time;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Campus {
 	
-	private int m_campusId;
-	private int m_clientId;
-	private String m_campusName;
-	private String m_campusAddress;
-	private Date m_dateCreated;
-	
-	
+	private int campusId;
+	private int clientId;
+	private String campusName;
+	private String campusAddress;
+	private Date dateCreated;
 }
