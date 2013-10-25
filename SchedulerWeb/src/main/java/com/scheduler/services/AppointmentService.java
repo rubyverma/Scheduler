@@ -1,27 +1,56 @@
 package com.scheduler.services;
 
+import com.scheduler.models.GeneralUser;
+import com.scheduler.request.SendPostRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
-
 import com.scheduler.mappers.AppointmentMapper;
 import com.scheduler.models.Appointment;
-import com.scheduler.models.GeneralUser;
-import com.scheduler.request.SendPostRequest;
 
 @Component
 public class AppointmentService {
+
 	
-    @Autowired(required = true)
-    private AppointmentMapper appointmentMapper;
-    
+	@Autowired(required=true)
+	private AppointmentMapper appointmentMapper;
+
     @Autowired(required = true)
     private NotificationService notificationService;
     	
-   @Autowired(required = true)
-   private SendPostRequest postRequest;
+   	@Autowired(required = true)
+   	private SendPostRequest postRequest;
+
+	
+	public  int saveAppointment(Appointment _app)  throws BadSqlGrammarException {
+		return 1; //userMapper.saveUser(u);
+	}
+	
+	
+	public String expectedMeetingTime(int _appointmentId){
+		
+		return "Expected Time";
+			
+	}
+	
    
+
+	public boolean finishAppointment(Appointment appointment) {
+		// TODO Auto-generated method stub
+		//Appointment apptest=new Appointment();
+		//apptest.setMeetingNotes(meeting_notes);
+		//apptest.setAppointmentId(appointment_id);
+		if (appointmentMapper.finishAppointment(appointment)>0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+    
     /* this function is to start an appointment by providing an appointment_id */
 	public Appointment startAppointmentById(@Param("id") int app_id, @Param("official_id") int official_id )  throws BadSqlGrammarException {
 		
@@ -45,4 +74,5 @@ public class AppointmentService {
 		
 	}
 	
+
 }
