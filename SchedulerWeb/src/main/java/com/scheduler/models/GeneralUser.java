@@ -9,17 +9,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GeneralUser {
-	
-	private int userId;
-	private int clientId;
-	private String userName;
-	private String password;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private Date dob;
-	private String address;
-	private String gender;
-	private String tocken;
-	private int emailVerified;
+        
+        private int userId;
+        private int clientId;
+        private String username;
+        private String password;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private Date dob;
+        private String address;
+        private String gender;
+        private String tocken;
+        private int emailVerified;
+        private String gcmRegId;
 }

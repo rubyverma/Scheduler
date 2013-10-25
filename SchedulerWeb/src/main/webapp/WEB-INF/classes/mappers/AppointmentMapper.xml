@@ -9,5 +9,24 @@
         meetingFinished = 'Y'
         where appointmentId = #{appointmentId}
     </update>
-    
+
+	<update id="startAppointmentById" parameterType="int">
+		update appointment set
+		startTime = CURTIME(),
+		officialId = #{official_id},
+		meetingFinished = 'N'
+		where appointmentId = #{app_id}
+	</update>
+	
+	<select id="getAppointmentById" parameterType="int" resultType="com.scheduler.models.Appointment">
+		select * from appointment where appointmentId = #{app_id}
+	</select>
+	
+	<select id="getUserByAppointmentId" parameterType="int" resultType="com.scheduler.models.GeneralUser">
+		select gu.* from generaluser gu, 
+						 appointment a 
+				where 	 a.appointmentId = #{app_id}
+				and 	 a.userId = gu.userId
+	</select>
+
 </mapper>
