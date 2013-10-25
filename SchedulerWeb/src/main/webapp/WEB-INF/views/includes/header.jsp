@@ -15,12 +15,12 @@
 <title>Scheduler Web Application</title>
 
 <!-- Bootstrap core CSS -->
-<link href="/project/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/Scheduler/resources/css/bootstrap.css" rel="stylesheet">
 <!-- Bootstrap theme -->
-<link href="/project/resources/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="/Scheduler/resources/css/bootstrap-theme.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="/project/resources/css/theme.css" rel="stylesheet">
+<link href="/Scheduler/resources/css/theme.css" rel="stylesheet">
 
 </head>
 
