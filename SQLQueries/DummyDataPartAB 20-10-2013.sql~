@@ -72,7 +72,7 @@ CREATE TABLE `appointment` (
 
 LOCK TABLES `appointment` WRITE;
 /*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
-INSERT INTO `appointment` VALUES (1,1,1,2,'Course Enquiry','2012-00-00 00:00:00','0000-00-00 00:00:00','Y','Explained course details','2013-11-11 12:23:45'),(2,2,2,3,'Admission Enquiry','2013-00-00 00:00:00','0000-00-00 00:00:00','Y','Procedure Explained','2013-11-11 13:21:45');
+INSERT INTO `appointment` VALUES (1,1,0,2,'Course Enquiry','2012-00-00 00:00:00','0000-00-00 00:00:00','Y','Explained course details','2013-11-11 12:23:45'),(2,2,0,3,'Admission Enquiry','2013-00-00 00:00:00','0000-00-00 00:00:00','Y','Procedure Explained','2013-11-11 13:21:45');
 /*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
 UNLOCK TABLES;
 

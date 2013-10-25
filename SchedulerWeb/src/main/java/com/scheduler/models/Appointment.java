@@ -10,16 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Appointment {
-	
-	private int appointmentId;
-	private int departmentTimeId;
-	private int userId;
-	private int officialId;
-	private Date appointmentDate;
-	private String purposeOfVisit;
-	private Time startTime;
-	private Time endTime;
-	private String meetingFinished;
-	private String meetingNotes;
-	private Date dateCreated;
+
+        private int appointmentId;
+        private int departmentTimeId;
+        private int userId;
+        private int officialId;
+        private Date appointmentDate;
+        private String purposeOfVisit;
+        private Time startTime;
+        private Time endTime;
+        private String meetingFinished;
+        private String meetingNotes;
+        private Date dateCreated;
 }
+
