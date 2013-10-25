@@ -41,4 +41,8 @@ public class UserService {
 	public int deleteUser(@Param("id") int id)  throws BadSqlGrammarException {
 		return userMapper.deleteUser(id);
 	}
+
+	public String getNickName(int user_id) {
+		return "Nickname of " + user_id;
+	}
 }

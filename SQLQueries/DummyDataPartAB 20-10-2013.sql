@@ -72,7 +72,7 @@ CREATE TABLE `appointment` (
 
 LOCK TABLES `appointment` WRITE;
 /*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
-INSERT INTO `appointment` VALUES (1,1,0,2,'Course Enquiry','2012-00-00 00:00:00','0000-00-00 00:00:00','Y','Explained course details','2013-11-11 12:23:45'),(2,2,0,3,'Admission Enquiry','2013-00-00 00:00:00','0000-00-00 00:00:00','Y','Procedure Explained','2013-11-11 13:21:45');
+INSERT INTO `appointment` VALUES (1,1,1,2,'Course Enquiry','2012-00-00 00:00:00','0000-00-00 00:00:00','Y','Explained course details','2013-11-11 12:23:45'),(2,2,2,3,'Admission Enquiry','2013-00-00 00:00:00','0000-00-00 00:00:00','Y','Procedure Explained','2013-11-11 13:21:45');
 /*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +257,8 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `generaluser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `generaluser` (
+
+CREATE TABLE IF NOT EXISTS `generaluser` (
   `userId` int(50) NOT NULL AUTO_INCREMENT,
   `clientId` int(50) NOT NULL,
   `username` varchar(50) NOT NULL,
@@ -265,22 +266,29 @@ CREATE TABLE `generaluser` (
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
-  `dob` datetime DEFAULT NULL,
+  `dob` date DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `token` varchar(100) NOT NULL,
+  `emailVerified` tinyint(1) DEFAULT NULL,
+  `gcm_device_regid` text NOT NULL,
+  PRIMARY KEY (`userId`),
+  KEY `UNIQUE` (`username`,`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `generaluser`
 --
 
-LOCK TABLES `generaluser` WRITE;
-/*!40000 ALTER TABLE `generaluser` DISABLE KEYS */;
-INSERT INTO `generaluser` VALUES (1,2,'dkaith','cc1','Kaith','Devon','dkaith@ccollege.com','1985-12-14 11:23:45','45 rudington dr','female'),(2,2,'dkemar','cc2','Kemar','Devon','dkaith1@ccollege.com','1985-12-12 11:23:45','46 rudington dr','female');
-/*!40000 ALTER TABLE `generaluser` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `generaluser` (`userId`, `clientId`, `username`, `password`, `firstName`, `lastName`, `email`, `dob`, `address`, `gender`, `token`, `emailVerified`, `gcm_device_regid`) VALUES
+(1, 1, 'dkaith', 'cc1', 'Kaith', 'Devon', 'dkaith@ccollege.com', '1985-12-14', '22 Progress Ave', 'Female', 'ab12', 1, 'APA91bEV6sWyrFiPsF5a4Cb8HVKx7BuE3jgEznRGG5SRODgpTimEI5XWjRUgrARq1t-ZFDGiodfTuwSQYTSGnpfrNXjw17welyABfrHzPbCtaQyU9rYc9X4VCx0UzPn6IGiB43I2Q7QmTk_94fxEesvWF4Rwdiumug'),
+(2, 1, 'dkemar', 'cc2', 'Kemar', 'Devon', 'dkemar1@ccollege.com', '1985-12-12', '46 rudington dr', 'Male', 'ac12', 1, 'abcdefg'),
+(3, 1, 'pvishal', 'cc3', 'Vishal', 'Punjabi', 'pvishal@ccollege.com', '1986-12-12', '45 rudington dr', 'Male', 'ad12', 1, 'abcdefg'),
+(4, 1, 'vagin', 'cc4', 'Vishal', 'Agin', 'vagin@cccollege.com', '1984-12-12', '47 rudington dr', 'Male', 'ae12', 1, 'abcdefg'),
+(5, 1, 'dvalecha', 'cc5', 'Devraj', 'Valecha', 'dvalecha@ccollege.com', '1986-10-16', '48 rudington dr', 'Male', 'af12', 1, 'abcdefg'),
+(6, 1, 'sbanjara', 'cc6', 'Shalin', 'Banjara', 'sbanjara@ccollege.com', '1984-08-08', '49 rudington dr', 'Male', 'ag12', 1, 'abcdefg'),
+(7, 1, 'ksara', 'cc7', 'Kim', 'Sara', 'ksara@ccollege.com', '1984-08-08', '50 rudington dr', 'Female', 'ah12', 1, 'abcdefg');
+
 
 --
 -- Table structure for table `notification`

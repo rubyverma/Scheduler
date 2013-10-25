@@ -1,7 +1,7 @@
 <%@ include file="../includes/header.jsp"%>
 Status: ${ result }
 
-<h3>Users From Database</h3>
+<h3>Official Users From Database ${ started }</h3>
 <c:if  test="${!empty users}">
 <table class="table table-hover">
 <tr>
@@ -20,19 +20,4 @@ Status: ${ result }
 </c:forEach>
 </table>
 </c:if>
-
-<select name="users" id="nameCombo">
-	
-	<option>Select name</option>
-	<c:forEach items="${users}" var="user">
-		<option value="${ user.id }">${ user.firstname }</option>
-	</c:forEach>
-
-</select>
-
-<br/><br/>
-<div id="nicknameComboDiv">
-	<!--  this is where the ajax nickname combobox is loaded  -->
-</div>
-
 <%@ include file="../includes/footer.jsp"%>
