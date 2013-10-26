@@ -1,5 +1,9 @@
 package com.scheduler.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -7,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scheduler.models.Appointment;
-import com.scheduler.models.User;
+import com.scheduler.services.AppointmentService;
 
 @RequestMapping("/appointment")
 @Controller
@@ -26,5 +30,20 @@ public class AppointmentController {
 		model.addAttribute("expectedTime", new Appointment());
 		return "appointment/saveappointment";
 	}
+	
+	@Autowired(required = true)
+	private AppointmentService appointmentService;
 
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String viewAllAppointments(Model model) {
+		List<Appointment> appointments;
+		try {
+			appointments = appointmentService.findAllAppointments(1);
+			model.addAttribute("appointments", appointments);
+		} catch (BadSqlGrammarException e) {
+			model.addAttribute("error", e.getMessage());
+			System.out.println(e.getMessage());
+		}
+		return "appointment/view";
+	}
 }

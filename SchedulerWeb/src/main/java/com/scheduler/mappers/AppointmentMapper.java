@@ -1,7 +1,10 @@
 package com.scheduler.mappers;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +23,8 @@ public interface AppointmentMapper {
 	Appointment getAppointmentById(@Param("app_id") int app_id);
 	
 	GeneralUser getUserByAppointmentId(@Param("app_id") int app_id);
+	
+	List<Appointment> findAllAppointments(int userId) throws BadSqlGrammarException;
 	
 
 }
