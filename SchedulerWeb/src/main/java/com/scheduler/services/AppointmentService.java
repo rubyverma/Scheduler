@@ -3,11 +3,14 @@ package com.scheduler.services;
 import java.util.List;
 
 import com.scheduler.models.GeneralUser;
+import com.scheduler.models.Notification;
 import com.scheduler.request.SendPostRequest;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
+
 import com.scheduler.mappers.AppointmentMapper;
 import com.scheduler.models.Appointment;
 
@@ -58,12 +61,16 @@ public class AppointmentService {
 				official_id);
 		if (started > 0) {
 			// if appointment is started, notify the next user
-			GeneralUser generalUser = appointmentMapper
-					.getUserByAppointmentId(app_id);
+			GeneralUser generalUser = appointmentMapper.getUserByAppointmentId(app_id);
 			String registration_id = generalUser.getGcmRegId();
-			if (!registration_id.equals(null) || !registration_id.equals("")) {
-				notificationService.notifyUser(registration_id);
-			}
+			
+			Notification notification = new Notification();
+			notification.setOfficialId(official_id);
+			notification.setUserId(generalUser.getUserId());
+			notification.setNotificationHeader("Meeting ready to be started");
+			notification.setNotificationDescription("Please come in to the department");
+			notification.setReadByUser(0);
+			notificationService.notifyUser(registration_id, notification);
 
 		}
 		return appointment;
@@ -74,5 +81,11 @@ public class AppointmentService {
 			throws BadSqlGrammarException {
 		return appointmentMapper.findAllAppointments(userId);
 
+	}
+	
+	// finds which appointment is in the top of the queue
+	public Appointment findNextAppointment(int department_id)
+	{
+		return appointmentMapper.findNextAppointment(department_id);
 	}
 }
