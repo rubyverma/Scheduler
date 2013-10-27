@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
 import com.scheduler.models.User;
 
 @Repository(value="userMapper")

@@ -1,0 +1,46 @@
+ SchedulerWeb/.classpath                            |   37 +
+ SchedulerWeb/.gitignore                            |   49 -
+ SchedulerWeb/.gitignore~                           |11022 --------------------
+ SchedulerWeb/.project                              |   48 +
+ SchedulerWeb/.settings/.jsdtscope                  |   12 +
+ SchedulerWeb/.settings/org.eclipse.jdt.core.prefs  |    8 +
+ SchedulerWeb/.settings/org.eclipse.m2e.core.prefs  |    4 +
+ .../.settings/org.eclipse.wst.common.component     |   11 +
+ .../org.eclipse.wst.common.project.facet.core.xml  |    7 +
+ .../org.eclipse.wst.jsdt.ui.superType.container    |    1 +
+ .../org.eclipse.wst.jsdt.ui.superType.name         |    1 +
+ .../.settings/org.eclipse.wst.validation.prefs     |    2 +
+ .../controllers/AppointmentController.class        |  Bin 0 -> 2490 bytes
+ .../scheduler/controllers/OfficialController.class |  Bin 0 -> 2677 bytes
+ .../com/scheduler/controllers/UserController.class |  Bin 0 -> 4648 bytes
+ .../com/scheduler/mappers/AppointmentMapper.class  |  Bin 0 -> 989 bytes
+ .../com/scheduler/mappers/GeneralUserMapper.class  |  Bin 0 -> 488 bytes
+ .../com/scheduler/mappers/NotificationMapper.class |  Bin 0 -> 596 bytes
+ .../classes/com/scheduler/mappers/UserMapper.class |  Bin 0 -> 919 bytes
+ .../com/scheduler/models/Announcement.class        |  Bin 0 -> 3803 bytes
+ .../classes/com/scheduler/models/Appointment.class |  Bin 0 -> 5984 bytes
+ .../classes/com/scheduler/models/Campus.class      |  Bin 0 -> 3297 bytes
+ .../classes/com/scheduler/models/Category.class    |  Bin 0 -> 2251 bytes
+ .../classes/com/scheduler/models/Client.class      |  Bin 0 -> 8634 bytes
+ .../classes/com/scheduler/models/Department.class  |  Bin 0 -> 4199 bytes
+ .../com/scheduler/models/Departmenttimeslot.class  |  Bin 0 -> 2849 bytes
+ .../target/classes/com/scheduler/models/Faq.class  |  Bin 0 -> 3534 bytes
+ .../classes/com/scheduler/models/GeneralUser.class |  Bin 0 -> 6836 bytes
+ .../com/scheduler/models/Notification.class        |  Bin 0 -> 4554 bytes
+ .../com/scheduler/models/OfficialUser.class        |  Bin 0 -> 5472 bytes
+ .../classes/com/scheduler/models/Roles.class       |  Bin 0 -> 3129 bytes
+ .../classes/com/scheduler/models/Timeslot.class    |  Bin 0 -> 2995 bytes
+ .../target/classes/com/scheduler/models/User.class |  Bin 0 -> 3051 bytes
+ .../com/scheduler/request/CommonResponse.class     |  Bin 0 -> 2415 bytes
+ .../com/scheduler/request/SendPostRequest.class    |  Bin 0 -> 2052 bytes
+ .../scheduler/services/AppointmentService.class    |  Bin 0 -> 3179 bytes
+ .../scheduler/services/GeneralUserService.class    |  Bin 0 -> 574 bytes
+ .../scheduler/services/NotificationService.class   |  Bin 0 -> 1549 bytes
+ .../com/scheduler/services/UserService.class       |  Bin 0 -> 2173 bytes
+ SchedulerWeb/target/classes/log4j.xml              |   41 +
+ .../m2e-wtp/web-resources/META-INF/MANIFEST.MF     |    5 +
+ .../maven/com.scheduler/Scheduler/pom.properties   |    7 +
+ .../META-INF/maven/com.scheduler/Scheduler/pom.xml |  232 +
+ .../controllers/OfficialControllerTest.java        |   23 +
+ SchedulerWeb/target/test-classes/log4j.xml         |   41 +
+ 45 files changed, 480 insertions(+), 11071 deletions(-)

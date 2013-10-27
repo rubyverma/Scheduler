@@ -7,6 +7,11 @@
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
 		meetingFinished = 'Y'
+		update appointment
+		set
+		endTime = CURTIME(),
+		meetingNotes=#{meetingNotes},
+		meetingFinished ='Y'
 		where appointmentId = #{appointmentId}
 	</update>
 
@@ -36,6 +41,29 @@
 		select ap.*,gu.firstname,gu.lastname from appointment ap,
 		generaluser gu
 		where ap.userId = gu.userId
+		where
+		a.appointmentId = #{app_id}
+		and a.userId = gu.userId
+	</select>
+
+	<select id="findAllUserAppointments" parameterType="int"
+		resultType="com.scheduler.models.AppointmentDepartment">
+		SELECT a.*,d.departmentName FROM appointment a,
+		departmenttimeslot ds,
+		department d
+		WHERE a.departmentTimeId = ds.departmentTimeId
+		AND ds.departmentId = d.departmentId and a.userId= #{userId}
+		ORDER BY a.appointmentDate DESC
+	</select>
+
+	<select id="findNextAppointment" parameterType="int"
+		resultType="com.scheduler.models.Appointment">
+		select * from appointment where departmentTimeId in (
+		select departmentTimeId from departmenttimeslot where
+		departmentId=#{department_id})
+		and meetingFinished='N'
+		order by appointmentId ASC
+		Limit 0,1
 	</select>
 
 </mapper>

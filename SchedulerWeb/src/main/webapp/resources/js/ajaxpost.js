@@ -21,10 +21,9 @@ $(document).ready( function() {
 	      event.preventDefault();
 	      return false;
 	});
-	
-	console.log($(".abc"));
-	$(".abc").live("change", function() {
-		alert("got");
-	});
-	
+
 });
+
+function onNickNameChange() {
+	alert('got it');
+}

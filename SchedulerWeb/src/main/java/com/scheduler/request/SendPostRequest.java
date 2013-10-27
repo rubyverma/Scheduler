@@ -13,7 +13,9 @@ public class SendPostRequest {
 
 	private static final String API_KEY = "AIzaSyALsNzA33zOh51g0ECjYcGWtA2y3hbcZaY";
 
-	public boolean sendNotification(String registration_id, String notificationMessage) {
+	public String sendNotification(String registration_id, String notificationMessage) {
+		
+		String message_id = "";
 		Result result;
 		
 		Sender sender = new Sender(API_KEY);// add your own google APIkey here
@@ -28,13 +30,13 @@ public class SendPostRequest {
 
 		try {
 			result = sender.send(message, registration_id, 1);
-
+			message_id = result.getMessageId();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return true;
+		return message_id;
 	}
 
 }
