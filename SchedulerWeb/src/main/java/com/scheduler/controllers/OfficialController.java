@@ -1,5 +1,9 @@
 package com.scheduler.controllers;
 
+import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,13 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.scheduler.models.Appointment;
+import com.scheduler.models.AppointmentList;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.NotificationService;
 
 @RequestMapping("/official")
 @Controller
-
+@Slf4j
 public class OfficialController {
 
 	@Autowired(required=true)
@@ -26,12 +32,8 @@ public class OfficialController {
 	
 	@RequestMapping(value="/meeting/finish",method=RequestMethod.POST)
 	public String finishMeeting(@ModelAttribute("appointment") Appointment appointment,Model model)
-	//public String finishMeeting(HttpServletRequest req,Model model)
 	{
-		
-		//Appointment appointment=new Appointment();
-		//appointment.setAppointmentId(Integer.parseInt(req.getParameter("appointment_id")));
-		//appointment.setMeetingNotes(req.getParameter("meeting_notes"));
+		// Code to Finish Appointment
 		boolean meetingFinished=appointmentService.finishAppointment(appointment);
 		if(meetingFinished)
 		{
@@ -41,8 +43,20 @@ public class OfficialController {
 		{
 			model.addAttribute("finish",false);
 		}
+		// Redirecting to view the queue
 		return "redirect:/official/meeting/viewqueue";
 	}
+	
+	@RequestMapping(value="/meeting/viewqueue",method=RequestMethod.GET)
+	public String viewQueue(Model model)
+	{
+		System.out.println("view queue started");
+		List<AppointmentList> listofAppointment= appointmentService.getAllAppointment();
+		model.addAttribute("appointmentList",listofAppointment);
+		// Redirecting to view the queue
+		return "meeting/viewqueue";
+	}
+	
 	
 	@RequestMapping(value="/meeting/testmeeting",method=RequestMethod.GET)
 	public String test(Model model)

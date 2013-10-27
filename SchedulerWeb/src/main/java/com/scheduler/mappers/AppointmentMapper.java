@@ -1,11 +1,13 @@
 package com.scheduler.mappers;
 
-import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.scheduler.models.Appointment;
+import com.scheduler.models.AppointmentList;
 import com.scheduler.models.GeneralUser;
 
 @Repository(value="appointmentMapper")
@@ -21,5 +23,8 @@ public interface AppointmentMapper {
 	
 	GeneralUser getUserByAppointmentId(@Param("app_id") int app_id);
 	
+	List<AppointmentList> getAllAppointment();
 
 }
+
+

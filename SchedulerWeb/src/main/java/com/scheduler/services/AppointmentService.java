@@ -1,11 +1,16 @@
 package com.scheduler.services;
 
+import java.util.List;
+
+import com.scheduler.models.AppointmentList;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.request.SendPostRequest;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
+
 import com.scheduler.mappers.AppointmentMapper;
 import com.scheduler.models.Appointment;
 
@@ -36,7 +41,7 @@ public class AppointmentService {
 			return false;
 		}
 	}
-    
+	
     /* this function is to start an appointment by providing an appointment_id */
 	public Appointment startAppointmentById(@Param("id") int app_id, @Param("official_id") int official_id )  throws BadSqlGrammarException {
 		
@@ -60,5 +65,8 @@ public class AppointmentService {
 		
 	}
 	
-
+	public List<AppointmentList> getAllAppointment()
+	{
+		return appointmentMapper.getAllAppointment();
+	}
 }

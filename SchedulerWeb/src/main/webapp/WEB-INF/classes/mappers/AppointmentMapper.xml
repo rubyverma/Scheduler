@@ -2,31 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.AppointmentMapper">
 
-    <update id="finishAppointment" parameterType="int">
-        update appointment set
-        endTime = CURTIME(),
-        meetingNotes=#{meetingNotes},
-        meetingFinished = 'Y'
-        where appointmentId = #{appointmentId}
-    </update>
+	<update id="finishAppointment" parameterType="int">
+		update appointment set
+		endTime = CURTIME(),
+		meetingNotes=#{meetingNotes},
+		meetingFinished = 'Y'
+		where appointmentId = #{appointmentId}
+	</update>
 
 	<update id="startAppointmentById" parameterType="int">
-		update appointment set
+		update
+		appointment set
 		startTime = CURTIME(),
 		officialId = #{official_id},
 		meetingFinished = 'N'
 		where appointmentId = #{app_id}
 	</update>
-	
-	<select id="getAppointmentById" parameterType="int" resultType="com.scheduler.models.Appointment">
+
+	<select id="getAppointmentById" parameterType="int"
+		resultType="com.scheduler.models.Appointment">
 		select * from appointment where appointmentId = #{app_id}
 	</select>
-	
-	<select id="getUserByAppointmentId" parameterType="int" resultType="com.scheduler.models.GeneralUser">
-		select gu.* from generaluser gu, 
-						 appointment a 
-				where 	 a.appointmentId = #{app_id}
-				and 	 a.userId = gu.userId
+
+	<select id="getUserByAppointmentId" parameterType="int"
+		resultType="com.scheduler.models.GeneralUser">
+		select gu.* from generaluser gu,
+		appointment a
+		where a.appointmentId = #{app_id}
+		and a.userId = gu.userId
+	</select>
+
+	<select id="getAllAppointment" resultType="com.scheduler.models.AppointmentList">
+		select ap.*,gu.firstname,gu.lastname from appointment ap,
+		generaluser gu
+		where ap.userId = gu.userId
 	</select>
 
 </mapper>
