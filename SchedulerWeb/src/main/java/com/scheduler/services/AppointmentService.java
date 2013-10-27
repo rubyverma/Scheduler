@@ -50,15 +50,10 @@ public class AppointmentService {
 		}
 	}
 
-    /* this function is to start an appointment by providing an appointment_id */
-	public Appointment startAppointmentById(@Param("id") int app_id, @Param("official_id") int official_id )  throws BadSqlGrammarException {
 		
 
-
 	/* this function is to start an appointment by providing an appointment_id */
-	public Appointment startAppointmentById(@Param("id") int app_id,
-			@Param("official_id") int official_id)
-			throws BadSqlGrammarException {
+	public Appointment startAppointmentById(@Param("id") int app_id, @Param("official_id") int official_id) throws BadSqlGrammarException {
 
 
 		// get appointment object
@@ -88,6 +83,7 @@ public class AppointmentService {
 	public List<AppointmentList> getAllAppointment()
 	{
 		return appointmentMapper.getAllAppointment();
+	}
 
 	public List<AppointmentDepartment> findAllUserAppointments(int userId)
 			throws BadSqlGrammarException {
@@ -99,6 +95,5 @@ public class AppointmentService {
 	public Appointment findNextAppointment(int department_id)
 	{
 		return appointmentMapper.findNextAppointment(department_id);
->>>>>>> b26468c26b0f5f7438c25e3b8acf167c889eaed7
 	}
 }
