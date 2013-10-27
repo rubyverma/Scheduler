@@ -32,9 +32,13 @@
 		and a.userId = gu.userId
 	</select>
 
-	<select id="findAllAppointments" parameterType="int"
-		resultType="com.scheduler.models.Appointment">
-		SELECT * FROM appointment WHERE userId= #{userId}
+	<select id="findAllUserAppointments" parameterType="int"
+		resultType="com.scheduler.models.AppointmentDepartment">
+		SELECT a.*,d.departmentName FROM appointment a,
+		departmenttimeslot ds,
+		department d
+		WHERE a.departmentTimeId = ds.departmentTimeId
+		AND ds.departmentId = d.departmentId and a.userId= #{userId}
+		ORDER BY a.appointmentDate DESC
 	</select>
-
 </mapper>

@@ -1,22 +1,31 @@
 <%@ include file="../includes/header.jsp"%>
-Status: ${ result }
+<title>My Appointments</title>
 
-<h3>Appointments From Database</h3>
+<h3>My Appointments</h3>
 <c:if  test="${!empty appointments}">
 <table class="table table-hover">
 <tr>
-    <th>ID</th>
-    <th>Start Time</th>
-    <th>End Time</th>
+    <th>Date</th>
+    <th>Department</th>
+    <th>Purpose of Visit</th>
     <th>Meeting Notes</th>
+    <th>Meeting Finished</th>
     <th>&nbsp;</th>
 </tr>
 <c:forEach items="${appointments}" var="appointment">
     <tr>
-        <td>${appointment.appointmentId}</td>
-        <td>${appointment.startTime}</td>
-        <td>${appointment.endTime}</td>
+        <td>${appointment.appointmentDate }</td>
+        <td>${appointment.departmentName }</td>
+        <td>${appointment.purposeOfVisit }</td>
         <td>${appointment.meetingNotes}</td>
+       <td>
+        <c:if test = "${appointment.meetingFinished.equals('Y')}">
+  			<span class="label label-success">Yes</span>
+		</c:if>
+		<c:if test = "${appointment.meetingFinished.equals('N')}">
+  			<span class="label label-danger">No</span>
+		</c:if>
+		</td>
     </tr>
 </c:forEach>
 </table>

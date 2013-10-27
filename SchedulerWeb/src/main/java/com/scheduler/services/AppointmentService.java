@@ -2,6 +2,7 @@ package com.scheduler.services;
 
 import java.util.List;
 
+import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.request.SendPostRequest;
 import org.apache.ibatis.annotations.Param;
@@ -70,9 +71,9 @@ public class AppointmentService {
 
 	}
 
-	public List<Appointment> findAllAppointments(int userId)
+	public List<AppointmentDepartment> findAllUserAppointments(int userId)
 			throws BadSqlGrammarException {
-		return appointmentMapper.findAllAppointments(userId);
+		return appointmentMapper.findAllUserAppointments(userId);
 
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scheduler.models.Appointment;
+import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.services.AppointmentService;
 
 @RequestMapping("/appointment")
@@ -36,9 +37,9 @@ public class AppointmentController {
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String viewAllAppointments(Model model) {
-		List<Appointment> appointments;
+		List<AppointmentDepartment> appointments;
 		try {
-			appointments = appointmentService.findAllAppointments(1);
+			appointments = appointmentService.findAllUserAppointments(1);
 			model.addAttribute("appointments", appointments);
 		} catch (BadSqlGrammarException e) {
 			model.addAttribute("error", e.getMessage());
