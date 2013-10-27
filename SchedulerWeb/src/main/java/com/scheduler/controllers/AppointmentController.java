@@ -18,6 +18,9 @@ import com.scheduler.services.AppointmentService;
 @Controller
 public class AppointmentController {
 	
+	@Autowired(required = true)
+	private AppointmentService appointmentService;
+	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String bookAppointment(Model model) {
 		
@@ -32,9 +35,6 @@ public class AppointmentController {
 		return "appointment/saveappointment";
 	}
 	
-	@Autowired(required = true)
-	private AppointmentService appointmentService;
-
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String viewAllAppointments(Model model) {
 		List<AppointmentDepartment> appointments;

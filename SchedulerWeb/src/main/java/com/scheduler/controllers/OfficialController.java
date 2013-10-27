@@ -50,14 +50,18 @@ public class OfficialController {
 		return "meeting/meeting";
 	}
 
-	@RequestMapping(value = "/meeting/start/{app_id}", method = RequestMethod.GET)
-	public String startMeeting(Model model, @PathVariable("app_id") int app_id) {
+	@RequestMapping(value = "/meeting/start", method = RequestMethod.GET)
+	public String startMeeting(Model model) {
 		
-		// get official id from the session variable
+		// TODO insert the following fields to official user session
+		// get official_id and dept_id from the session variable
 		int official_id = 1234; // hardcoded value
+		int department_id = 1; // hardcoded value
+		
+		Appointment nextAppointment = appointmentService.findNextAppointment(department_id);
 		
 		// Code to start appointment
-		Appointment startedAppointment = appointmentService.startAppointmentById(app_id, official_id);
+		Appointment startedAppointment = appointmentService.startAppointmentById(nextAppointment.getAppointmentId(), official_id);
 		
 		if(!startedAppointment.equals(null)) {
 			

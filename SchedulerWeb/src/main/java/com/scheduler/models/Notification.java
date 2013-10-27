@@ -13,7 +13,7 @@ public class Notification {
 	private int notificationId;
 	private int officialId;
 	private int userId;
-	private int gcmMessageId;
+	private String gcmMessageId;
 	private String notificationHeader;
 	private String notificationDescription;
 	private int readByUser;

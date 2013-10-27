@@ -3,10 +3,12 @@
 <mapper namespace="com.scheduler.mappers.AppointmentMapper">
 
 	<update id="finishAppointment" parameterType="int">
-		update appointment set
+		update appointment
+		set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
-		meetingFinished = 'Y'
+		meetingFinished =
+		'Y'
 		where appointmentId = #{appointmentId}
 	</update>
 
@@ -28,7 +30,8 @@
 		resultType="com.scheduler.models.GeneralUser">
 		select gu.* from generaluser gu,
 		appointment a
-		where a.appointmentId = #{app_id}
+		where
+		a.appointmentId = #{app_id}
 		and a.userId = gu.userId
 	</select>
 
@@ -41,4 +44,15 @@
 		AND ds.departmentId = d.departmentId and a.userId= #{userId}
 		ORDER BY a.appointmentDate DESC
 	</select>
+
+	<select id="findNextAppointment" parameterType="int"
+		resultType="com.scheduler.models.Appointment">
+		select * from appointment where departmentTimeId in (
+		select departmentTimeId from departmenttimeslot where
+		departmentId=#{department_id})
+		and meetingFinished='N'
+		order by appointmentId ASC
+		Limit 0,1
+	</select>
+
 </mapper>

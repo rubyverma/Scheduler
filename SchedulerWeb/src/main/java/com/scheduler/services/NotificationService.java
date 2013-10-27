@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.NotificationMapper;
+import com.scheduler.models.Notification;
 import com.scheduler.request.SendPostRequest;
 
 @Component
@@ -16,13 +17,26 @@ public class NotificationService {
 	 * 1. Push notification
 	 * 2. Add new row to notification table
 	 */
-	public boolean notifyUser(String registration_id) {
+	public boolean notifyUser(String registration_id, Notification notification) {
 
-		// send notification and insert a row in notifications table
-
+		// push notification to mobile device
 		String message = "Message";
 		SendPostRequest p = new SendPostRequest();
-		p.sendNotification(registration_id, message);
-		return true;
+		String message_id = p.sendNotification(registration_id, message);
+		
+		// add message_id to the notification object
+		notification.setGcmMessageId(message_id);
+		
+		// insert a row in notifications table
+		int createdNotificationId = addNewNotification(notification);
+		if(createdNotificationId > 0)
+			return true;
+		else
+			return false;
+	}
+	
+	public int addNewNotification(Notification notification) 
+	{
+		return notificationMapper.addNewNotification(notification);
 	}
 }
