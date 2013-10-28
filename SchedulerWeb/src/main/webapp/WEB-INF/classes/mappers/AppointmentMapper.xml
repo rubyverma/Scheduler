@@ -3,16 +3,19 @@
 <mapper namespace="com.scheduler.mappers.AppointmentMapper">
 
 	<update id="finishAppointment" parameterType="int">
-		update appointment set
+		update appointment
+		set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
-		meetingFinished = 'Y'
+		meetingFinished =
+		'Y'
 		update appointment
 		set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
 		meetingFinished ='Y'
-		where appointmentId = #{appointmentId}
+		where appointmentId =
+		#{appointmentId}
 	</update>
 
 	<update id="startAppointmentById" parameterType="int">
@@ -33,17 +36,21 @@
 		resultType="com.scheduler.models.GeneralUser">
 		select gu.* from generaluser gu,
 		appointment a
-		where a.appointmentId = #{app_id}
+		where
+		a.appointmentId = #{app_id}
 		and a.userId = gu.userId
 	</select>
 
 	<select id="getAllAppointment" resultType="com.scheduler.models.AppointmentList">
-		select ap.*,gu.firstname,gu.lastname from appointment ap,
+		select
+		ap.*,gu.firstname,gu.lastname from appointment ap,
 		generaluser gu
-		where ap.userId = gu.userId
+		where
+		ap.userId = gu.userId
 		where
 		a.appointmentId = #{app_id}
-		and a.userId = gu.userId
+		and a.userId =
+		gu.userId
 	</select>
 
 	<select id="findAllUserAppointments" parameterType="int"
@@ -51,8 +58,10 @@
 		SELECT a.*,d.departmentName FROM appointment a,
 		departmenttimeslot ds,
 		department d
-		WHERE a.departmentTimeId = ds.departmentTimeId
-		AND ds.departmentId = d.departmentId and a.userId= #{userId}
+		WHERE a.departmentTimeId =
+		ds.departmentTimeId
+		AND ds.departmentId = d.departmentId and a.userId=
+		#{userId}
 		ORDER BY a.appointmentDate DESC
 	</select>
 
@@ -62,7 +71,20 @@
 		select departmentTimeId from departmenttimeslot where
 		departmentId=#{department_id})
 		and meetingFinished='N'
-		order by appointmentId ASC
+		order by
+		appointmentId ASC
+		Limit 0,1
+	</select>
+
+	<select id="getNextUserInQueue" parameterType="int"
+		resultType="com.scheduler.models.GeneralUser">
+		select g.* from appointment a, generaluser g
+		where a.departmentTimeId IN (select departmentTimeId from
+		departmenttimeslot where departmentId = #{department_id})
+		and a.meetingFinished='N'
+		and a.startTime='00:00:00'
+		and g.userId=a.userId
+		ORDER BY a.appointmentId ASC
 		Limit 0,1
 	</select>
 

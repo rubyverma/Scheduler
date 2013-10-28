@@ -20,7 +20,7 @@ public class NotificationService {
 	public boolean notifyUser(String registration_id, Notification notification) {
 
 		// push notification to mobile device
-		String message = "Message";
+		String message = notification.getNotificationDescription();
 		SendPostRequest p = new SendPostRequest();
 		String message_id = p.sendNotification(registration_id, message);
 		

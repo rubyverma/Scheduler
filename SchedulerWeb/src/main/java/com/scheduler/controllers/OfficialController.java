@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
+import com.scheduler.models.GeneralUser;
+import com.scheduler.models.Notification;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.NotificationService;
 
@@ -77,7 +78,21 @@ public class OfficialController {
 		// Code to start appointment
 		Appointment startedAppointment = appointmentService.startAppointmentById(nextAppointment.getAppointmentId(), official_id);
 		
+		
 		if(!startedAppointment.equals(null)) {
+			
+			// Get next user in Queue (and send a push notification)
+			GeneralUser nextUser = appointmentService.getNextUserInQueue(department_id);
+//			
+			Notification notification = new Notification();
+			notification.setOfficialId(official_id);
+			notification.setUserId(nextUser.getUserId());
+			notification.setNotificationHeader("Meeting starting soon!");
+			notification.setNotificationDescription("You are the next person in queue");
+			boolean notifyNextUser = notificationService.notifyUser(nextUser.getGcmRegId(), notification);
+			if(notifyNextUser) {
+				model.addAttribute("nextUserNotified", true);
+			}
 			
 			// if appointment is marked as started
 			model.addAttribute("started", "true");

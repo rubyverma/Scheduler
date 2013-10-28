@@ -96,4 +96,9 @@ public class AppointmentService {
 	{
 		return appointmentMapper.findNextAppointment(department_id);
 	}
+
+	public GeneralUser getNextUserInQueue(int department_id) {
+		
+		return appointmentMapper.getNextUserInQueue(department_id);
+	}
 }

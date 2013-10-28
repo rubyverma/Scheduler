@@ -30,6 +30,8 @@ public interface AppointmentMapper {
 	List<Appointment> findAllAppointments(int userId) throws BadSqlGrammarException;
 
 	Appointment findNextAppointment(@Param("department_id") int department_id);
+	
+	GeneralUser getNextUserInQueue(@Param("department_id") int department_id);
 }
 
 
