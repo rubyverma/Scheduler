@@ -69,4 +69,4 @@
   	<div class="col-md-3">
   		<%@ include file="left_sidebar.jsp"%>
   	</div>
-	<div class="col-md-6">
+	<div class="col-md-9">

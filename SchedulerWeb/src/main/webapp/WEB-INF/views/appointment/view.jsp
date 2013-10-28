@@ -3,14 +3,13 @@
 
 <h3>My Appointments</h3>
 <c:if  test="${!empty appointments}">
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
 <tr>
     <th>Date</th>
     <th>Department</th>
     <th>Purpose of Visit</th>
     <th>Meeting Notes</th>
     <th>Meeting Finished</th>
-    <th>&nbsp;</th>
 </tr>
 <c:forEach items="${appointments}" var="appointment">
     <tr>
