@@ -1,5 +1,6 @@
 package com.scheduler.mappers;
 
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -13,6 +14,7 @@ import com.scheduler.models.GeneralUser;
 @Repository(value="appointmentMapper")
 @Component
 public interface AppointmentMapper {
+
 	
 
 	int finishAppointment(Appointment apptest);
@@ -32,6 +34,6 @@ public interface AppointmentMapper {
 	Appointment findNextAppointment(@Param("department_id") int department_id);
 	
 	GeneralUser getNextUserInQueue(@Param("department_id") int department_id);
+
+	 int cancelAppointment(int appointmentId)  throws BadSqlGrammarException;
 }
-
-

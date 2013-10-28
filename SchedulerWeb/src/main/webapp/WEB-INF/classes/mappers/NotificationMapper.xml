@@ -6,6 +6,11 @@
 		resultType="com.scheduler.models.Notification">
 		select * from notification
 	</select>
+	
+	<select id="findAllNotifications" parameterType="int"
+		resultType="com.scheduler.models.Notification">
+		select * from notification where userId = #{userId} order by notificationDate DESC
+	</select>
 
 	<insert id="addNewNotification" parameterType="com.scheduler.models.Notification"
 		useGeneratedKeys="true" keyProperty="id" keyColumn="id">

@@ -3,6 +3,10 @@
 
 <h3>My Appointments</h3>
 <c:if  test="${!empty appointments}">
+<c:if test = "${!empty result}">
+  	${result }
+</c:if>
+
 <table class="table table-hover table-bordered">
 <tr>
     <th>Date</th>
@@ -10,6 +14,7 @@
     <th>Purpose of Visit</th>
     <th>Meeting Notes</th>
     <th>Meeting Finished</th>
+    <th>Actions</th>
 </tr>
 <c:forEach items="${appointments}" var="appointment">
     <tr>
@@ -29,6 +34,11 @@
 		</c:if>
 		<c:if test = "${appointment.meetingFinished.equals('L')}">
   			<span class="label label-warning">Late</span>
+		</c:if>
+		</td>
+		<td>
+		<c:if test = "${appointment.meetingFinished.equals('N')}">
+  			<a href="cancel/${appointment.appointmentId }">cancel</a>
 		</c:if>
 		</td>
     </tr>
