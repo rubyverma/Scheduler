@@ -8,7 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentDepartment extends Appointment {
-
-	private String departmentName;
-	
+	private String departmentName;	
 }

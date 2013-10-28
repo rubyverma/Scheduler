@@ -47,9 +47,13 @@
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
     
+<<<<<<< HEAD
 
      <bean id="announcementMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
        <property name="mapperInterface" value="com.scheduler.mappers.AnnouncementMapper" />
+
+    <bean id="departmentTimeslotMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.scheduler.mappers.DepartmentTimeslotMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
