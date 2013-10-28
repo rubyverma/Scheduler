@@ -25,6 +25,12 @@
 		<c:if test = "${appointment.meetingFinished.equals('N')}">
   			<span class="label label-danger">No</span>
 		</c:if>
+		<c:if test = "${appointment.meetingFinished.equals('C')}">
+  			<span class="label label-default">Cancelled</span>
+		</c:if>
+		<c:if test = "${appointment.meetingFinished.equals('L')}">
+  			<span class="label label-warning">Late</span>
+		</c:if>
 		</td>
     </tr>
 </c:forEach>
