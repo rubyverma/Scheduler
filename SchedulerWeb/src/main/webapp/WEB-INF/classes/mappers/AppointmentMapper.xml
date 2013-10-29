@@ -44,15 +44,11 @@
 	 appointment.appointmentId ,generaluser.firstName,
 	generaluser.lastName from appointment
 	inner join generaluser on appointment.userId=generaluser.userId
-	where appointment.departmentId=#{departmentId}
+	inner join departmenttimeslot on departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+	where departmenttimeslot.departmentId=#{departmentId}
 	and appointment.appointmentDate=#{appointmentDate}
 	and appointment.meetingFinished='N'
 	order by time(appointment.dateCreated) asc;
-		select
-		ap.*,gu.firstname,gu.lastname from appointment ap,
-		generaluser gu
-		where
-		ap.userId = gu.userId
 	</select>
 
 	<select id="findAllUserAppointments" parameterType="int"

@@ -37,6 +37,8 @@ public class OfficialController {
 
 	@Autowired(required = true)
 	private AnnouncementService announcementService;
+	
+	public List<AppointmentList> listofAppointment;
 
 	@RequestMapping(value = "/meeting/finish", method = RequestMethod.POST)
 	public String finishMeeting(
@@ -59,7 +61,7 @@ public class OfficialController {
 
 		int departmentId=1;
 		String appointmentDate="2013-11-13";
-		List<AppointmentList> listofAppointment= appointmentService.getAllAppointment(departmentId,appointmentDate);
+		listofAppointment= appointmentService.getAllAppointment(departmentId,appointmentDate);
 		model.addAttribute("appointmentList",listofAppointment);
 
 // passing blank announcement object
@@ -134,9 +136,6 @@ public class OfficialController {
 		announcement.setOfficialId(official_id);
 		int announcement_id = announcementService
 				.addNewAnnouncement(announcement);
-
-		// List of appointments to which message has to be broadcasted
-		List<AppointmentList> listofAppointment = appointmentService.getAllAppointment();
 
 		boolean broadcasted = announcementService.addUserAnnouncement(
 				listofAppointment, announcement_id,
