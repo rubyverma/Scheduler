@@ -23,4 +23,13 @@
 		</foreach>
 	</insert>
 
+	<select id="getAllAnnouncements" parameterType="int"
+		resultType="com.scheduler.models.Announcement">
+		SELECT a.announcementDate,
+		a.announcementHeader,
+		a.announcementDescription FROM announcement a
+		WHERE announcementId IN
+		(SELECT announcementId FROM userannouncements WHERE userId = #{userId})
+		ORDER BY a.announcementDate DESC
+	</select>
 </mapper>

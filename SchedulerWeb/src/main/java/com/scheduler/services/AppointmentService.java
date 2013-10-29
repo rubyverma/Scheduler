@@ -1,5 +1,6 @@
 package com.scheduler.services;
 
+
 import java.util.List;
 
 import com.scheduler.models.AppointmentList;
@@ -7,13 +8,13 @@ import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
 import com.scheduler.request.SendPostRequest;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.AppointmentMapper;
+
 import com.scheduler.models.Appointment;
 
 @Component
@@ -97,8 +98,14 @@ public class AppointmentService {
 		return appointmentMapper.findNextAppointment(department_id);
 	}
 
+
 	public GeneralUser getNextUserInQueue(int department_id) {
 		
 		return appointmentMapper.getNextUserInQueue(department_id);
 	}
+
+	public int cancelAppointment(@Param("appointmentId") int appointmentId)  throws BadSqlGrammarException {
+		return appointmentMapper.cancelAppointment(appointmentId);
+	}
+
 }

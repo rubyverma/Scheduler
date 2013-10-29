@@ -1,6 +1,9 @@
 package com.scheduler.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.NotificationMapper;
@@ -39,4 +42,10 @@ public class NotificationService {
 	{
 		return notificationMapper.addNewNotification(notification);
 	}
+	
+	public List<Notification> findAllNotifications(int userId) throws BadSqlGrammarException{
+		return notificationMapper.findAllNotifications(userId);
+		
+	}
+
 }
