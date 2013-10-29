@@ -81,9 +81,9 @@ public class AppointmentService {
 
 	}
 
-	public List<AppointmentList> getAllAppointment()
+	public List<AppointmentList> getAllAppointment(@Param("departmentId") int departmentId, @Param("appointmentDate") String appointmentDate)
 	{
-		return appointmentMapper.getAllAppointment();
+		return appointmentMapper.getAllAppointment(departmentId,appointmentDate);
 	}
 
 	public List<AppointmentDepartment> findAllUserAppointments(int userId)
@@ -106,6 +106,9 @@ public class AppointmentService {
 
 	public int cancelAppointment(@Param("appointmentId") int appointmentId)  throws BadSqlGrammarException {
 		return appointmentMapper.cancelAppointment(appointmentId);
+	}
+	public int userLate(@Param("appointmentId") int appointmentId)  throws BadSqlGrammarException {
+		return appointmentMapper.userLate(appointmentId);
 	}
 
 }

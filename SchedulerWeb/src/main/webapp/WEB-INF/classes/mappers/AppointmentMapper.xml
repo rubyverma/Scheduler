@@ -4,19 +4,17 @@
 
 
 	<update id="finishAppointment" parameterType="int">
-		update appointment
-		set
+		update 
+		appointment set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
-		meetingFinished =
-		'Y'
+		meetingFinished ='Y'
 		update appointment
 		set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
 		meetingFinished ='Y'
-		where appointmentId =
-		#{appointmentId}
+		where appointmentId =#{app_id}
 	</update>
 
 	<update id="startAppointmentById" parameterType="int">
@@ -43,15 +41,14 @@
 	</select>
 
 	<select id="getAllAppointment" resultType="com.scheduler.models.AppointmentList">
-		select
-		ap.*,gu.firstname,gu.lastname from appointment ap,
-		generaluser gu
-		where
-		ap.userId = gu.userId
-		where
-		a.appointmentId = #{app_id}
-		and a.userId =
-		gu.userId
+	select appointment.purposeOfVisit,appointment.dateCreated,
+	 appointment.appointmentId ,generaluser.firstName,
+	generaluser.lastName from appointment
+	inner join generaluser on appointment.userId=generaluser.userId
+	where appointment.departmentId=#{departmentId}
+	and appointment.appointmentDate=#{appointmentDate}
+	and appointment.meetingFinished='N'
+	order by time(appointment.dateCreated) asc;
 	</select>
 
 	<select id="findAllUserAppointments" parameterType="int"
@@ -93,4 +90,12 @@
 		flushCache="true" statementType="PREPARED">
 		delete from appointment where appointmentId = #{appointmentId}
 	</delete>
+	
+	<update id="userLate" parameterType="com.scheduler.models.Appointment"
+	flushCache="true">
+		update
+		appointment set
+		meetingFinished = 'L'
+		where appointmentId = #{appointmentId}
+	</update>
 </mapper>

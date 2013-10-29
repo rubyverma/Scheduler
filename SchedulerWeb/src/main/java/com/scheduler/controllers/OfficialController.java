@@ -5,11 +5,14 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
@@ -52,7 +55,9 @@ public class OfficialController {
 	public String viewQueue(Model model)
 	{
 		System.out.println("view queue started");
-		List<AppointmentList> listofAppointment= appointmentService.getAllAppointment();
+		int departmentId=1;
+		String appointmentDate="2013-11-13";
+		List<AppointmentList> listofAppointment= appointmentService.getAllAppointment(departmentId,appointmentDate);
 		model.addAttribute("appointmentList",listofAppointment);
 		// Redirecting to view the queue
 		return "meeting/viewqueue";
@@ -108,5 +113,19 @@ public class OfficialController {
 		return "meeting/meeting";
 		
 	}
+	@RequestMapping(value = "meeting/late", method = RequestMethod.GET)
+	public String userLate(RedirectAttributes ra, Model model) {
 
+		int result;
+		int appointmentId=1;
+		try {
+			result = appointmentService.userLate(appointmentId);
+			model.addAttribute("result", result);
+		} catch (BadSqlGrammarException e) {
+			model.addAttribute("error", e.getMessage());
+			System.out.println(e.getMessage());
+		}
+
+		return "redirect:/official/meeting/viewqueue";
+	}
 }

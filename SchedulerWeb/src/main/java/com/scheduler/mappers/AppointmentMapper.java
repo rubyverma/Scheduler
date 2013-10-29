@@ -25,7 +25,7 @@ public interface AppointmentMapper {
 	
 	GeneralUser getUserByAppointmentId(@Param("app_id") int app_id);
 
-	List<AppointmentList> getAllAppointment();
+	List<AppointmentList> getAllAppointment(@Param("departmentId") int departmentId , @Param("appointmentDate") String appointmentDate);
 
 	List<AppointmentDepartment> findAllUserAppointments(int userId) throws BadSqlGrammarException;
 
@@ -36,4 +36,5 @@ public interface AppointmentMapper {
 	GeneralUser getNextUserInQueue(@Param("department_id") int department_id);
 
 	 int cancelAppointment(int appointmentId)  throws BadSqlGrammarException;
+	 int userLate(int appointmentId)  throws BadSqlGrammarException;
 }

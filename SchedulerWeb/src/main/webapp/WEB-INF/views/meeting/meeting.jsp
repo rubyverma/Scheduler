@@ -1,4 +1,13 @@
 <%@ include file="../includes/header.jsp"%>
+<script type="text/javascript">
+window.onload = function() {
+    window.setTimeout(setDisabled, 300000);
+}
+function setDisabled() {
+    document.getElementById('btnLate').disabled = false;
+}
+    
+</script>
 <c:if test="${started == 'true'}">
 	<div class="alert alert-success">
 		Meeting Started on <b><%=new java.util.Date()%></b> ...
@@ -18,18 +27,16 @@
 <p>
 	Student Name: hello <b>Sanket Patel</b>
 </p>
-<form:form action="../finish" method="post" role="form"
+<form:form action="../meeting/finish" method="post" role="form"
 	modelAttribute="appointment">
-	<input type="hidden" name="appointmentId" value="${appointment.appointmentId}" />
+	<input type="hidden" name="appointmentId"
+		value="${appointment.appointmentId}" />
 	<div class="form-group">
 		<label>Meeting Notes</label>
-		<div>
-		<form:textarea class="form-control" id="meetingNotes"
-			path="meetingNotes" rows="3" placeholder="Meeting Notes"></form:textarea>
-			</div>
-			<div>
-			<input type="submit" class="btn btn-default" value="Finish"></input>
-			</div>
+		<textarea class="form-control" id="meetingNotes" path="meetingNotes"
+			rows="3" placeholder="Meeting Notes"></textarea>
+		<input type="submit" class="btn btn-default" value="Finish"></input>
+		<input type="button" onClick="location.href = 'late'" id="btnLate" disabled="disabled" class="btn btn-default" value="Late"></input>
 	</div>
 </form:form>
 <%@ include file="../includes/footer.jsp"%>
