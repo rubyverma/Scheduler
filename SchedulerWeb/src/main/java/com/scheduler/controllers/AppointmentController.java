@@ -43,7 +43,7 @@ public class AppointmentController {
 	public String viewAllAppointments(Model model) {
 		List<AppointmentDepartment> appointments;
 		try {
-			appointments = appointmentService.findAllUserAppointments(2);
+			appointments = appointmentService.findAllUserAppointments(1);
 			model.addAttribute("appointments", appointments);
 		} catch (BadSqlGrammarException e) {
 			model.addAttribute("error", e.getMessage());
