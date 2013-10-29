@@ -1,10 +1,12 @@
 package com.scheduler.request;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.MulticastResult;
 import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 
@@ -18,7 +20,7 @@ public class SendPostRequest {
 		String message_id = "";
 		Result result;
 		
-		Sender sender = new Sender(API_KEY);// add your own google APIkey here
+		Sender sender = new Sender(API_KEY);
 
 		// use this to send message with payload data
 		Message message = new Message.Builder().collapseKey("message")
@@ -37,6 +39,28 @@ public class SendPostRequest {
 		}
 		
 		return message_id;
+	}
+	
+	public void multicastMessage(List<String> devices, String messageToSend) {
+		
+		Sender sender = new Sender(API_KEY);
+		
+		Message message = new Message.Builder().collapseKey("1")
+				.timeToLive(3)
+				.delayWhileIdle(true)
+				.addData("message",  messageToSend)
+				.build();
+
+
+		
+		try {
+			MulticastResult result = sender.send(message, devices, 1);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.scheduler.models.Announcement;
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
+import com.scheduler.models.UserAnnouncement;
+import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.NotificationService;
 
@@ -28,9 +31,10 @@ public class OfficialController {
 
 	@Autowired(required = true)
 	private NotificationService notificationService; 
-
-
 	
+	@Autowired(required = true)
+	private AnnouncementService announcementService; 
+
 	@RequestMapping(value="/meeting/finish",method=RequestMethod.POST)
 	public String finishMeeting(@ModelAttribute("appointment") Appointment appointment,Model model)
 	{
@@ -54,6 +58,10 @@ public class OfficialController {
 		System.out.println("view queue started");
 		List<AppointmentList> listofAppointment= appointmentService.getAllAppointment();
 		model.addAttribute("appointmentList",listofAppointment);
+		
+		// passing blank announcement object
+		model.addAttribute("announcement", new Announcement());
+		
 		// Redirecting to view the queue
 		return "meeting/viewqueue";
 	}
@@ -107,6 +115,27 @@ public class OfficialController {
 		
 		return "meeting/meeting";
 		
+	}
+	
+	@RequestMapping(value="/meeting/broadcast",method=RequestMethod.POST)
+	public String broadcastMessage(@ModelAttribute("announcement") Announcement announcement,Model model)
+	{
+		log.info("Got " + announcement.getAnnouncementHeader());
+		
+		// TODO insert the following fields to official user session
+		// get official_id and dept_id from the session variable
+		int official_id = 1234; // hardcoded value
+		
+		announcement.setOfficialId(official_id);
+		int announcement_id = announcementService.addNewAnnouncement(announcement);
+		
+		// List of appointments to which message has to be broadcasted
+		List<AppointmentList> listofAppointment= appointmentService.getAllAppointment();
+		
+		boolean broadcasted = announcementService.addUserAnnouncement(listofAppointment, announcement_id);
+		
+		// Redirecting to view the queue
+		return "redirect:/official/meeting/viewqueue";
 	}
 
 }

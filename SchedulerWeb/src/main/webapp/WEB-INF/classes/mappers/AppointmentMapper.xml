@@ -40,17 +40,9 @@
 		a.appointmentId = #{app_id}
 		and a.userId = gu.userId
 	</select>
-
+	
 	<select id="getAllAppointment" resultType="com.scheduler.models.AppointmentList">
-		select
-		ap.*,gu.firstname,gu.lastname from appointment ap,
-		generaluser gu
-		where
-		ap.userId = gu.userId
-		where
-		a.appointmentId = #{app_id}
-		and a.userId =
-		gu.userId
+		select * from appointment
 	</select>
 
 	<select id="findAllUserAppointments" parameterType="int"
