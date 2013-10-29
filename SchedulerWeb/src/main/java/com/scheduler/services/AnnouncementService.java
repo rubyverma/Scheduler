@@ -13,16 +13,20 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.AnnouncementMapper;
+import com.scheduler.mappers.GeneralUserMapper;
 import com.scheduler.models.Announcement;
-
 import com.scheduler.models.AppointmentList;
 import com.scheduler.models.UserAnnouncement;
+import com.scheduler.request.SendPostRequest;
 
 @Component
 public class AnnouncementService {
 	
 	@Autowired(required = true)
 	private AnnouncementMapper announcementMapper;
+	
+	@Autowired(required = true)
+	private GeneralUserMapper generalUserMapper;
 
 	public int addNewAnnouncement(Announcement announcement) {
 		
@@ -32,10 +36,10 @@ public class AnnouncementService {
 	}
 
 	public boolean addUserAnnouncement(List<AppointmentList> listofAppointment,
-			int announcement_id) {
+			int announcement_id, String message) {
 		
 		List<UserAnnouncement> userAnnouncements = new ArrayList<UserAnnouncement>();
-		List<int> users = new ArrayList<int>();
+		List<String> deviceRegIds = new ArrayList<String>();
 		
 		// create an userannouncement object with user_ids and announcent id
 		for (AppointmentList appointment : listofAppointment) {
@@ -45,11 +49,13 @@ public class AnnouncementService {
 			userAnnouncement.setAnnouncementId(announcement_id);
 			userAnnouncements.add(userAnnouncement);
 			
-			users.add(appointment.getUserId());
-			
+			deviceRegIds.add(generalUserMapper.getUserRegistrationId(appointment.getUserId()));
 		}
 		
 		int rowsAffected = announcementMapper.addUserAnnouncement(userAnnouncements);
+		
+		SendPostRequest request = new SendPostRequest();
+		request.multicastMessage(deviceRegIds, message);
 		return true;
 	}
 
