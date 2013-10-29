@@ -89,8 +89,10 @@
 		Limit 0,1
 	</select>
 
-	<delete id="cancelAppointment" parameterType="com.scheduler.models.Appointment"
+	<update id="cancelAppointment" parameterType="int"
 		flushCache="true" statementType="PREPARED">
-		delete from appointment where appointmentId = #{appointmentId}
-	</delete>
+		update appointment
+		set meetingFinished = 'C'
+		 where appointmentId = #{appointmentId}
+	</update>
 </mapper>
