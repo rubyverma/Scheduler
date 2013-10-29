@@ -39,7 +39,6 @@
 		a.appointmentId = #{app_id}
 		and a.userId = gu.userId
 	</select>
-	
 	<select id="getAllAppointment" resultType="com.scheduler.models.AppointmentList">
 	select appointment.purposeOfVisit,appointment.dateCreated,
 	 appointment.appointmentId ,generaluser.firstName,
@@ -49,6 +48,11 @@
 	and appointment.appointmentDate=#{appointmentDate}
 	and appointment.meetingFinished='N'
 	order by time(appointment.dateCreated) asc;
+		select
+		ap.*,gu.firstname,gu.lastname from appointment ap,
+		generaluser gu
+		where
+		ap.userId = gu.userId
 	</select>
 
 	<select id="findAllUserAppointments" parameterType="int"

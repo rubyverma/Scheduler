@@ -21,6 +21,8 @@
 
 <!-- Custom styles for this template -->
 <link href="/Scheduler/resources/css/theme.css" rel="stylesheet">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="/resources/demos/style.css" />
 
 </head>
 

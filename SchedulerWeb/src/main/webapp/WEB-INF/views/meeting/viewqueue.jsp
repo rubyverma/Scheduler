@@ -27,6 +27,7 @@
 					<td>${listofAppointment.appointmentId}</td>
 					<td>${listofAppointment.firstName}${ listofAppointment.lastName}</td>
 					<td>${listofAppointment.purposeOfVisit}</td>
+					<td><a href="">Send Notification</a></td>
 				</tr>
 			</c:forEach>
 			

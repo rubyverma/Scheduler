@@ -56,6 +56,15 @@
         <property name="mapperInterface" value="com.scheduler.mappers.DepartmentTimeslotMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
-
+    
+    <bean id="campusMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.scheduler.mappers.CampusMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    
+    <bean id="departmentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.scheduler.mappers.DepartmentMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
     
 </beans>

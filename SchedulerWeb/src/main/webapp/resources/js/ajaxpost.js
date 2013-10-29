@@ -4,20 +4,21 @@
 
 $(document).ready( function() {
 	
-	$("#nameCombo").change(function() {
-		var selected = $(this).val();
-		var post_url = "nickname/";
+	$("#campusCombo").change(function() {
+		var campusId = $(this).val();
+		var post_url = "/Scheduler/department/getDepartmentCombo/" + campusId;
+		if (campusId != null) {
 		$.ajax({
-	          type: "POST", 
+	          type: "GET", 
 	          url: post_url,
-	          data: { "user_id" : selected},
 	          success: function(result) {
-	            $("#nicknameComboDiv").html(result);
+	            $("#departmentComboDiv").html(result);
 	          },
 	          error: function(xhr, status, error){
-	        	  $("#nicknameComboDiv").html(status);
+	        	  $("#departmentComboDiv").html(status);
 	          }
 	      }); 
+		}
 	      event.preventDefault();
 	      return false;
 	});
@@ -25,5 +26,21 @@ $(document).ready( function() {
 });
 
 function onNickNameChange() {
-	alert('got it');
+	var id = $("#departmentCombo").val();
+	var date = $("#appDate").val();
+	
+	var myValue = id + ":" + date;
+	var post_url = "/Scheduler/departmenttimeslot/gettimeslotcombo/" + myValue;
+	$.ajax({
+          type: "GET", 
+          url: post_url,
+          success: function(result) {
+            $("#timeslotComboDiv").html(result);
+          },
+          error: function(xhr, status, error){
+        	  $("#timeslotComboDiv").html(status);
+          }
+      }); 
+      event.preventDefault();
+      return false;
 }
