@@ -11,7 +11,7 @@ import com.scheduler.models.AppointmentList;
 import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.GeneralUser;
 
-@Repository(value="appointmentMapper")
+@Repository(value="announcementMapper")
 @Component
 public interface AppointmentMapper {
 

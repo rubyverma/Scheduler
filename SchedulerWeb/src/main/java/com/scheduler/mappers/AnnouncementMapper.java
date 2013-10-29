@@ -8,9 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import com.scheduler.models.Announcement;
 
-@Repository(value = "announcementMapper")
+import com.scheduler.models.UserAnnouncement;
+
+@Repository(value="announcementMapper")
 @Component
 public interface AnnouncementMapper {
 
+	int addNewAnnouncement(Announcement announcement);
+
+	int addUserAnnouncement(List<UserAnnouncement> userAnnouncements);
+
 	List<Announcement> getAllAnnouncements(int userId) throws BadSqlGrammarException;
+
 }

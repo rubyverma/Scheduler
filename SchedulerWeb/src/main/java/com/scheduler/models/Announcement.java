@@ -13,7 +13,7 @@ public class Announcement {
 	
 	private int announcementId;
 	private int officialId;
-	private int gcmMessageId;
+	private String gcmMessageId;
 	private String announcementHeader;
 	private String announcementDescription;
 	private Date announcementDate;

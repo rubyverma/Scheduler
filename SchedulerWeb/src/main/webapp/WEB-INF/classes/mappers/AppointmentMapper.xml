@@ -39,7 +39,7 @@
 		a.appointmentId = #{app_id}
 		and a.userId = gu.userId
 	</select>
-
+	
 	<select id="getAllAppointment" resultType="com.scheduler.models.AppointmentList">
 	select appointment.purposeOfVisit,appointment.dateCreated,
 	 appointment.appointmentId ,generaluser.firstName,
@@ -86,10 +86,12 @@
 		Limit 0,1
 	</select>
 
-	<delete id="cancelAppointment" parameterType="com.scheduler.models.Appointment"
+	<update id="cancelAppointment" parameterType="int"
 		flushCache="true" statementType="PREPARED">
-		delete from appointment where appointmentId = #{appointmentId}
-	</delete>
+		update appointment
+		set meetingFinished = 'C'
+		 where appointmentId = #{appointmentId}
+	</update>
 	
 	<update id="userLate" parameterType="com.scheduler.models.Appointment"
 	flushCache="true">
