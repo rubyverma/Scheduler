@@ -41,25 +41,27 @@ public class SendPostRequest {
 		return message_id;
 	}
 	
-	public void multicastMessage(List<String> devices, String messageToSend) {
+	public String multicastMessage(List<String> devices, String messageToSend) {
 		
 		Sender sender = new Sender(API_KEY);
+		long multicast_id = 0;
 		
 		Message message = new Message.Builder().collapseKey("1")
 				.timeToLive(3)
 				.delayWhileIdle(true)
 				.addData("message",  messageToSend)
 				.build();
-
-
 		
 		try {
 			MulticastResult result = sender.send(message, devices, 1);
+			multicast_id = result.getMulticastId();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return multicast_id + "";
 		
 	}
 

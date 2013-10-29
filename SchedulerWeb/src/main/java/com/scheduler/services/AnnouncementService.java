@@ -32,7 +32,8 @@ public class AnnouncementService {
 		
 		//TODO implement broadcast
 		//announcement.setGcmMessageId("NOT IMPLEMENTED");
-		return announcementMapper.addNewAnnouncement(announcement);
+		int rows = announcementMapper.addNewAnnouncement(announcement);
+		return announcement.getAnnouncementId();
 	}
 
 	public boolean addUserAnnouncement(List<AppointmentList> listofAppointment,
@@ -55,7 +56,7 @@ public class AnnouncementService {
 		int rowsAffected = announcementMapper.addUserAnnouncement(userAnnouncements);
 		
 		SendPostRequest request = new SendPostRequest();
-		request.multicastMessage(deviceRegIds, message);
+		String multicast_id = request.multicastMessage(deviceRegIds, message);
 		return true;
 	}
 

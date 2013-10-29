@@ -47,12 +47,12 @@
 					<div class="form-group">
 						<label for="broadcastMessage">Message Title</label>
 						<form:input class="form-control" path="announcementHeader"
-							id="broadcastMessageHeader" placeholder="Enter Title" />
+							id="broadcastMessageHeader" placeholder="Enter Title" required="required" />
 					</div>
 					<div class="form-group">
 						<label for="broadcastMessage">Message Body</label>
 						<form:textarea class="form-control" id="broadcastMessageDesc"
-							path="announcementDescription" rows="3"
+							path="announcementDescription" rows="3" required="required"
 							placeholder="Enter a message to broadcast..."></form:textarea>
 					</div>
 					</p>
