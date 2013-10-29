@@ -136,8 +136,7 @@ public class OfficialController {
 				.addNewAnnouncement(announcement);
 
 		// List of appointments to which message has to be broadcasted
-		List<AppointmentList> listofAppointment = appointmentService
-				.getAllAppointment();
+		List<AppointmentList> listofAppointment = appointmentService.getAllAppointment();
 
 		boolean broadcasted = announcementService.addUserAnnouncement(
 				listofAppointment, announcement_id,

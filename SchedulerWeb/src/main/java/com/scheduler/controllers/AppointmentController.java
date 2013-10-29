@@ -28,12 +28,6 @@ public class AppointmentController {
 
 	@Autowired(required = true)
 	private AppointmentService appointmentService;
-
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String bookAppointment(Model model) {
-
-=======
-	
 	@Autowired(required = true)
 	private CampusService campusService;
 	
@@ -50,7 +44,6 @@ public class AppointmentController {
 		System.out.println("List of campuses" + campuses.toString());
 		
 		model.addAttribute("campuses",campuses);
->>>>>>> Story "As a student I should be able to book an appointment". 90% completed. A few error since some place the date is derived from JavaUtil class and it does not work's fine with Java SQL Date.
 		model.addAttribute("appointment", new Appointment());
 		return "appointment/newappointment";
 	}
