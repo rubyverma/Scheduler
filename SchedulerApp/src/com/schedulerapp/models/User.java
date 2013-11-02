@@ -1,28 +1,40 @@
 package com.schedulerapp.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 	
-	private int userId;
-	private String firstName;
-	private String lastName;
-	public int getUserId() {
-		return userId;
+	private int id;
+	private String firstname;
+	private String lastname;
+	private String email;
+	
+	public int getId() {
+		return id;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 
 
 }

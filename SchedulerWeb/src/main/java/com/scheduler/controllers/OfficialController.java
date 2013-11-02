@@ -4,14 +4,21 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.ibatis.ognl.ObjectMethodAccessor;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.scheduler.models.Announcement;
@@ -19,6 +26,7 @@ import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
+import com.scheduler.models.User;
 import com.scheduler.models.UserAnnouncement;
 import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
@@ -70,15 +78,9 @@ public class OfficialController {
 		return "meeting/viewqueue";
 	}
 
-	@RequestMapping(value = "/meeting/testmeeting", method = RequestMethod.GET)
-	public String test(Model model) {
-		return "meeting/meeting";
-	}
-
-	@RequestMapping(value = "/meeting/start", method = RequestMethod.GET)
+	@RequestMapping(value = "/meeting/start", method = RequestMethod.POST)
 	public String startMeeting(Model model) {
-
-		// TODO insert the following fields to official user session
+		//insert the following fields to official user session
 		// get official_id and dept_id from the session variable
 		int official_id = 1234; // hardcoded value
 		int department_id = 1; // hardcoded value

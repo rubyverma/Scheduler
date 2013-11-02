@@ -15,6 +15,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
@@ -26,42 +27,25 @@ import android.util.Log;
 
 public class HttpRequests {
 
-	private static String URL="http://192.168.0.144:8080/Scheduler/official/meeting/testmeeting";
+	private static String URL = "http://10.0.2.2:8080/Scheduler/user/api/save";
 	InputStream is = null;
 	JSONObject jObj = null;
 	String json = "";
 
 	public String postJsonData(String data)
 	{
-		try
-		{
-			StringBuffer buffer= new StringBuffer();
-			//org.apache.http.client.HttpClient client= new DefaultHttpClient();
-			org.apache.http.client.HttpClient client= AndroidHttpClient.newInstance("Android");
-			HttpPost post = new HttpPost(URL);
-			post.setHeader("Accept", "application/json");
-			post.setHeader("Content-type", "application/json");
-			List<NameValuePair> nvList= new ArrayList<NameValuePair>();
-			BasicNameValuePair bnvp = new BasicNameValuePair("json", data);
-			nvList.add(bnvp);
-			post.setEntity(new UrlEncodedFormEntity(nvList));
-			HttpResponse resp = client.execute(post);
-			is = resp.getEntity().getContent();
-			BufferedReader reader= new BufferedReader( new InputStreamReader(is));
-			StringBuilder str= new StringBuilder();
-			String line =null;
-			while((line= reader.readLine())!=null)
-			{
-				str.append(line + "\n");
-			}
-			is.close();
-			buffer.append(str.toString());
-			return buffer.toString();
-			
-		}
-		catch(Exception ex)
-		{
-			Log.e("HTTP", "Http Client Responding Error....");
+		JSONObject jsonObjSend = new JSONObject();
+ 
+		try {
+		        jsonObjSend.put("email", "sonnykr@gmail.com");
+		        jsonObjSend.put("firstname", "Sonny");
+		        jsonObjSend.put("lastname", "Raju");
+		        jsonObjSend.put("id", 1L);
+		        
+		        String jsonObjRecv = HttpClient.SendHttpPost(URL, jsonObjSend);
+		        return jsonObjRecv;
+		} catch (JSONException e) {
+		        e.printStackTrace();
 		}
 		return null;
 	}
