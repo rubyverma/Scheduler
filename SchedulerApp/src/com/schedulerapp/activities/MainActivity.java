@@ -12,14 +12,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.scheduler.mobileapp.R;
+import com.schedulerapp.gcm.GcmHandler;
 import com.schedulerapp.httprequests.HttpClient;
-import com.schedulerapp.httprequests.HttpRequests;
 import com.schedulerapp.jsonparser.jsonParser;
 import com.schedulerapp.models.User;
 
 public class MainActivity extends Activity {
 
-	private static final String TAG = "com.scheduler.androidapp";
+	//private static final String TAG = "com.scheduler.androidapp";
 	private static String URL = "http://10.0.2.2:8080/Scheduler/user/api/save";
 	
 	TextView txtData;
@@ -29,6 +29,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		txtData = (TextView) findViewById(R.id.txtData);
+		
+		GcmHandler gcmHandler = new GcmHandler(getApplicationContext());
+		txtData.setText(gcmHandler.getRegistrationId(getApplicationContext()));
 		
 		final JSONObject jsonObjectUser = new JSONObject();
 		Button btnGetData = (Button) findViewById(R.id.btnGetData);
