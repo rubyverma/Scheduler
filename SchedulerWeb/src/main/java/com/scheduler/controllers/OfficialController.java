@@ -4,22 +4,28 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.scheduler.models.Announcement;
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
-import com.scheduler.models.UserAnnouncement;
+import com.scheduler.models.User;
 import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.NotificationService;
@@ -70,11 +76,16 @@ public class OfficialController {
 		return "meeting/viewqueue";
 	}
 
-	@RequestMapping(value = "/meeting/testmeeting", method = RequestMethod.GET)
-	public String test(Model model) {
-		return "meeting/meeting";
+	/*@RequestMapping(value = "/meeting/testmeeting", method = RequestMethod.POST)
+	@ResponseBody
+	public String test(@RequestBody User user) {
+		Gson gson = new Gson();
+		User u = new User(); 
+		u= gson.fromJson(user, User.class);
+		String rec ="recieved"+ u.getFirstname();
+		return rec;
 	}
-
+*/
 	@RequestMapping(value = "/meeting/start", method = RequestMethod.GET)
 	public String startMeeting(Model model) {
 
