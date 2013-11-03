@@ -7,7 +7,7 @@
 		dept.departmentId = #{departmentId} and dept.timeslotId = ts.timeslotId and 
 		dept.capacity > (select count(appointmentId) from appointment 
 		where meetingFinished = 'N' and appointmentDate = #{appointmentDate} and  
-		departmentTimeId in (select departmentId from departmenttimeslot 
+		departmentTimeId in (select departmentTimeId from departmenttimeslot 
 		where departmentId = #{departmentId}));
 	</select>
 
