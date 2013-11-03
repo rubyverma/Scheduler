@@ -22,6 +22,11 @@ public class DepartmentTimeslotService {
 	public List<DepartmentTimeslotLinkage> timeslotByDepartment(Utility u)  throws BadSqlGrammarException {
 		List<DepartmentTimeslotLinkage> departmenttimeslots = new ArrayList<DepartmentTimeslotLinkage>();
 		departmenttimeslots = departmentTimeslotMapper.getTimeslotByDepartment(u);
+		for (DepartmentTimeslotLinkage depTime:departmenttimeslots ) {
+			Date d = Date.valueOf(u.getAppointmentDate());
+			depTime.setAppointmentDate(d);
+			System.out.println(depTime.getDepartmentTimeId());
+		}
 		return departmenttimeslots;
 	}
 }
