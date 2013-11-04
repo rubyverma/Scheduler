@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.scheduler.mobileapp.R;
+import com.schedulerapp.activities.R;
 
 public class MainActivity extends Activity {
 	Intent intent;

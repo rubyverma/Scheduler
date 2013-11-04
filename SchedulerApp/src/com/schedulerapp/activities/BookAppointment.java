@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.scheduler.mobileapp.R;
+import com.schedulerapp.activities.R;
 import com.schedulerapp.adapters.CampusAdapter;
 import com.schedulerapp.adapters.DepartmentAdapter;
 import com.schedulerapp.adapters.TimeSlotAdapter;

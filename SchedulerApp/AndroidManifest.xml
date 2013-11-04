@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.scheduler.mobileapp"
+    package="com.schedulerapp.activities"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -78,8 +78,8 @@
             android:value="13" />
 
         <activity
-            android:name="com.scheduler.mobileapp.ViewAppointment"
-            android:label="@string/title_activity_view_appointment" >
+            android:name="com.schedulerapp.activities.ViewappointmentsActivity"
+            android:label="@string/title_activity_viewappointments" >
         </activity>
     </application>
 
