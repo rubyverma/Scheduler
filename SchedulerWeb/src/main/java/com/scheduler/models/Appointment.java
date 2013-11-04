@@ -1,4 +1,5 @@
 package com.scheduler.models;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Appointment {
+public class Appointment implements Serializable {
 
         private int appointmentId;
         private int departmentTimeId;

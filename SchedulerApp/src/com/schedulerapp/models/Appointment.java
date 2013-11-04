@@ -2,6 +2,7 @@ package com.schedulerapp.models;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +93,10 @@ public class Appointment {
       appointment.setMeetingNotes(obj.getString("meetingNotes"));
       appointment.setMeetingFinished(obj.getString("meetingFinished"));
       appointment.setOfficialId(obj.getInt("officialId"));
-      appointment.setAppointmentId(obj.getInt("ppointmentId"));
+      appointment.setAppointmentId(obj.getInt("appointmentId"));
+      String date = obj.getString("appointmentDate");
+      Date d = Date.valueOf(date);
+      appointment.setAppointmentDate(d);
       appointment.setDepartmentTimeId(obj.getInt("departmentTimeId"));
       appointment.setPurposeOfVisit(obj.getString("purposeOfVisit"));
       return appointment;

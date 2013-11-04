@@ -27,4 +27,8 @@ public class MainActivity extends Activity {
 		intent = new Intent(this,BookAppointment.class);
 		startActivity(intent);		
 	}
+	public void viewAppointmentClick(View v) {
+		intent = new Intent(this,ViewappointmentsActivity.class);
+		startActivity(intent);		
+	}
 }

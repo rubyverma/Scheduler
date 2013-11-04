@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.models.Campus;
 import com.schedulerapp.models.Department;
 import com.schedulerapp.models.DepartmentTimeslotLinkage;
@@ -18,6 +19,16 @@ public class JsonParser {
 	public User parseUser(String userJson) throws NumberFormatException, JSONException {		
 		JSONObject jObj = new JSONObject(userJson);		
 		return User.getUserFromJson(jObj);
+	}
+	
+	public List<AppointmentDepartment> parseAppointments(String result) throws NumberFormatException, JSONException {		
+		List<AppointmentDepartment> appointments = new ArrayList<AppointmentDepartment>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			appointments.add(AppointmentDepartment.getAppointmentFromJson(obj));
+		}
+		return appointments;
 	}
 
 	public List<Campus> parseCampusList(String result) throws NumberFormatException, JSONException {

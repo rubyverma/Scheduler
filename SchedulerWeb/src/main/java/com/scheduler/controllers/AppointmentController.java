@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentDepartment;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class AppointmentController {
 
+	protected static final String JSON_CONTENT = "application/json";
 	@Autowired(required = true)
 	private AppointmentService appointmentService;
 	@Autowired(required = true)
@@ -89,6 +91,15 @@ public class AppointmentController {
 		}
 
 		return "redirect:/appointment/view";
+	}
+	
+	@RequestMapping(value = "/mobileview/{userId}", method = RequestMethod.GET, produces = JSON_CONTENT)
+	@ResponseBody
+	public List<AppointmentDepartment> viewAllAppointments(@PathVariable("userId") String userId) {
+		int id = Integer.parseInt(userId);
+		List<AppointmentDepartment> appointments;
+		appointments = appointmentService.findAllUserAppointments(id);
+		return appointments;
 	}
 
 }
