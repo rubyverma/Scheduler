@@ -13,8 +13,8 @@ public class jsonParser {
 		JSONObject wrapper = new JSONObject();
 		try {
 			
-			jsonObject.put("firstName",user.getFirstName());
-			jsonObject.put("lastName",user.getLastName());
+			jsonObject.put("firstName",user.getFirstname());
+			jsonObject.put("lastName",user.getLastname());
 			
 			//wrapper.put("user", jsonObject);
 		//	jsonData = wrapper.toString();

@@ -31,6 +31,7 @@ public class DepartmentTimeslotLinkage extends Departmenttimeslot{
 			departmenttimeslot.setStartTime(obj.getString("startTime"));
 			departmenttimeslot.setStopTime(obj.getString("stopTime"));
 			
-			return departmenttimeslot;
+			System.out.println(obj.toString());
+			return departmenttimeslot;	
 		}		
 }

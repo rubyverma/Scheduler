@@ -1,5 +1,7 @@
 package com.schedulerapp.activities;
 
+import com.schedulerapp.R;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;

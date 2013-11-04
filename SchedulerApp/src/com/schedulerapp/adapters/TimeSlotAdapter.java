@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.schedulerapp.activities.R;
+import com.schedulerapp.R;
 import com.schedulerapp.models.DepartmentTimeslotLinkage;
 
 public class TimeSlotAdapter  extends BaseAdapter {
