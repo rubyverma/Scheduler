@@ -1,8 +1,10 @@
 package com.schedulerapp.models;
 
-import java.io.Serializable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class User implements Serializable {
+
+public class User{
 	
 	private int id;
 	private String firstname;
@@ -34,7 +36,14 @@ public class User implements Serializable {
 		this.email = email;
 	}
 	
-	
+	public static User getUserFromJson(JSONObject obj) throws JSONException {
+		User user = new User();
+		user.setId(obj.getInt("id"));
+		user.setEmail(obj.getString("email"));
+		user.setFirstname(obj.getString("firstname"));
+		user.setLastname(obj.getString("lastname"));
+		return user;
+	}
 
 
 }
