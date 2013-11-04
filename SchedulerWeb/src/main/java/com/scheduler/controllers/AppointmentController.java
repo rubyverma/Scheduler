@@ -23,37 +23,41 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequestMapping("/appointment")
 @Controller
-@Slf4j
 public class AppointmentController {
 
 	@Autowired(required = true)
 	private AppointmentService appointmentService;
 	@Autowired(required = true)
 	private CampusService campusService;
-	
+	// TODO fetch userId and clientId from the session when user Login into the
+	// system
+	public int userId = 1;
+	public int clientId = 1;
+
+	// Author - Shalin Banjara
+	// Usage - Displays the book appointment page to the user
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String bookAppointment(Model model) {
 
-		//TODO need to get this value from session
-		int generalUserId = 1;
-		int clientId = 1;
-		//---------------
-		
 		List<Campus> campuses = campusService.campusByClient(clientId);
-		//campuses.toString();
+		// Stub to see the list of campuses based on client
 		System.out.println("List of campuses" + campuses.toString());
-		
-		model.addAttribute("campuses",campuses);
-		model.addAttribute("appointment", new Appointment());
+
+		model.addAttribute("campuses", campuses);
 		return "appointment/newappointment";
 	}
 
+	// Author - Shalin Banjara
+	// Usage - Save the appointment and redirects the user to view all their
+	// appointments
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveAppointment(
 			@ModelAttribute("appointment") Appointment appointment, Model model) {
 
-		model.addAttribute("expectedTime", new Appointment());
-		return "appointment/saveappointment";
+		appointment.setUserId(userId);
+		appointment.setMeetingFinished("N");
+		int i = appointmentService.saveAppointment(appointment);
+		return "redirect:/appointment/view";
 	}
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -78,7 +82,7 @@ public class AppointmentController {
 		try {
 			rowsUpdated = appointmentService.cancelAppointment(appointmentId);
 			model.addAttribute("result", "Updated: " + rowsUpdated + "fields");
-			
+
 		} catch (BadSqlGrammarException e) {
 			model.addAttribute("error", e.getMessage());
 			System.out.println(e.getMessage());

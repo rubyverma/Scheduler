@@ -10,5 +10,9 @@ public class GeneralUserService {
 	
     @Autowired(required = true)
     private GeneralUserMapper generalUserMapper;
+    
+    public String getUserGCMregId(int userId){
+    	return generalUserMapper.getUserRegistrationId(userId);
+    }
 
 }

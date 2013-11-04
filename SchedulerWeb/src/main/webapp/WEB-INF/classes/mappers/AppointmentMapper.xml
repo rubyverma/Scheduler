@@ -2,19 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.AppointmentMapper">
 
+<!--Author - Shalin Banjara  -->
+<!--Usage - To insert a new booked appointment in the database  -->
+	<insert id="saveAppointment" parameterType="com.scheduler.models.Appointment"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into appointment(appointmentId, departmentTimeId,
+		userId,purposeOfVisit,meetingFinished,dateCreated,appointmentDate)
+		values
+		(#{appointmentId},#{departmentTimeId},#{userId},#{purposeOfVisit},#{meetingFinished},NOW(),#{appointmentDate})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
 
 	<update id="finishAppointment" parameterType="int">
-		update 
+		update
 		appointment set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
-		meetingFinished ='Y'
+		meetingFinished
+		='Y'
 		update appointment
 		set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
 		meetingFinished ='Y'
-		where appointmentId =#{app_id}
+		where appointmentId
+		=#{app_id}
 	</update>
 
 	<update id="startAppointmentById" parameterType="int">
@@ -40,15 +54,17 @@
 		and a.userId = gu.userId
 	</select>
 	<select id="getAllAppointment" resultType="com.scheduler.models.AppointmentList">
-	select appointment.purposeOfVisit,appointment.dateCreated,
-	 appointment.appointmentId ,generaluser.firstName,
-	generaluser.lastName from appointment
-	inner join generaluser on appointment.userId=generaluser.userId
-	inner join departmenttimeslot on departmenttimeslot.departmentTimeId=appointment.departmentTimeId
-	where departmenttimeslot.departmentId=#{departmentId}
-	and appointment.appointmentDate=#{appointmentDate}
-	and appointment.meetingFinished='N'
-	order by time(appointment.dateCreated) asc;
+		select
+		appointment.userId,appointment.purposeOfVisit,appointment.dateCreated,
+		appointment.appointmentId ,generaluser.firstName,
+		generaluser.lastName from appointment
+		inner join generaluser on appointment.userId=generaluser.userId
+		inner join departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where departmenttimeslot.departmentId=#{departmentId}
+		and appointment.appointmentDate=#{appointmentDate}
+		and appointment.meetingFinished='N'
+		order by time(appointment.dateCreated) asc;
 	</select>
 
 	<select id="findAllUserAppointments" parameterType="int"
@@ -77,27 +93,32 @@
 	<select id="getNextUserInQueue" parameterType="int"
 		resultType="com.scheduler.models.GeneralUser">
 		select g.* from appointment a, generaluser g
-		where a.departmentTimeId IN (select departmentTimeId from
-		departmenttimeslot where departmentId = #{department_id})
+		where
+		a.departmentTimeId IN (select departmentTimeId from
+		departmenttimeslot
+		where departmentId = #{department_id})
 		and a.meetingFinished='N'
-		and a.startTime='00:00:00'
+		and
+		a.startTime='00:00:00'
 		and g.userId=a.userId
-		ORDER BY a.appointmentId ASC
+		ORDER BY a.appointmentId
+		ASC
 		Limit 0,1
 	</select>
 
-	<update id="cancelAppointment" parameterType="int"
-		flushCache="true" statementType="PREPARED">
+	<update id="cancelAppointment" parameterType="int" flushCache="true"
+		statementType="PREPARED">
 		update appointment
 		set meetingFinished = 'C'
-		 where appointmentId = #{appointmentId}
+		where appointmentId = #{appointmentId}
 	</update>
-	
+
 	<update id="userLate" parameterType="com.scheduler.models.Appointment"
-	flushCache="true">
+		flushCache="true">
 		update
 		appointment set
 		meetingFinished = 'L'
-		where appointmentId = #{appointmentId}
+		where
+		appointmentId = #{appointmentId}
 	</update>
 </mapper>

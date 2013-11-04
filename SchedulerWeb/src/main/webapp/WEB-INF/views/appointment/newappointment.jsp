@@ -1,14 +1,18 @@
 <%@ include file="../includes/header.jsp"%>
+<%
+// Author - Shalin Banjara
+// Usage - A page for general user to book a appointment
+%>
 <h1>
 	Book New Appointment
 </h1>
-<form:form method="POST" action="save" modelAttribute="appointment">
-	<div id="date">
-		<form:label path="appointmentDate">Appointment Date : </form:label>
-		<form:input path="appointmentDate" type="date" id="appDate" />
-	</div>
-	<div id="campuses">
-	<lablel>Campus : <lablel>
+		<div>
+		<label >Appointment Date : </label>
+		<input type="text" id="datepicker"  required="required" readonly="readonly"/>
+		</div>
+		<br>
+		<div>
+		<label>Campus : </label>
 			<select name="Campus" id="campusCombo">
 					<option>Select a campus</option>
 				<c:forEach items="${campuses}" var="campus">
@@ -16,15 +20,21 @@
 				</c:forEach>
 			</select>
 	</div>
+	<br>
 	<div id="departmentComboDiv">
 		<!--  this is where the ajax departmentCombo combobox is loaded  -->
 	</div>
-	
+	<br>
+	<div>
 		<div id="timeslotComboDiv">
 		<!--  this is where the ajax departmentCombo combobox is loaded  -->
 	</div>
-
-</form:form>
+	<div>
+	<span class="pull-right">
+	<input type="button" name="Cancel" value="Cancel" class="btn btn-danger" onclick="location.reload()"/>
+	</span>
+	</div>
+	</div>
 
 <%@ include file="../includes/footer.jsp"%>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>

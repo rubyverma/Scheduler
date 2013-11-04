@@ -10,7 +10,7 @@
 		</span>
 	</div>
 </div>
-<form:form action="../meeting/start" method="post" role="form">
+<form:form action="../start" method="post" role="form">
 	<h3>Lists of Appointment From Database</h3>
 	<p><%=new java.util.Date()%></p>
 
@@ -18,29 +18,40 @@
 		<table class="table table-hover">
 			<tr>
 				<th>ID</th>
-				<th>Name</th>
+				<th>First Name</th>
+				<th>Last Name</th>
 				<th>Purpose of Visit</th>
 				<th>&nbsp;</th>
 			</tr>
 			<c:forEach items="${appointmentList}" var="listofAppointment">
 				<tr>
 					<td>${listofAppointment.appointmentId}</td>
-					<td>${listofAppointment.firstName}${ listofAppointment.lastName}</td>
+					<td>${listofAppointment.firstName}</td>
+					<td>${listofAppointment.lastName}</td>
 					<td>${listofAppointment.purposeOfVisit}</td>
-					<td><a href="">Send Notification</a></td>
+					<td>
+						<div class="col-xs-6 col-md-4">
+							<span class="pull-right"> <a data-toggle="modal"
+								href="#notificationModal" class="btn btn-info"
+								onclick="sendNotification(${listofAppointment.userId},'${listofAppointment.firstName}','${listofAppointment.lastName}')">Send
+									Notification</a>
+							</span>
+						</div>
+					</td>
 				</tr>
 			</c:forEach>
-			
+
 		</table>
 		<div>
 			<input type="submit" class="btn btn-default" value="Start Meeting"></input>
-			</div>
+		</div>
 	</c:if>
 </form:form>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<form:form method="POST" action="broadcast" modelAttribute="announcement">
+	<form:form method="POST" action="broadcast"
+		modelAttribute="announcement">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -55,7 +66,8 @@
 					<div class="form-group">
 						<label for="broadcastMessage">Message Title</label>
 						<form:input class="form-control" path="announcementHeader"
-							id="broadcastMessageHeader" placeholder="Enter Title" required="required" />
+							id="broadcastMessageHeader" placeholder="Enter Title"
+							required="required" />
 					</div>
 					<div class="form-group">
 						<label for="broadcastMessage">Message Body</label>
@@ -68,7 +80,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<input type="submit" value="Broadcast Message" class="btn btn-primary" />
+					<input type="submit" value="Broadcast Message"
+						class="btn btn-primary" />
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -77,7 +90,14 @@
 	</form:form>
 </div>
 <!-- /.modal -->
-
-
+<!-- Author - Shalin Banjara -->
+<!-- Usage - Popup for sending a notification to a particular User -->
+<div class="modal fade" id="notificationModal" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="notificationPopupDiv">
+		<!--  this is where the ajax notification popup is loaded  -->
+	</div>
+</div>
 
 <%@ include file="../includes/footer.jsp"%>
+<script src="/Scheduler/resources/js/notification.js"></script>

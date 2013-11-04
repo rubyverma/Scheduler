@@ -4,21 +4,15 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.ibatis.ognl.ObjectMethodAccessor;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.scheduler.models.Announcement;
@@ -26,8 +20,7 @@ import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
-import com.scheduler.models.User;
-import com.scheduler.models.UserAnnouncement;
+import com.scheduler.request.MailMail;
 import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.NotificationService;
@@ -72,7 +65,7 @@ public class OfficialController {
 		listofAppointment= appointmentService.getAllAppointment(departmentId,appointmentDate);
 		model.addAttribute("appointmentList",listofAppointment);
 
-// passing blank announcement object
+		// passing blank announcement object
 		model.addAttribute("announcement", new Announcement());
 		// Redirecting to view the queue
 		return "meeting/viewqueue";
@@ -82,7 +75,7 @@ public class OfficialController {
 	public String startMeeting(Model model) {
 		//insert the following fields to official user session
 		// get official_id and dept_id from the session variable
-		int official_id = 1234; // hardcoded value
+		int official_id = 3; // hardcoded value
 		int department_id = 1; // hardcoded value
 
 		Appointment nextAppointment = appointmentService
@@ -160,5 +153,16 @@ public class OfficialController {
 		}
 
 		return "redirect:/official/meeting/viewqueue";
+	}
+	
+	
+	@RequestMapping(value = "meeting/testmeeting", method = RequestMethod.GET)
+	public String testme(Model model) {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+		MailMail mm = (MailMail) context.getBean("mailMail");
+        mm.sendMail("Scheduler App", "This is a Test Email \n your activation code : 85647555 ","sanket.scorp@gmail.com");
+		
+		return "meeting/testmeeting";
 	}
 }

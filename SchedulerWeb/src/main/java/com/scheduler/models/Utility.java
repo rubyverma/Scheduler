@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class Utility {
 
 	private int departmentId;
-	private Date appointmentDate;
+	private String appointmentDate;
 }

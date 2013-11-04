@@ -6,5 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_user">User</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_book_appointment">BookAppointment</string>
+    <string name="title_activity_view_appointment">ViewAppointment</string>
+    <string name="title_activity_view_appointments">ViewAppointments</string>
+    <string name="title_activity_viewappointments">View Appointments</string>
 
 </resources>
