@@ -1,6 +1,7 @@
 package com.scheduler.services;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import com.scheduler.models.AppointmentList;
@@ -8,13 +9,13 @@ import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
 import com.scheduler.request.SendPostRequest;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.AppointmentMapper;
-
 import com.scheduler.models.Appointment;
 
 @Component
@@ -28,15 +29,22 @@ public class AppointmentService {
 
 	@Autowired(required = true)
 	private SendPostRequest postRequest;
-
-	public int saveAppointment(Appointment _app) throws BadSqlGrammarException {
-		return 1; // userMapper.saveUser(u);
+	
+	
+	// Author - Shalin Banjara
+	// Usage - To save the appointment booked by the user. Validations are performed on the UI.
+	public int saveAppointment(Appointment appointment) throws BadSqlGrammarException {
+		return appointmentMapper.saveAppointment(appointment);
 	}
 
-	public String expectedMeetingTime(int _appointmentId) {
+	// Author - Shalin Banjara
+	// Usage - To calculate the expected meeting time for a booked unfinished appointment
+	public String expectedMeetingTime(int appointmentId, Date appointmentDate) {
+		
+		
 
-		return "Expected Time";
-
+		
+		return("Meeting Time");
 	}
 
 	public boolean finishAppointment(Appointment appointment) {

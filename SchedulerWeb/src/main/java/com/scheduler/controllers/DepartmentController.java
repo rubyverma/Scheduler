@@ -19,15 +19,17 @@ import com.scheduler.services.DepartmentService;
 @Controller
 @Slf4j
 public class DepartmentController {
-	
+
 	@Autowired(required = true)
 	private DepartmentService departmentService;
 
+	// Author - Shalin Banjara
+	// Usage - Returns a combo box with departments related to selected campus.
 	@RequestMapping(value = "/getDepartmentCombo/{campusId}", method = RequestMethod.GET)
-	public String getDepartmentByCampus(@PathVariable("campusId") int campusId, Model model) {
-		log.info("Entered Controller");
-		List<Department> departments = departmentService.departmentByCampus(campusId);
-		log.info("Got Department List");
+	public String getDepartmentByCampus(@PathVariable("campusId") int campusId,
+			Model model) {
+		List<Department> departments = departmentService
+				.departmentByCampus(campusId);
 		model.addAttribute("departments", departments);
 		return "partials/departmentcombo";
 	}

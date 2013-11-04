@@ -82,7 +82,7 @@ public class OfficialController {
 	public String startMeeting(Model model) {
 		//insert the following fields to official user session
 		// get official_id and dept_id from the session variable
-		int official_id = 1234; // hardcoded value
+		int official_id = 3; // hardcoded value
 		int department_id = 1; // hardcoded value
 
 		Appointment nextAppointment = appointmentService

@@ -306,7 +306,13 @@ body {
   color: #333333;
   background-color: #ffffff;
 }
-
+label {
+	  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style:normal;
+  line-height: 1.428571429;
+  color: #333333;
+}
 input,
 button,
 select,

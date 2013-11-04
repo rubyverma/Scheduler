@@ -16,4 +16,5 @@ public class DepartmentTimeslotLinkage {
 		private Time startTime;
 		private Time stopTime;
 		private Date appointmentDate;
+		private String weekdays;
 }

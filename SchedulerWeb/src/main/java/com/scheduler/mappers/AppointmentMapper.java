@@ -16,7 +16,8 @@ import com.scheduler.models.GeneralUser;
 public interface AppointmentMapper {
 
 	
-
+	int saveAppointment(Appointment appointment);
+	
 	int finishAppointment(Appointment apptest);
 
 	int startAppointmentById(@Param("app_id") int app_id, @Param("official_id") int official_id );

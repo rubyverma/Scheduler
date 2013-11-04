@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.DepartmentTimeslotMapper">
 
+<!-- Author - Shalin Banjara  -->
+<!-- Usage - To get available timeslots for a particular department Id if they still have a capacity to book a appointment-->
 	<select id="getTimeslotByDepartment" parameterType="com.scheduler.models.Utility" resultType="com.scheduler.models.DepartmentTimeslotLinkage">
 		select dept.*, ts.startTime, ts.stopTime from departmenttimeslot dept, timeslot ts where 
 		dept.departmentId = #{departmentId} and dept.timeslotId = ts.timeslotId and 
