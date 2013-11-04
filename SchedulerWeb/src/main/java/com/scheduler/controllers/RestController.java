@@ -58,7 +58,7 @@ public class RestController {
     public List<DepartmentTimeslotLinkage> getDepartmentTimeslot(@PathVariable int id, @PathVariable String dt) throws java.text.ParseException, ParseException {
     	Date d = null;
     	d = new SimpleDateFormat("yyyy-mm-dd").parse(dt);
-		Utility u = new Utility(id, d);
+		Utility u = new Utility(id, dt);
 		System.out.println(u.getDepartmentId() + " - "+ u.getAppointmentDate());
 		List<DepartmentTimeslotLinkage> availableTimeslots = departmentTimeslotService.timeslotByDepartment(u);
     	return availableTimeslots;
