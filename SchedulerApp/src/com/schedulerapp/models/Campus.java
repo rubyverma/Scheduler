@@ -44,14 +44,6 @@ public class Campus {
 		this.dateCreated = dateCreated;
 	}
 	
-	public static Campus getSelectPropmpt() throws JSONException {
-		Campus campus = new Campus();
-		campus.setCampusId(-1);
-		campus.setCampusName("Select Campus");
-		return campus;
-	}
-	
-			
 	public static Campus getCampusFromJson(JSONObject obj) throws JSONException {
 		Campus campus = new Campus();
 		campus.setCampusId(obj.getInt("campusId"));
@@ -61,35 +53,3 @@ public class Campus {
 		return campus;
 	}	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -15,20 +15,19 @@ public class AppointmentDepartment extends Appointment  {
 	public String getDepartmentName(){
 		return departmentName;
 	}
-	public void setDepartmentName(String depName){
-		departmentName = depName;
+	public void setDepartmentName(String deptartmentName){
+		this.departmentName = departmentName;
 	}
 	
 	public static AppointmentDepartment getAppointmentFromJson(JSONObject obj) throws JSONException {
 		AppointmentDepartment appointment = new AppointmentDepartment();
-	      
-		appointment.setMeetingNotes(obj.getString("meetingNotes"));
+	      appointment.setMeetingNotes(obj.getString("meetingNotes"));
 	      appointment.setMeetingFinished(obj.getString("meetingFinished"));
 	      appointment.setOfficialId(obj.getInt("officialId"));
 	      appointment.setAppointmentId(obj.getInt("appointmentId"));
 	      String date = obj.getString("appointmentDate");
-	      Date d = Date.valueOf(date);
-	      appointment.setAppointmentDate(d);
+	      //Date d = Date.valueOf(date);
+	      //appointment.setAppointmentDate(d);
 	      appointment.setDepartmentTimeId(obj.getInt("departmentTimeId"));
 	      appointment.setPurposeOfVisit(obj.getString("purposeOfVisit"));
 	      appointment.setDepartmentName(obj.getString("departmentName"));

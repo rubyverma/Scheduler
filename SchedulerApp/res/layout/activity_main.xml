@@ -14,10 +14,15 @@
 	    android:text="Add Appointement" />
 
 	<Button
-	    android:id="@+id/viewAppointment"
+	    android:id="@+id/btnViewNotification"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="View Appointment"
-	    android:onClick="viewAppointmentClick" />
+	    android:text="View Notifications" />
+	
+	<Button
+	    android:id="@+id/btnViewAnnouncement"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="View Announcement" />
+	
 </LinearLayout>
-
