@@ -93,6 +93,8 @@ public class AppointmentController {
 		return "redirect:/appointment/view";
 	}
 	
+	// Author - Shalin Banjara
+	// Usage - Returns the mobile request for viewing appointments
 	@RequestMapping(value = "/mobileview/{userId}", method = RequestMethod.GET, produces = JSON_CONTENT)
 	@ResponseBody
 	public List<AppointmentDepartment> viewAllAppointments(@PathVariable("userId") String userId) {
