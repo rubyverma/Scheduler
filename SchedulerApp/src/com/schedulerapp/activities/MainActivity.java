@@ -1,6 +1,7 @@
 package com.schedulerapp.activities;
 
 import com.schedulerapp.R;
+import com.schedulerapp.gcm.GcmHandler;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +15,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		GcmHandler gcmHandler = new GcmHandler();
 	}
 
 	@Override
