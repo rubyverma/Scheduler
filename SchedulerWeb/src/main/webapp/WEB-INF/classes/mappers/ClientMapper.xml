@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.ClientMapper">
+<insert id="saveClient" parameterType="com.scheduler.models.Client"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into client(clientName, userName, password,email,address,memo,phone1,phone2,phone3,contactPerson,website,token,dateJoined,logo)
+		values
+		(#{clientName},#{userName}, #{password},#{email},#{address},#{memo},#{phone1},#{phone2},#{phone3},#{contactPerson},#{website},123,'2013-11-11',#{logo})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+</mapper>

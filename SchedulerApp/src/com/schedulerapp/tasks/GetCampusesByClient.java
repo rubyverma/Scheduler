@@ -8,7 +8,7 @@ import org.json.JSONException;
 import android.os.AsyncTask;
 
 import com.schedulerapp.httprequests.HttpClient;
-import com.schedulerapp.jsonparser.JsonParser;
+import com.schedulerapp.jsonparser.ResponseParser;
 import com.schedulerapp.models.Campus;
 import com.schedulerapp.utils.UrlUtils;
 
@@ -23,7 +23,7 @@ public class GetCampusesByClient extends AsyncTask<String, Void, List<Campus>> {
     protected List<Campus> doInBackground(String... args) {
       List<Campus> campuses = new ArrayList<Campus>();
       String result = HttpClient.SendHttpGET(UrlUtils.BASE_URL + UrlUtils.GET_CAMPUS + args[0]);
-      JsonParser parser = new JsonParser();
+      ResponseParser parser = new ResponseParser();
       try {
     	  campuses = parser.parseCampusList(result);
       } catch (NumberFormatException e) {

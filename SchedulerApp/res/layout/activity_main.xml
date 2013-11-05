@@ -20,3 +20,4 @@
 	    android:text="View Appointment"
 	    android:onClick="viewAppointmentClick" />
 </LinearLayout>
+

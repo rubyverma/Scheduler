@@ -8,6 +8,9 @@ import com.schedulerapp.tasks.GetCampusesByClient;
 import com.schedulerapp.models.AppointmentDepartment;
 
 import android.R.color;
+import com.schedulerapp.R;
+
+>>>>>>> refs/remotes/origin/master
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.ActionBar.LayoutParams;

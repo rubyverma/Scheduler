@@ -15,5 +15,5 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
     <context:property-placeholder location="classpath:application.properties"/>
-    <import resource="db-context.xml" />		
+    <import resource="db-context.xml" />
 </beans>

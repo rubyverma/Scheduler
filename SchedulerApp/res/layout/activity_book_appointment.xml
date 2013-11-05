@@ -4,8 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
+    android:layout_margin="10px"
     tools:context=".MainActivity" >
 	
+    <Button
+	    android:id="@+id/button2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Select Date" />
+    
     <TextView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,11 +40,25 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" />
 
+	<TextView
+	    android:id="@+id/textView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Purpose of Visit" />
+
+	<EditText
+	    android:id="@+id/editText1"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:ems="10" >
+	    
+	</EditText>
 	<Button
 	    android:id="@+id/button1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:onClick="saveAppointmentClick"
+	    android:layout_gravity="center"
 	    android:text="Save Appointement" />
 	
 </LinearLayout>

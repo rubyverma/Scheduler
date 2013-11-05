@@ -39,8 +39,8 @@
 			<artifactId>gcm-server</artifactId>
 			<version>1.0.2</version>
 		</dependency>
- 
- 
+
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -65,6 +65,7 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+
 		<dependency>
 		  <groupId>org.codehaus.jackson</groupId>
 		  <artifactId>jackson-mapper-asl</artifactId>
@@ -113,6 +114,7 @@
       <artifactId>spring-core</artifactId>
       <version>${org.springframework-version}</version>
     </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
@@ -123,7 +125,11 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
- 
+ <dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4.3</version>
+    </dependency>
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
