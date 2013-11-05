@@ -5,27 +5,30 @@ import org.json.JSONObject;
 
 import com.schedulerapp.models.User;
 
-public class jsonParser {
-	public static String toJSon(User user)
-	{
-		String jsonData = "";
-		JSONObject jsonObject = new JSONObject();
-		JSONObject wrapper = new JSONObject();
-		try {
-			
-			jsonObject.put("firstName",user.getFirstname());
-			jsonObject.put("lastName",user.getLastname());
-			
-			//wrapper.put("user", jsonObject);
-		//	jsonData = wrapper.toString();
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		return jsonObject.toString();
-		
+public class JsonParser {
+	
+	public User parseUser(String userJson) throws NumberFormatException, JSONException {		
+		JSONObject jObj = new JSONObject(userJson);		
+		return User.getUserFromJson(jObj);
 	}
+	
+	public List<AppointmentDepartment> parseAppointments(String result) throws NumberFormatException, JSONException {		
+		List<AppointmentDepartment> appointments = new ArrayList<AppointmentDepartment>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			appointments.add(AppointmentDepartment.getAppointmentFromJson(obj));
+		}
+		return appointments;
+	}
+
+	public List<Campus> parseCampusList(String result) throws NumberFormatException, JSONException {
+		List<Campus> campuses = new ArrayList<Campus>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			campuses.add(Campus.getCampusFromJson(obj));
+		}
 	
 	/*public static JSONObject tostr(String str)
 	{
@@ -39,16 +42,39 @@ public class jsonParser {
 			jsonObject.put("firstName",user.getFirstName());
 			jsonObject.put("lastName",user.getLastName());
 			
-			return jsonObject.toString();
+		return campuses;
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
+	}
+
+	public List<Department> parseDepartmentList(String result) throws NumberFormatException, JSONException {
+		List<Department> departments = new ArrayList<Department>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			departments.add(Department.getDepartmentFromJson(obj));
 		}
-		
-		return jObj;
-		
-	}*/
+		return departments;
+	}
 	
-
-
+	public List<Departmenttimeslot> parseDepartmenttimeslotList(String result) throws NumberFormatException, JSONException {
+		List<Departmenttimeslot> timeSlots = new ArrayList<Departmenttimeslot>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			timeSlots.add(Departmenttimeslot.getDepartmenttimeslotFromJson(obj));
+		}
+		return timeSlots;
+	}
+	
+	public List<DepartmentTimeslotLinkage> parseDepartmenttimeslotLinkageList(String result) throws NumberFormatException, JSONException {
+		List<DepartmentTimeslotLinkage> timeSlots = new ArrayList<DepartmentTimeslotLinkage>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			timeSlots.add(DepartmentTimeslotLinkage.getDepartmentTimeslotLinkageFromJson(obj));
+		}
+		return timeSlots;
+	}	
 }
