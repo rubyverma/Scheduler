@@ -1,6 +1,9 @@
 package com.schedulerapp.activities;
  
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
  
@@ -44,6 +47,7 @@ public class BookAppointment extends Activity {
 	Spinner deptSpinner;
 	Spinner timeSlotSpinner;
 	Button btnPickDate;
+	String current = "";
 	
 	Campus selectedCampus;
 	Department selectedDepartment;
@@ -114,6 +118,10 @@ public class BookAppointment extends Activity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
  
+        current = (new StringBuilder()
+        .append(mYear).append("-")
+        .append(mMonth + 1).append("-")
+        .append(mDay).append("")).toString();
         // display the current date (this method is below)
         updateDisplay();
         
@@ -182,7 +190,32 @@ public class BookAppointment extends Activity {
 		}
 	}
 	
-	public void saveAppointmentClick(View v) throws InterruptedException, ExecutionException {
+	public void saveAppointmentClick(View v) throws InterruptedException, ExecutionException, ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	Date currentDate = sdf.parse(current);
+    	Date selected = sdf.parse(txtData.getText().toString());
+    	if(selected.compareTo(currentDate) < 0){
+			Toast.makeText(getApplicationContext(), "Selected date must be greater than or equal to curent date", Toast.LENGTH_LONG).show();
+			return;    		
+    	}
+    	
+		if(selectedCampus == null || selectedCampus.getCampusId() == -1) {
+			Toast.makeText(getApplicationContext(), "Please select Campus", Toast.LENGTH_LONG).show();
+			return;
+		}
+		if(selectedDepartment == null || selectedDepartment.getDepartmentId() == -1) {
+			Toast.makeText(getApplicationContext(), "Please select Department", Toast.LENGTH_LONG).show();
+			return;
+		}
+		if(selectedDepartmentTimeslotLinkage == null || selectedDepartmentTimeslotLinkage.getDepartmentTimeId() == -1) {
+			Toast.makeText(getApplicationContext(), "Please select Timeslot", Toast.LENGTH_LONG).show();
+			return;
+		}		
+		if(txtPurpose.getText().toString().trim().equals("")) {
+			Toast.makeText(getApplicationContext(), "Please enter purpose", Toast.LENGTH_LONG).show();
+			return;
+		}		
 		final JSONObject jsonObjectUser = new JSONObject();
 		try {			
             jsonObjectUser.put("departmentTimeId", selectedDepartmentTimeslotLinkage.getDepartmentTimeId());
