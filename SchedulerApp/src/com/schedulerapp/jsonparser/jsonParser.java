@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.models.Campus;
 import com.schedulerapp.models.Department;
@@ -36,7 +37,7 @@ public class jsonParser {
 		for (int i=0; i<jObj.length(); i++) {
 			JSONObject obj = jObj.getJSONObject(i);
 			campuses.add(Campus.getCampusFromJson(obj));
-		}	
+		}
 		return campuses;
 	}
 
