@@ -1,11 +1,19 @@
 package com.schedulerapp.jsonparser;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import com.schedulerapp.models.AppointmentDepartment;
+import com.schedulerapp.models.Campus;
+import com.schedulerapp.models.Department;
+import com.schedulerapp.models.DepartmentTimeslotLinkage;
+import com.schedulerapp.models.Departmenttimeslot;
 import com.schedulerapp.models.User;
 
-public class JsonParser {
+public class jsonParser {
 	
 	public User parseUser(String userJson) throws NumberFormatException, JSONException {		
 		JSONObject jObj = new JSONObject(userJson);		
@@ -28,24 +36,8 @@ public class JsonParser {
 		for (int i=0; i<jObj.length(); i++) {
 			JSONObject obj = jObj.getJSONObject(i);
 			campuses.add(Campus.getCampusFromJson(obj));
-		}
-	
-	/*public static JSONObject tostr(String str)
-	{
-		JSONObject jObj = new JSONObject();
-		String json = "";
-		
-		JSONObject jsonObject = new JSONObject();
-		try {
-			
-			
-			jsonObject.put("firstName",user.getFirstName());
-			jsonObject.put("lastName",user.getLastName());
-			
+		}	
 		return campuses;
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
 	}
 
 	public List<Department> parseDepartmentList(String result) throws NumberFormatException, JSONException {

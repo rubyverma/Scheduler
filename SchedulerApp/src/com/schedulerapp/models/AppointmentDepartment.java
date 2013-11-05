@@ -22,7 +22,7 @@ public class AppointmentDepartment extends Appointment  {
 	public static AppointmentDepartment getAppointmentFromJson(JSONObject obj) throws JSONException {
 		AppointmentDepartment appointment = new AppointmentDepartment();
 	      
-		  appointment.setMeetingNotes(obj.getString("meetingNotes"));
+		appointment.setMeetingNotes(obj.getString("meetingNotes"));
 	      appointment.setMeetingFinished(obj.getString("meetingFinished"));
 	      appointment.setOfficialId(obj.getInt("officialId"));
 	      appointment.setAppointmentId(obj.getInt("appointmentId"));
