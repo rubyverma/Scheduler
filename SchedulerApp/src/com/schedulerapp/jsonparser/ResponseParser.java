@@ -1,27 +1,28 @@
 package com.schedulerapp.jsonparser;
-
+ 
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+ 
 import com.schedulerapp.models.Campus;
 import com.schedulerapp.models.Department;
 import com.schedulerapp.models.DepartmentTimeslotLinkage;
 import com.schedulerapp.models.Departmenttimeslot;
 import com.schedulerapp.models.User;
-
+ 
 public class ResponseParser {
 	
 	public User parseUser(String userJson) throws NumberFormatException, JSONException {		
 		JSONObject jObj = new JSONObject(userJson);		
 		return User.getUserFromJson(jObj);
 	}
-
+ 
 	public List<Campus> parseCampusList(String result) throws NumberFormatException, JSONException {
 		List<Campus> campuses = new ArrayList<Campus>();
+		campuses.add(Campus.getSelectPropmpt());
 		JSONArray jObj = new JSONArray(result);
 		for (int i=0; i<jObj.length(); i++) {
 			JSONObject obj = jObj.getJSONObject(i);
@@ -29,9 +30,10 @@ public class ResponseParser {
 		}
 		return campuses;
 	}
-
+ 
 	public List<Department> parseDepartmentList(String result) throws NumberFormatException, JSONException {
 		List<Department> departments = new ArrayList<Department>();
+		departments.add(Department.getSelectPropmpt());
 		JSONArray jObj = new JSONArray(result);
 		for (int i=0; i<jObj.length(); i++) {
 			JSONObject obj = jObj.getJSONObject(i);
@@ -47,12 +49,12 @@ public class ResponseParser {
 			JSONObject obj = jObj.getJSONObject(i);
 			timeSlots.add(Departmenttimeslot.getDepartmenttimeslotFromJson(obj));
 		}
-		System.out.println(result);
 		return timeSlots;
 	}
 	
 	public List<DepartmentTimeslotLinkage> parseDepartmenttimeslotLinkageList(String result) throws NumberFormatException, JSONException {
 		List<DepartmentTimeslotLinkage> timeSlots = new ArrayList<DepartmentTimeslotLinkage>();
+		timeSlots.add(DepartmentTimeslotLinkage.getSelectPropmpt());
 		JSONArray jObj = new JSONArray(result);
 		for (int i=0; i<jObj.length(); i++) {
 			JSONObject obj = jObj.getJSONObject(i);

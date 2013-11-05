@@ -59,6 +59,14 @@ public class Department {
 		this.dateCreated = dateCreated;
 	}
 	
+
+	public static Department getSelectPropmpt() throws JSONException {
+	Department department = new Department();
+	department.setDepartmentId(-1);
+	department.setDepartmentName("Select Department");
+	return department;
+}	
+	
 	public static Department getDepartmentFromJson(JSONObject obj) throws JSONException {
 		Department department = new Department();
 		department.setCampusId(obj.getInt("campusId"));

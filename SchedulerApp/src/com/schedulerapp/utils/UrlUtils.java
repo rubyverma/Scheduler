@@ -7,4 +7,5 @@ public class UrlUtils {
 	public static String GET_DEPARTMENT = "/api/getDepartmentByCampus/";
 	public static String GET_TIME_SLOT 	= "/api/getDepartmentTimeslot/";
 	public static String GET_APPOINTMENTS 	= "/appointment/mobileview/";
+	public static String SAVE_APPOINTMENT 	= "/api/saveappointment/";
 }

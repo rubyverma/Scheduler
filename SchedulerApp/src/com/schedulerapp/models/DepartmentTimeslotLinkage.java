@@ -21,12 +21,17 @@ public class DepartmentTimeslotLinkage extends Departmenttimeslot{
 			this.stopTime = stopTime;
 		}
 		
+		public static DepartmentTimeslotLinkage getSelectPropmpt() throws JSONException {
+			DepartmentTimeslotLinkage departmenttimeslot = new DepartmentTimeslotLinkage();
+			departmenttimeslot.setDepartmentId(-1);
+			departmenttimeslot.setStartTime("Select Timeslot");
+			departmenttimeslot.setStopTime("");
+			return departmenttimeslot;
+		}
+		
 		public static DepartmentTimeslotLinkage getDepartmentTimeslotLinkageFromJson(JSONObject obj) throws JSONException {
 			DepartmentTimeslotLinkage departmenttimeslot = new DepartmentTimeslotLinkage();
-			departmenttimeslot.setCapacity(obj.getInt("capacity"));
 			departmenttimeslot.setDepartmentId(obj.getInt("departmentId"));
-			departmenttimeslot.setDepartmentTimeId(obj.getInt("departmentTimeId"));
-			departmenttimeslot.setTimeslotId(obj.getInt("timeslotId"));
 			departmenttimeslot.setWeekdays(obj.getString("weekdays"));
 			departmenttimeslot.setStartTime(obj.getString("startTime"));
 			departmenttimeslot.setStopTime(obj.getString("stopTime"));
