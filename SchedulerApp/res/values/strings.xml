@@ -7,8 +7,7 @@
     <string name="title_activity_user">User</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_book_appointment">BookAppointment</string>
-    <string name="title_activity_view_appointment">ViewAppointment</string>
-    <string name="title_activity_view_appointments">ViewAppointments</string>
     <string name="title_activity_viewappointments">View Appointments</string>
-
+    <string name="title_activity_view_notifications">View Notifications</string>
+    <string name="title_activity_view_announcement">View Announcement</string>
 </resources>

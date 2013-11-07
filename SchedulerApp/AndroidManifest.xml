@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.schedulerapp.activities"
+    package="com.schedulerapp"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
+
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -47,7 +48,7 @@
         </activity>
 
         <receiver
-            android:name="com.scheduler.mobileapp.GcmBroadcastReceiver"
+            android:name="com.schedulerapp.gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
 
             <!-- Receive the actual message -->
@@ -64,7 +65,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.scheduler.mobileapp.GcmIntentService" />
+        <service android:name="com.schedulerapp.gcm.GcmIntentService" />
         <service
             android:name="org.openudid.OpenUDID_service"
             android:exported="false" >
@@ -80,14 +81,6 @@
         <activity
             android:name="com.schedulerapp.activities.ViewappointmentsActivity"
             android:label="@string/title_activity_viewappointments" >
-        </activity>
-        <activity
-            android:name="com.schedulerapp.activities.ViewNotifications"
-            android:label="@string/title_activity_view_notifications" >
-        </activity>
-        <activity
-            android:name="com.schedulerapp.activities.ViewAnnouncement"
-            android:label="@string/title_activity_view_announcement" >
         </activity>
     </application>
 

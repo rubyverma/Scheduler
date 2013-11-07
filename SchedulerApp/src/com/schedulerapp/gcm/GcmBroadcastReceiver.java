@@ -24,8 +24,8 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
 		this.context = context;
 
 		Bundle extras = intent.getExtras();
-		String message = extras.getString("scorer");
-		Toast.makeText(context, "Message recieved: " + message,
+		String message = extras.getString("name");
+		Toast.makeText(context, "Scheduler App: " + message,
 				Toast.LENGTH_LONG).show();
 
 		Vibrator v = (Vibrator) context
@@ -39,12 +39,13 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
 
 	private void showNotification(Context context, String message) {
 
+		
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				new Intent(context, MainActivity.class), 0);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				context).setSmallIcon(R.drawable.ic_launcher)
-				.setContentTitle("New message from Scheduler!")
+				.setContentTitle("Scheduler App! " + message)
 				.setContentText(message);
 		mBuilder.setContentIntent(contentIntent);
 		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
@@ -52,6 +53,7 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
 		NotificationManager mNotificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.notify(1, mBuilder.build());
+		
 
 	}
 

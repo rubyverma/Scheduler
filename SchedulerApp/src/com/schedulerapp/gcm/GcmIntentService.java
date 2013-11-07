@@ -15,7 +15,6 @@ import com.schedulerapp.activities.MainActivity;
 public class GcmIntentService extends IntentService {
 
 	public static final int NOTIFICATION_ID = 1;
-	//private static final String TAG = "GCMDemo1";
 	private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
 

@@ -6,17 +6,22 @@ import com.schedulerapp.gcm.GcmHandler;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 public class MainActivity extends Activity {
+	private static final String TAG = "GCM";
 	Intent intent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		GcmHandler gcmHandler = new GcmHandler();
+		// Author- Sonny
+		// To initialize Google Cloud messaging service
+		GcmHandler gcmHandler = new GcmHandler(this);
+		Log.i(TAG, "GCM registered: " + gcmHandler);
 	}
 
 	@Override
