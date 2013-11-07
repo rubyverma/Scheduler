@@ -18,5 +18,14 @@ public class ClientService {
 	{
 		return clientMapper.saveClient(client);
 	}
+	public int verifyClient(int client_id) {
+		return clientMapper.verifyClient(client_id);
+
+	}
+
+	public String getClientToken(int client_id) {
+		// TODO Auto-generated method stub
+		return clientMapper.getClientToken(client_id);
+	}
 	
 }

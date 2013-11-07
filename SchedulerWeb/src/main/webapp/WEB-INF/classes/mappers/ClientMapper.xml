@@ -10,4 +10,14 @@
 			select last_insert_id()
 		</selectKey>
 	</insert>
+	<update id="verifyClient" parameterType="int">
+		update
+		client set
+		emailVerified = 1
+		where clientId = #{client_id}
+	</update>
+	<select id="getClientToken" parameterType="int" resultType="String">
+		select token from client where clientId=#{client_id}
+	</select>
+	
 </mapper>
