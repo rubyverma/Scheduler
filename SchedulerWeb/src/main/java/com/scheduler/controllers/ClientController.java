@@ -1,5 +1,7 @@
 package com.scheduler.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.scheduler.models.Client;
 import com.scheduler.request.MailMail;
@@ -78,5 +81,31 @@ public class ClientController {
 			return "client/verifyClient";
 
 		}
-
-}
+		
+		
+		@RequestMapping(value="/login", method=RequestMethod.POST)
+		public String loginClient(@RequestParam("userName")String userName,@RequestParam("password")String password, Model model,HttpSession session)
+		{
+			
+			// username and password
+			// function- authenticate(uname, pswd)
+			// select * from user_tb where username =uname and password=pswd 
+			// if above query return >= 1 rows, then authntication success, else fail
+			
+			String vUserName = clientService.findUserName(userName);
+			String vPassword = clientService.findPassword(password);
+			if(vUserName.equals(userName) && vPassword.equals(password))
+			{
+				// Name of the user
+				// username of the user => userName
+				// user_id (clientId, officalId, generalUserId)
+				session.setAttribute("vUserName", vUserName);
+				
+			}
+			else
+			{
+				return "client/error";
+			}
+			return"";
+		}
+		}

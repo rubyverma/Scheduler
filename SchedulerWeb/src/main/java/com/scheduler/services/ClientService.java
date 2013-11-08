@@ -27,5 +27,13 @@ public class ClientService {
 		// TODO Auto-generated method stub
 		return clientMapper.getClientToken(client_id);
 	}
+	public String findUserName(String userName) {
+	
+		return clientMapper.findUserName(userName);
+	}
+	public String findPassword(String password) {
+		// TODO Auto-generated method stub
+		return clientMapper.findPassword(password);
+	}
 	
 }
