@@ -20,4 +20,5 @@
 		select token from client where clientId=#{client_id}
 	</select>
 	
+	
 </mapper>
