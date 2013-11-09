@@ -61,7 +61,7 @@ public class OfficialController {
 		System.out.println("view queue started");
 
 		int departmentId=1;
-		String appointmentDate="2013-11-13";
+		String appointmentDate="2013-10-28";
 		listofAppointment= appointmentService.getAllAppointment(departmentId,appointmentDate);
 		model.addAttribute("appointmentList",listofAppointment);
 
@@ -134,7 +134,7 @@ public class OfficialController {
 
 		boolean broadcasted = announcementService.addUserAnnouncement(
 				listofAppointment, announcement_id,
-				announcement.getAnnouncementHeader());
+				announcement.getAnnouncementHeader(), announcement.getAnnouncementDescription());
 
 		// Redirecting to view the queue
 		return "redirect:/official/meeting/viewqueue";

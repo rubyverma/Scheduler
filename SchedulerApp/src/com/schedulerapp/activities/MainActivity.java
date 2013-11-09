@@ -1,6 +1,6 @@
 package com.schedulerapp.activities;
 
-import com.schedulerapp.R;
+
 import com.schedulerapp.gcm.GcmHandler;
 
 import android.app.Activity;
@@ -38,5 +38,10 @@ public class MainActivity extends Activity {
 	public void viewAppointmentClick(View v) {
 		intent = new Intent(this,ViewappointmentsActivity.class);
 		startActivity(intent);		
+	}
+	
+	public void openSettings(View view) {
+		Intent intent = new Intent(this, SettingsActivity.class);
+		startActivity(intent);
 	}
 }

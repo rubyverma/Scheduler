@@ -15,9 +15,9 @@ public class SendPostRequest {
 
 	private static final String API_KEY = "AIzaSyALsNzA33zOh51g0ECjYcGWtA2y3hbcZaY";
 
-	public String sendNotification(String registration_id, String notificationMessage) {
+	public String sendNotification(String registration_id, String notificationTitle, String notificationMessage) {
 		
-		String message_id = "";
+		String message_id = "", cannonical_id="";
 		Result result;
 		
 		Sender sender = new Sender(API_KEY);
@@ -26,13 +26,14 @@ public class SendPostRequest {
 		Message message = new Message.Builder().collapseKey("message")
 				.timeToLive(3).delayWhileIdle(true)
 				.addData("message", notificationMessage) // you can get this
-															// message on client
-															// side app
+				.addData("title", notificationTitle) // message on client
+														 // side app
 				.build();
 
 		try {
 			result = sender.send(message, registration_id, 1);
 			message_id = result.getMessageId();
+			cannonical_id = result.getCanonicalRegistrationId();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,7 +42,7 @@ public class SendPostRequest {
 		return message_id;
 	}
 	
-	public String multicastMessage(List<String> devices, String messageToSend) {
+	public String multicastMessage(List<String> devices, String messageTitle, String messageToSend) {
 		
 		Sender sender = new Sender(API_KEY);
 		long multicast_id = 0;
@@ -50,6 +51,7 @@ public class SendPostRequest {
 				.timeToLive(3)
 				.delayWhileIdle(true)
 				.addData("message",  messageToSend)
+				.addData("title",  messageTitle)
 				.build();
 		
 		try {
