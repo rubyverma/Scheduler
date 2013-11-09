@@ -15,6 +15,5 @@ public interface ClientMapper {
 	int saveClient(Client client) throws BadSqlGrammarException;
 	int verifyClient(@Param("client_id") int client_id);
     String getClientToken(@Param("client_id") int client_id);
-	String findUserName(@RequestParam("userName")String userName);
-	String findPassword(@RequestParam("password")String password);
+   
 }

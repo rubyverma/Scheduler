@@ -2,14 +2,21 @@ package com.schedulerapp.activities;
 
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.schedulerapp.adapters.CampusAdapter;
 import com.schedulerapp.tasks.GetAppointments;
 import com.schedulerapp.tasks.GetCampusesByClient;
+import com.schedulerapp.httprequests.HttpClient;
+import com.schedulerapp.httprequests.HttpRequests;
 import com.schedulerapp.models.AppointmentDepartment;
+import com.schedulerapp.models.User;
 
 import android.R.color;
 import com.schedulerapp.R;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.ActionBar.LayoutParams;
@@ -20,6 +27,8 @@ import android.text.Layout.Alignment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,12 +37,12 @@ import android.widget.TextView;
 public class ViewappointmentsActivity extends Activity {
 	public List<AppointmentDepartment> appointments;
 	public StringBuilder builder = new StringBuilder();
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewappointments);
-		
 		String userId = "1";
 		GetAppointments task = new GetAppointments();
 		try {
@@ -133,8 +142,8 @@ public class ViewappointmentsActivity extends Activity {
 	        linearLayout.addView(tablelayout);
 	        linearLayout.addView(blankTablelayout);
 	    }
-
 	}
+	    
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -23,6 +23,7 @@
 	    android:id="@+id/btnViewAnnouncement"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="View Announcement" />
+	    android:text="View Announcement"
+	    android:onClick="viewAppointmentClick" />
 	
 </LinearLayout>

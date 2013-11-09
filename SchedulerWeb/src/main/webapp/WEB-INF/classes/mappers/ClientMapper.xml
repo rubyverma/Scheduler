@@ -19,10 +19,6 @@
 	<select id="getClientToken" parameterType="int" resultType="String">
 		select token from client where clientId=#{client_id}
 	</select>
-	<select id="findUserName" parameterType="String" resultType="String">
-		select userName from client where userName=#{userName}
-	</select>
-	<select id="findPassword" parameterType="String" resultType="String">
-		select password from client where password=#{password}
-	</select>
+	
+	
 </mapper>
