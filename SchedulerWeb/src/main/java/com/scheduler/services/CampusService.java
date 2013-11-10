@@ -24,4 +24,25 @@ public class CampusService {
 		campuses = campusMapper.getCampusByClient(clientId);
 		return campuses;
 	}
+	
+	public List<Campus> findAllCampuses(int clientId)
+			throws BadSqlGrammarException {
+		return campusMapper.findAllCampuses(clientId);
+	}
+	
+	public int deleteCampus(@Param("campusId") int campusId)  throws BadSqlGrammarException {
+		return campusMapper.deleteCampus(campusId);
+	}
+	
+	public int saveCampus(Campus campus) throws BadSqlGrammarException {
+		return campusMapper.saveCampus(campus);
+	}
+	
+	public Campus getCampusById(@Param("campusId") int campusId)  throws BadSqlGrammarException {
+		return campusMapper.getCampusById(campusId);
+	}
+	
+	public int updateCampus(Campus campus) throws BadSqlGrammarException{
+		return campusMapper.updateCampus(campus);
+	}
 }
