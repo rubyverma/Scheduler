@@ -27,6 +27,10 @@ public class ClientService {
 		// TODO Auto-generated method stub
 		return clientMapper.getClientToken(client_id);
 	}
+	public int getLastClientId() {
+		// TODO Auto-generated method stub
+		return clientMapper.getLastClientId();
+	}
 	
 	
 }
