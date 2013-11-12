@@ -13,6 +13,7 @@ public class OfficialUser {
 	private int officialId;
 	private int departmentId;
 	private int roleId;
+	private String roleName;
 	private String officialName;
 	private String password;
 	private String email;

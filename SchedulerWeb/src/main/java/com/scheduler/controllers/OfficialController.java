@@ -13,6 +13,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,17 +22,29 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.scheduler.models.Announcement;
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
+
 import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
 import com.scheduler.models.OfficialUser;
+import com.scheduler.services.GeneralUserService;
+import com.scheduler.services.UserService;
+
+import com.scheduler.models.Campus;
+import com.scheduler.models.Department;
+import com.scheduler.models.GeneralUser;
+import com.scheduler.models.Notification;
+import com.scheduler.models.OfficialUser;
+import com.scheduler.models.Roles;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
-import com.scheduler.services.GeneralUserService;
+import com.scheduler.services.CampusService;
+import com.scheduler.services.DepartmentService;
 import com.scheduler.services.NotificationService;
 import com.scheduler.services.OfficialUserService;
-import com.scheduler.services.UserService;
+import com.scheduler.services.RolesService;
+
 
 @RequestMapping("/official")
 @Controller
@@ -47,10 +60,17 @@ public class OfficialController {
 	@Autowired(required = true)
 	private AnnouncementService announcementService;
 	
-	public List<AppointmentList> listofAppointment;
+	@Autowired(required = true)
+	private OfficialUserService officialUserService;
 	
 	@Autowired(required = true)
-	private OfficialUserService officialuserService;
+	private DepartmentService departmentService;
+	
+	@Autowired(required = true)
+	private RolesService rolesService;
+	
+	public List<AppointmentList> listofAppointment;
+
 
 	@RequestMapping(value = "/meeting/finish", method = RequestMethod.POST)
 	public String finishMeeting(
@@ -172,10 +192,11 @@ public class OfficialController {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 		MailMail mm = (MailMail) context.getBean("mailMail");
-        mm.sendMail("Scheduler App", "This is a Test Email \n your activation code : 85647555 ","sanket.scorp@gmail.com");
+       // mm.sendMail("Scheduler App", "This is a Test Email \n your activation code : 85647555 ","sanket.scorp@gmail.com");
 		
 		return "meeting/testmeeting";
 	}
+
 	// Author - Devraj Valecha
 			// Usage - Login for official user
 			// client
@@ -192,7 +213,7 @@ public class OfficialController {
 			OfficialUser o1 = new OfficialUser();
 			o1.setOfficialName(userName);
 			o1.setPassword(password);
-			OfficialUser result = officialuserService.authenticate(o1);
+			OfficialUser result = officialUserService.authenticate(o1);
 			if (result.getOfficialId()>0) {
 				String name = result.getFirstName();
 				int id = result.getOfficialId();
@@ -213,5 +234,59 @@ public class OfficialController {
 			return "officialuser/dashboard";
 		}
 		
+
+
+	
+	@RequestMapping(value = "users/view", method = RequestMethod.GET)
+	public String viewOfficialUsers(Model model) {
+		
+		int clientId = 1;
+		
+		List<Roles> roles = rolesService.getRoles();
+		List<Department> departments = departmentService.departmentByClient(clientId);
+		for (Department department:departments)
+		{
+			department.setOfficialUsers(officialUserService.getOfficialUserByDepartment(department.getDepartmentId()));
+		}
+		model.addAttribute("departments", departments);
+		model.addAttribute("roles", roles);
+		model.addAttribute("officialUser", new OfficialUser());
+		return "client/officialusers";
+	}
+	
+	@RequestMapping(value = "users/save", method = RequestMethod.POST)
+	public String viewOfficialUsers(@ModelAttribute("officialUser") OfficialUser officialUser, Model model) {
+		
+		int i = officialUserService.saveOfficialUser(officialUser);
+		return "redirect:/official/users/view";
+	}
+	
+	@RequestMapping(value = "users/delete/{officialId}", method = RequestMethod.GET)
+	public String deleteOfficialUsers(@PathVariable("officialId") int officialId, Model model) {
+		
+		int i = officialUserService.deleteOfficialUser(officialId);
+		return "redirect:/official/users/view";
+	}
+	
+	@RequestMapping(value = "users/edit/{officialId}", method = RequestMethod.GET)
+	public String editOfficialUsers(@PathVariable("officialId") int officialId, Model model) {
+		int clientId = 1;
+		List<Roles> roles = rolesService.getRoles();
+		List<Department> departments = departmentService.departmentByClient(clientId);
+		OfficialUser officialUser = officialUserService.getOfficialUserById(officialId);
+		model.addAttribute("Id", officialId);
+		model.addAttribute("departments", departments);
+		model.addAttribute("roles", roles);
+		model.addAttribute("officialUserEdit", officialUser);
+		return "client/editofficialuser";
+	}
+	
+	@RequestMapping(value = "users/update", method = RequestMethod.POST)
+	public String updateOfficialUsers(@ModelAttribute("officialUser") OfficialUser officialUser, Model model) {
+		
+		int i = officialUserService.updateOfficialUser(officialUser);
+		return "redirect:/official/users/view";
+	}
+	
 
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.CampusMapper">
+<!-- Author - Shalin Banjara -->
+<!-- Usage - To select a list of campuses for a particular client -->
+	<select id="getCampusByClient" parameterType="int" resultType="com.scheduler.models.Campus">
+		select campusId, campusName from campus where clientId = #{clientId}
+	</select>
+
+</mapper>

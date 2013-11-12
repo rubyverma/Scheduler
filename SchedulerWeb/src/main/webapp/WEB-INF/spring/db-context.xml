@@ -76,9 +76,21 @@
         <property name="mapperInterface" value="com.scheduler.mappers.TimeslotMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
-    
-    <bean id="officialUserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.scheduler.mappers.OfficialUserMapper" />
+
+    <bean id="generaluserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.scheduler.mappers.GeneralUserMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
+    
+	<bean id="officialUserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<property name="mapperInterface" value="com.scheduler.mappers.OfficialUserMapper" />
+	<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    
+    <bean id="rolesMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="com.scheduler.mappers.RolesMapper" />
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    
+
 </beans>

@@ -51,6 +51,7 @@ public class Campus {
 		return campus;
 	}
 	
+			
 	public static Campus getCampusFromJson(JSONObject obj) throws JSONException {
 		Campus campus = new Campus();
 		campus.setCampusId(obj.getInt("campusId"));
@@ -60,3 +61,35 @@ public class Campus {
 		return campus;
 	}	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

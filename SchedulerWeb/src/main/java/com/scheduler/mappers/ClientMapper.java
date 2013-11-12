@@ -18,4 +18,5 @@ public interface ClientMapper {
     Client authenticate(Client c);
     String getClientName(@RequestParam("userName")String userName,@RequestParam("password")String password);
     int getClientId(@RequestParam("userName")String userName,@RequestParam("password")String password);
+	int getLastClientId();
 }

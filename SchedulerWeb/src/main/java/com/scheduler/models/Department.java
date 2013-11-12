@@ -1,6 +1,8 @@
 package com.scheduler.models;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,4 +20,5 @@ public class Department {
 	private int contactInfo;
 	private String departmentDescription;
 	private Date dateCreated;
+	private List<OfficialUser> officialUsers = new ArrayList<OfficialUser>();
 }

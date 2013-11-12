@@ -8,6 +8,7 @@
  */
 
 package com.scheduler.models;
+
 import java.sql.Date;
 import java.sql.Time;
 
@@ -20,19 +21,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Timeslot {
 	/**
-	 * @brief		Unique Id for each timeslot object referenced from the primary key of the table timeslot table. 
+	 * @brief Unique Id for each timeslot object referenced from the primary key
+	 *        of the table timeslot table.
 	 */
-		private int timeslotId;
+	private int timeslotId;
 	/**
-	 * @brief		Stores the starting time for the timeslot.
+	 * @brief Stores the client Id for the timeslot.
 	 */
-		private Time startTime;
+	private int clientId;
+
 	/**
-	 * @brief		Stores the ending time for the timeslot.
+	 * @brief Stores the starting time for the timeslot.
 	 */
-		private Time stopTime;
+	private Time startTime;
 	/**
-	 * @brief		Stores the description for the timeslot.
+	 * @brief Stores the ending time for the timeslot.
 	 */
-		private String description;
+	private Time stopTime;
+	/**
+	 * @brief Stores the description for the timeslot.
+	 */
+	private String description;
 }

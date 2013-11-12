@@ -1,13 +1,14 @@
 package com.scheduler.request;
 
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+
+
 
 public class MailMail {
 
-	private MailSender mailSender;
-	private SimpleMailMessage simpleMailMessage;
+	//private MailSender mailSender;
+	//private SimpleMailMessage simpleMailMessage;
 	
+	/*
 	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
 		this.simpleMailMessage = simpleMailMessage;
 	}
@@ -15,16 +16,16 @@ public class MailMail {
 	public void setMailSender(MailSender mailSender) {
 		this.mailSender = mailSender;
 	}
-	
+	*/
 	public void sendMail(String dear, String content,String to) {
-
+		/*
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("schedulerapp1234@gmail.com");
 		message.setTo(to);
 		message.setSubject("Scheduler App");
 		message.setText(String.format(
 				simpleMailMessage.getText(), dear, content));
-		mailSender.send(message);
+		mailSender.send(message);*/
 		/*SimpleMailMessage message = new SimpleMailMessage(simpleMailMessage);
 		
 		message.setText(String.format(

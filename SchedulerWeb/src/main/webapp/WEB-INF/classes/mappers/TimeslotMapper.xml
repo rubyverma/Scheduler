@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.TimeslotMapper">
+
+	<insert id="addNewTimeslot" parameterType="com.scheduler.models.Timeslot"
+		useGeneratedKeys="true" keyProperty="timeslotId" keyColumn="timeslotId">
+		insert into
+		timeslot(clientId, startTime, stopTime, description)
+		values
+		(#{clientId}, #{startTime}, #{stopTime}, #{description})
+	</insert>
+
+	<select id="getTimeslotDetails" parameterType="int"
+		resultType="com.scheduler.models.Timeslot">
+		SELECT * from timeslot where timeslotId=#{timeslotId}
+	</select>
+	
+	<select id="getDuplicate" parameterType="int"
+		resultType="com.scheduler.models.Timeslot">
+		SELECT * from timeslot where clientId=#{clientId} and startTime=#{startTime} and 
+		stopTime=#{stopTime}
+	</select>
+
+	<select id="getAllTimeslots" parameterType="int"
+		resultType="com.scheduler.models.Timeslot">
+		SELECT * from timeslot where clientId=#{clientId}
+	</select>
+
+	<select id="getDepartmentsByTimeslot" parameterType="int"
+		resultType="com.scheduler.models.Departmenttimeslot">
+		SELECT dt.* from departmenttimeslot dt, timeslot t where
+		dt.timeslotId=t.timeslotId and t.timeslotId=#{timeslotId}
+	</select>
+
+	<delete id="removeTimeslot" parameterType="int">
+		delete from timeslot
+		where timeslotId=#{timeslotId}
+	</delete>
+
+	<update id="updateTimeslot" parameterType="com.scheduler.models.Timeslot"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		update timeslot set startTime=#{startTime}, stopTime=#{stopTime}, description=#{description}
+		where timeslotId=#{timeslotId}
+	</update>
+
+</mapper>

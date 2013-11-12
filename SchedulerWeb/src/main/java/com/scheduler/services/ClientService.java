@@ -18,6 +18,7 @@ public class ClientService {
 	{
 		return clientMapper.saveClient(client);
 	}
+
 	public int verifyClient(int client_id) {
 		return clientMapper.verifyClient(client_id);
 
@@ -27,6 +28,7 @@ public class ClientService {
 		// TODO Auto-generated method stub
 		return clientMapper.getClientToken(client_id);
 	}
+
 	
 	public Client authenticate(Client c) {
 		
@@ -46,6 +48,11 @@ public class ClientService {
    public int getClientId(String userName,String password) {
 		
 		return clientMapper.getClientId(userName,password);
+	}
+	
+	public int getLastClientId() {
+		// TODO Auto-generated method stub
+		return clientMapper.getLastClientId();
 	}
 	
 }

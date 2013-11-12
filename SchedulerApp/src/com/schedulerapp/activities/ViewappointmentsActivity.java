@@ -14,7 +14,6 @@ import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.models.User;
 
 import android.R.color;
-import com.schedulerapp.R;
 
 import android.os.AsyncTask;
 import android.os.Bundle;

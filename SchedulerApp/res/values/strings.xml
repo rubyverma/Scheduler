@@ -10,4 +10,6 @@
     <string name="title_activity_viewappointments">View Appointments</string>
     <string name="title_activity_view_notifications">View Notifications</string>
     <string name="title_activity_view_announcement">View Announcement</string>
+    <string name="title_activity_settings">Settings</string>
+
 </resources>

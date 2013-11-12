@@ -2,6 +2,8 @@ package com.scheduler.controllers;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -36,16 +38,23 @@ public class ClientController {
 		return "client/registerclient";
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveClient(@ModelAttribute("client") Client client,
-			Model model) {
-		if (client != null) {
+	
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String saveClient(@ModelAttribute("client") Client client, Model model)
+	{
+		String token = null;
+		int cId;
+		if (client!=null)
+		{
 			String to = client.getEmail().toString();
-			String token = "123456789";
-			ApplicationContext context = new ClassPathXmlApplicationContext(
-					"Spring-Mail.xml");
+			ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 			MailMail mm = (MailMail) context.getBean("mailMail");
+			Random randomGenerator = new Random();
+			int mytoken =randomGenerator.nextInt(999999-100000)+100000;
+			client.setToken(""+mytoken);
 			int result = clientService.saveClient(client);
+
 			model.addAttribute("client", client);
 			System.out.println("client saved successfully");
 			mm.sendMail("Scheduler App",

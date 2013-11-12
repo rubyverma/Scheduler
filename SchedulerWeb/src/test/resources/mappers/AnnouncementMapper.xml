@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.AnnouncementMapper">
+
+	<insert id="addNewAnnouncement" parameterType="com.scheduler.models.Announcement"
+		useGeneratedKeys="true" keyProperty="announcementId" keyColumn="announcementId">
+		insert into announcement(officialId, announcementHeader,
+		announcementDescription, gcmMessageId, announcementDate)
+		values
+		(#{officialId}, #{announcementHeader}, #{announcementDescription},
+		#{gcmMessageId}, NOW())
+		<selectKey keyProperty="announcementId" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<insert id="addUserAnnouncement" parameterType="java.util.List">
+		INSERT INTO userannouncements (announcementId, userId) VALUES
+		<foreach collection="list" item="announcementItem" index="index"
+			open="(" separator="), (" close=");">
+			#{announcementItem.announcementId},
+			#{announcementItem.userId}
+		</foreach>
+	</insert>
+
+	<select id="getAllAnnouncements" parameterType="int"
+		resultType="com.scheduler.models.Announcement">
+		SELECT a.announcementDate,
+		a.announcementHeader,
+		a.announcementDescription FROM announcement a
+		WHERE announcementId IN
+		(SELECT announcementId FROM userannouncements WHERE userId = #{userId})
+		ORDER BY a.announcementDate DESC
+	</select>
+</mapper>

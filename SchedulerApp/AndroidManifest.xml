@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.schedulerapp"
+    package="com.schedulerapp.activities"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,10 +18,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission
-        android:name="com.schedulerapp.gcm.permission.C2D_MESSAGE"
+        android:name="com.schedulerapp.activities.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.schedulerapp.gcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.schedulerapp.activities.permission.C2D_MESSAGE" />
 
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -48,7 +47,7 @@
         </activity>
 
         <receiver
-            android:name="com.schedulerapp.gcm.GCMBroadcastReceiver"
+            android:name="com.schedulerapp.gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
 
             <!-- Receive the actual message -->
@@ -81,6 +80,10 @@
         <activity
             android:name="com.schedulerapp.activities.ViewappointmentsActivity"
             android:label="@string/title_activity_viewappointments" >
+        </activity>
+        <activity
+            android:name="com.schedulerapp.activities.SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 
