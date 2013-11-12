@@ -18,6 +18,7 @@ public class ClientService {
 	{
 		return clientMapper.saveClient(client);
 	}
+
 	public int verifyClient(int client_id) {
 		return clientMapper.verifyClient(client_id);
 
@@ -31,6 +32,5 @@ public class ClientService {
 		// TODO Auto-generated method stub
 		return clientMapper.getLastClientId();
 	}
-	
 	
 }

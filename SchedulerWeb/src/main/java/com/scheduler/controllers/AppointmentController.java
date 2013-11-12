@@ -74,8 +74,7 @@ public class AppointmentController {
 		}
 		return "appointment/view";
 	}
-	// Author - Devraj Valecha
-	// Usage - Cancels the appointment for the general user
+
 	@RequestMapping(value = "/cancel/{appointmentId}", method = RequestMethod.GET)
 	public String cancelAppointment(
 			@PathVariable("appointmentId") int appointmentId,

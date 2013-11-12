@@ -47,7 +47,8 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<form method="POST"
-		action="${pageContext.request.contextPath}/timeslot/new">
+		action="${pageContext.request.contextPath}/timeslot/save">
+		<input type="hidden" name="timeslotId" value="" />
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -59,7 +60,7 @@
 					<i>The timeslot can be accessed and used by departments</i>
 					<p>
 					<div class="form-group">
-						<label>Starting Tome</label> <input class="form-control"
+						<label>Starting Time</label> <input class="form-control"
 							name="startTime" placeholder="Starting Time" type="time"
 							required="required" />
 					</div>

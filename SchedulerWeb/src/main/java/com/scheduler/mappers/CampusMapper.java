@@ -25,4 +25,6 @@ public interface CampusMapper {
 	Campus getCampusById(int campusId) throws BadSqlGrammarException;
 	
 	int validateEntry(Campus campus) throws BadSqlGrammarException;
+
+	//Campus getCampusById(int campusId);
 }
