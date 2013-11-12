@@ -6,6 +6,10 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.scheduler.models.Client;
+import com.scheduler.models.OfficialUser;
 import com.scheduler.models.User;
 
 @Repository(value="userMapper")
@@ -21,4 +25,8 @@ public interface UserMapper {
 	List<User> findAllUsers() throws BadSqlGrammarException;
 
 	int deleteUser(int id)  throws BadSqlGrammarException;
+	
+	
+	
+    
 }

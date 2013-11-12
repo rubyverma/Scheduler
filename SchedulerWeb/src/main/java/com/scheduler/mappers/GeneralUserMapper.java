@@ -3,12 +3,21 @@ package com.scheduler.mappers;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.scheduler.models.Client;
+import com.scheduler.models.GeneralUser;
 
 @Repository(value="generalUserMapper")
 @Component
 public interface GeneralUserMapper {
 
 	String getUserRegistrationId(@Param("user_id") int user_id);
+
+	GeneralUser authenticate(GeneralUser gu);
+    String getFirstName(@RequestParam("username")String username,@RequestParam("password")String password);
+    int getUserId(@RequestParam("username")String userName,@RequestParam("password")String password);
+
 	
 	
 
