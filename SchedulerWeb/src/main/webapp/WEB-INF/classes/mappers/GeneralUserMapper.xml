@@ -5,5 +5,28 @@
 	<select id="getUserRegistrationId" parameterType="int" resultType="String">
 		select gcmRegId from generaluser where userId = #{user_id}
 	</select>
+	<select id="getLastUserId" parameterType="int" resultType="int">
+		select MAX(userId) FROM generaluser
+	</select>
 	
+	
+	<insert id="saveUser" parameterType="com.scheduler.models.GeneralUser"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into generaluser(clientId,firstName,lastName, username, password,email,address,dob,gender,token)
+		values
+		(1,#{firstName},#{lastName},#{username}, #{password},#{email},#{address},#{dob},#{gender},#{tocken})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<update id="verifyUser" parameterType="int">
+		update
+		generaluser set
+		emailVerified = 1
+		where userId = #{userId}
+	</update>
+	<select id="getUserToken" parameterType="int" resultType="String">
+		select token from generaluser where userId=#{userId}
+	</select>
 </mapper>

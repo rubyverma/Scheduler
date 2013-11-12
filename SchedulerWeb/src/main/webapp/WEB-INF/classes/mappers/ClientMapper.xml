@@ -5,9 +5,23 @@
 		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into client(clientName, userName, password,email,address,memo,phone1,phone2,phone3,contactPerson,website,token,dateJoined,logo)
 		values
-		(#{clientName},#{userName}, #{password},#{email},#{address},#{memo},#{phone1},#{phone2},#{phone3},#{contactPerson},#{website},123,'2013-11-11',#{logo})
+		(#{clientName},#{userName}, #{password},#{email},#{address},#{memo},#{phone1},#{phone2},#{phone3},#{contactPerson},#{website},#{token},'2013-11-11',#{logo})
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			select last_insert_id()
 		</selectKey>
 	</insert>
+
+	<update id="verifyClient" parameterType="int">
+		update
+		client set
+		emailVerified = 1
+		where clientId = #{client_id}
+	</update>
+	<select id="getClientToken" parameterType="int" resultType="String">
+		select token from client where clientId=#{client_id}
+	</select>
+	<select id="getLastClientId" parameterType="int" resultType="int">
+		select MAX(clientId) FROM client
+	</select>
+
 </mapper>
