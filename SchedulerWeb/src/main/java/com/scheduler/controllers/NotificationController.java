@@ -82,8 +82,7 @@ public class NotificationController {
 				+ " Message :- " + notification.getNotificationDescription());
 		return "redirect:/official/meeting/viewqueue/";
 	}
-	// Author - Devraj Valecha
-	// Usage - list of notifications for the general user
+	
 	// Android App fetches all the notifications for an individual user
 	
 	@RequestMapping(value = "/getnotifications/{id}" , method = RequestMethod.GET, produces = JSON_CONTENT)

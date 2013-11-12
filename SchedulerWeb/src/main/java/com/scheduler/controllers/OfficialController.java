@@ -61,7 +61,7 @@ public class OfficialController {
 		System.out.println("view queue started");
 
 		int departmentId=1;
-		String appointmentDate="2013-10-28";
+		String appointmentDate="2013-11-13";
 		listofAppointment= appointmentService.getAllAppointment(departmentId,appointmentDate);
 		model.addAttribute("appointmentList",listofAppointment);
 
@@ -134,7 +134,7 @@ public class OfficialController {
 
 		boolean broadcasted = announcementService.addUserAnnouncement(
 				listofAppointment, announcement_id,
-				announcement.getAnnouncementHeader(), announcement.getAnnouncementDescription());
+				announcement.getAnnouncementHeader());
 
 		// Redirecting to view the queue
 		return "redirect:/official/meeting/viewqueue";
@@ -161,7 +161,7 @@ public class OfficialController {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 		MailMail mm = (MailMail) context.getBean("mailMail");
-        mm.sendMail("Scheduler App", "This is a Test Email \n your activation code : 85647555 ","sanket.scorp@gmail.com");
+       // mm.sendMail("Scheduler App", "This is a Test Email \n your activation code : 85647555 ","sanket.scorp@gmail.com");
 		
 		return "meeting/testmeeting";
 	}

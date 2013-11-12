@@ -9,6 +9,7 @@
 
 package com.scheduler.models;
 
+import java.sql.Date;
 import java.sql.Time;
 
 import lombok.AllArgsConstructor;
@@ -24,9 +25,8 @@ public class Timeslot {
 	 *        of the table timeslot table.
 	 */
 	private int timeslotId;
-
 	/**
-	 * @brief Stores the clientId for the timeslot.
+	 * @brief Stores the client Id for the timeslot.
 	 */
 	private int clientId;
 

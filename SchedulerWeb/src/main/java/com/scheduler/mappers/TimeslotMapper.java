@@ -29,5 +29,9 @@ public interface TimeslotMapper {
 	
 	int removeTimeslot(@Param("timeslotId") int timeslotId);
 	
+	int updateTimeslot(Timeslot timeslot);
+	
+	Timeslot getDuplicate(Timeslot timeslot);
+	
 	
 }

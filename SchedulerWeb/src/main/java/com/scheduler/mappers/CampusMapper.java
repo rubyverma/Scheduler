@@ -12,5 +12,5 @@ import com.scheduler.models.Campus;
 public interface CampusMapper {
 	
 	List<Campus> getCampusByClient(@Param("clientId") int _clientId);
-	
+
 }

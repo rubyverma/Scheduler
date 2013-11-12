@@ -47,32 +47,105 @@ public class TimeslotController {
 
 	// Author - Sonny
 	// Usage - Save new timeslot to database
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String addNewTimeslots(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String addNewTimeslots(HttpServletRequest request, Model model,
+			RedirectAttributes redirectAttributes) {
+
+		boolean saved = false;
+		String result = "";
+		int timeslotId = 0;
 
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("stopTime");
 		String description = request.getParameter("description");
 
-		Time startTimeObj = Time.valueOf(startTime + ":00");
-		Time endTimeObj = Time.valueOf(endTime + ":00");
-		
+		// create new time slot
+		Time startTimeObj = timeslotService.convertTime(startTime);
+		Time endTimeObj = timeslotService.convertTime(endTime);
+
 		Timeslot newTimeslot = new Timeslot();
 		newTimeslot.setClientId(clientId);
 		newTimeslot.setStartTime(startTimeObj);
 		newTimeslot.setStopTime(endTimeObj);
 		newTimeslot.setDescription(description);
 		
-		boolean saved = timeslotService.CreateNewTimeslot(newTimeslot);
+		String duplicate = timeslotService.checkDuplicate(newTimeslot);
+		if( duplicate.equals("")) {
+			// not duplicate
+			timeslotId = timeslotService.CreateNewTimeslot(newTimeslot);
+			if(timeslotId>0) { saved = true; }
+			result = "Timeslot added successfully";
+		} else {
+			// duplicate exists
+			saved = true;
+			result = "This is a duplicate entry. Similar timeslot exist with the name <b>" + duplicate + "</b>";
+		}
 		
-		if(saved) {
-			redirectAttributes.addFlashAttribute("result",
-					"Timeslot added successfully");
+
+		if (saved) {
+			redirectAttributes.addFlashAttribute("result", result);
 		} else {
 			redirectAttributes.addFlashAttribute("result",
 					"Oops! Something went wrong");
 		}
-		
+
+		return "redirect:/timeslot/view";
+	}
+
+	// Author - Sonny
+	// Usage - Edit time slot
+	@RequestMapping(value = "/edit/{timeslotId}", method = RequestMethod.GET)
+	public String editTimeslot(@PathVariable int timeslotId, Model model) {
+
+		Timeslot timeslot = timeslotService.GetTimeslotDetails(timeslotId);
+		model.addAttribute("timeslot", timeslot);
+		return "timeslot/edit";
+	}
+
+	// Author - Sonny
+	// Usage - Save updated timeslot to database
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateTimeslots(HttpServletRequest request, Model model,
+			RedirectAttributes redirectAttributes) {
+
+		boolean saved = false;
+		String result = "";
+		int newTimeslotId = 0;
+		int timeslotId = Integer.parseInt(request.getParameter("timeslotId"));
+
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("stopTime");
+		String description = request.getParameter("description");
+
+		Time startTimeObj = timeslotService.convertTime(startTime);
+		Time endTimeObj = timeslotService.convertTime(endTime);
+
+		Timeslot updateTimeslot = new Timeslot();
+		updateTimeslot.setTimeslotId(timeslotId);
+		updateTimeslot.setClientId(clientId);
+		updateTimeslot.setStartTime(startTimeObj);
+		updateTimeslot.setStopTime(endTimeObj);
+		updateTimeslot.setDescription(description);
+
+		String duplicate = timeslotService.checkDuplicate(updateTimeslot);
+		if( duplicate.equals("")) {
+			// not duplicate
+			newTimeslotId = timeslotService.CreateNewTimeslot(updateTimeslot);
+			if(newTimeslotId > 0) { saved = true; }
+			result = "Timeslot updated successfully";
+		} else {
+			// duplicate exists
+			saved = true;
+			result = "This is a duplicate entry. Similar timeslot exist with the name <b>" + duplicate + "</b>";
+		}
+
+		if (saved) {
+			redirectAttributes.addFlashAttribute("result", result);
+		} else {
+			redirectAttributes.addFlashAttribute("result",
+					"Oops! Something went wrong");
+		}
+
 		return "redirect:/timeslot/view";
 	}
 
@@ -89,7 +162,7 @@ public class TimeslotController {
 		} else {
 			redirectAttributes
 					.addFlashAttribute("result",
-							"Unable to remove timeslot. Verify no department is using the timslot.");
+							"Unable to remove because some departments are using this timeslot.");
 		}
 
 		return "redirect:/timeslot/view";
