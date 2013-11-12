@@ -45,4 +45,8 @@ public class CampusService {
 	public int updateCampus(Campus campus) throws BadSqlGrammarException{
 		return campusMapper.updateCampus(campus);
 	}
+	
+	public int validateEntry(Campus campus) throws BadSqlGrammarException{
+		return campusMapper.validateEntry(campus);
+	}
 }

@@ -22,27 +22,31 @@
 			</div>
 			<div class="modal-body">
 
-				<form:form class="form-horizontal" role="form" method="POST" action="save" modelAttribute="campus">
+				<form class="form-horizontal" role="form" method="POST"
+					action="save" modelAttribute="campus">
 					<div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<form:input class="form-control" path="campusName"
-								id="campusName" placeholder="Enter Campus" required="required"></form:input>
-					</div>
+							<input type="text" class="form-control" path="campusName"
+								id="campusName" placeholder="Enter Campus" required="required" />
+
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputAddress" class="col-sm-2 control-label">Address</label>
 						<div class="col-sm-10">
-							<form:input class="form-control" path="campusAddress"
-								id="campusAddress" placeholder="Enter Address" required="required"></form:input>
+							<input type="text" class="form-control" path="campusAddress"
+								id="campusAddress" placeholder="Enter Address"
+								required="required" />
 						</div>
 					</div>
-			        <div class="modal-footer">
-				       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				       <input type="submit" class="btn btn-primary" value="Save" />
-		 	        </div>
-		       </form:form>
-		</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<input type="button" class="btn btn-primary" id="btnSave"
+							value="Save" />
+					</div>
+				</form>
+			</div>
 		</div>
 
 
@@ -50,10 +54,24 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+
+
 <c:if test="${!empty campuses}">
 	<c:if test="${!empty result}">
   	${result }
 </c:if>
+
+<br>
+<br>
+ 
+	<%
+		//String exist = request.getParameter("deleted");
+		//if (exist != null && exist.equals("1")) {
+			//out.write("<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button><strong>Campus deleted</strong> successfully.</div>");
+
+//		}
+	%>
+
 
 	<table class="table table-hover table-bordered">
 		<tr>
@@ -66,10 +84,11 @@
 			<tr>
 				<td>${campus.campusName}</td>
 				<td>${campus.campusAddress}</td>
-				<td><a href="edit/${campus.campusId}">edit</a> | <a href="delete/${campus.campusId}">delete</a>
-				</td>
+				<td><a href="edit/${campus.campusId}">edit</a> <a
+					href="delete/${campus.campusId}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 </c:if>
+
 <%@ include file="../includes/footer.jsp"%>

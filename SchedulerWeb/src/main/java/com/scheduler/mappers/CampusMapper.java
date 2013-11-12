@@ -14,14 +14,15 @@ public interface CampusMapper {
 	
 	List<Campus> getCampusByClient(@Param("clientId") int _clientId);
 	
-List<Campus> findAllCampuses(int clientId) throws BadSqlGrammarException;
+	List<Campus> findAllCampuses(int clientId) throws BadSqlGrammarException;
 	
-	int deleteCampus(int campusId)  throws BadSqlGrammarException;
+	int deleteCampus(int campusId) throws BadSqlGrammarException;
 	
-	int saveCampus(Campus campus);
+	int saveCampus(Campus campus) throws BadSqlGrammarException;
 
-	int updateCampus(Campus campus);
+	int updateCampus(Campus campus) throws BadSqlGrammarException;
 	
-	Campus getCampusById(int campusId);
+	Campus getCampusById(int campusId) throws BadSqlGrammarException;
 	
+	int validateEntry(Campus campus) throws BadSqlGrammarException;
 }
