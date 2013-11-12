@@ -21,5 +21,11 @@ public class DepartmentService {
 		departments = departmentMapper.getDepartmentByCampus(campusId);
 		return departments;
 	}
+	
+	public List<Department> departmentByClient(@Param("clientId") int clientId )  throws BadSqlGrammarException {
+		List<Department> departments = new ArrayList<Department>();
+		departments = departmentMapper.getDepartmentByClient(clientId);
+		return departments;
+	}
 
 }

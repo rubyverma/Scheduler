@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.RolesMapper">
+<!-- Author - Shalin Banjara -->
+<!-- Usage - To select a list of departments for a particular campus -->
+	<select id="getRoles" parameterType="int" resultType="com.scheduler.models.Roles">
+		select * from roles
+	</select>
+<!-- Author - Shalin Banjara -->	
+	<select id="getRolesByRoleId" parameterType="int" resultType="com.scheduler.models.Roles">
+			select * from roles where roleId=#{roleId}
+	</select>
+<!-- Author - Shalin Banjara -->	
+	<insert id="saveRole" parameterType="com.scheduler.models.Roles"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into roles(clientId,roleName,privilege,description)
+		values
+		(#{clientId},#{roleName},#{privilege},#{description})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of departments for a particular campus -->
+	<delete id="deleteRole" parameterType="int">
+		delete from roles where roleId=${roleId}
+	</delete>
+	
+<!-- Author - Shalin Banjara -->	
+	<update id="updateRole" parameterType="com.scheduler.models.Roles">
+		update roles
+		set roleName = #{roleName},privilege = #{privilege},description = #{description} where roleId = #{roleId}
+	</update>
+	
+</mapper>

@@ -11,4 +11,5 @@ import com.scheduler.models.Department;
 public interface DepartmentMapper {
 	
 	List<Department> getDepartmentByCampus(@Param("campusId") int campusId);
+	List<Department> getDepartmentByClient(@Param("clientId") int clientId);
 }
