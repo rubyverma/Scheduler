@@ -6,5 +6,5 @@
 	<select id="getDepartmentByCampus" parameterType="int" resultType="com.scheduler.models.Department">
 		select departmentId, departmentName from department where campusId = #{campusId}
 	</select>
-
+      
 </mapper>

@@ -21,4 +21,6 @@ public class Department {
 	private String departmentDescription;
 	private Date dateCreated;
 	private List<OfficialUser> officialUsers = new ArrayList<OfficialUser>();
+	private String [] days;
+	private int timeslotId;
 }

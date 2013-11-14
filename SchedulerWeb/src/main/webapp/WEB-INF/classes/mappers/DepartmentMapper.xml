@@ -13,5 +13,56 @@
 		select * from department where campusId in(select campusId from campus where clientId=#{clientId})
 	</select>
 	
+	<!-- Author - Ruby Verma -->
+  <!-- Usage - deletes selected department -->
+  <delete id="deleteDepartment" parameterType="int">
+    delete from department where departmentId = #{departmentId}
+  </delete>
+
+  <!-- Author - Ruby Verma -->
+  <!-- Usage - select department by departmentId-->  
+  <select id="getDepartmentById" parameterType="int" resultType="com.scheduler.models.Department">
+    SELECT * FROM department where departmentId = #{departmentId}
+  </select>
+
+  <!-- Author - Ruby Verma -->
+  <!-- Usage - save department-->
+  <insert id="saveDepartment" parameterType="com.scheduler.models.Department" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into department(campusId, departmentName, departmentHod, contactInfo, departmentDescription, dateCreated) values
+    (#{campusId}, #{departmentName}, #{departmentHod}, #{contactInfo}, #{departmentDescription}, Now())
+    <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+      select last_insert_id()
+    </selectKey>
+  </insert>
+
+
+  <!-- Author - Ruby Verma -->
+  <!-- Usage - update department-->
+  <update id="updateDepartment" parameterType="int">
+    update department
+    set
+    campusId = #{campusId},
+    departmentName = #{departmentName},
+    departmentHod = #{departmentHod},
+    contactInfo = #{contactInfo},
+    departmentDescription = #{departmentDescription}
+    where departmentId = #{departmentId}
+  </update>
+
+  <!-- Author - Ruby Verma -->
+  <!-- Usage - validate department by name and hod-->
+  <select id="validateDepartment" resultType="int" parameterType="com.scheduler.models.Department">
+    SELECT count(*) FROM department where departmentName = #{departmentName} and departmentHod = #{departmentHod}
+  </select>
+
+ <!-- Author - Ruby Verma -->
+  <!-- Usage - save department-->
+  <insert id="saveDepartmentTimeslot" parameterType="com.scheduler.models.Departmenttimeslot" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into departmenttimeslot(departmentId, timeslotId, weekdays, capacity) values
+    (#{departmentId}, #{timeslotId}, #{weekdays}, #{capacity})
+    <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+      select last_insert_id()
+    </selectKey>
+  </insert>
 
 </mapper>

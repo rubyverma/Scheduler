@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.DepartmentTimeslotMapper;
 import com.scheduler.models.DepartmentTimeslotLinkage;
+import com.scheduler.models.Departmenttimeslot;
 import com.scheduler.models.Utility;
 
 @Component
@@ -44,4 +45,9 @@ public class DepartmentTimeslotService {
 		}
 		return finalDepartmenttimeslots;
 	}
+	
+	 public int saveDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException {
+			return departmentTimeslotMapper.saveDepartmentTimeslot(slot);
+		}
+	
 }
