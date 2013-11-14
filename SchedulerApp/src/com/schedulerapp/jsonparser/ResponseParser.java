@@ -19,7 +19,17 @@ public class ResponseParser {
 		JSONObject jObj = new JSONObject(userJson);		
 		return User.getUserFromJson(jObj);
 	}
- 
+
+	public List<AppointmentDepartment> parseAppointments(String result) throws NumberFormatException, JSONException {		
+		List<AppointmentDepartment> appointments = new ArrayList<AppointmentDepartment>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			appointments.add(AppointmentDepartment.getAppointmentFromJson(obj));
+		}
+		return appointments;
+	}
+	
 	public List<Campus> parseCampusList(String result) throws NumberFormatException, JSONException {
 		List<Campus> campuses = new ArrayList<Campus>();
 		campuses.add(Campus.getSelectPropmpt());
