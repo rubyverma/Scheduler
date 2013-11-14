@@ -76,7 +76,7 @@
         <property name="mapperInterface" value="com.scheduler.mappers.TimeslotMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
-    
+
     <bean id="generaluserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="com.scheduler.mappers.GeneralUserMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
@@ -92,4 +92,5 @@
     <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
     
+
 </beans>

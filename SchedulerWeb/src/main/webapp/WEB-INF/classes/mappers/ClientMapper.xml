@@ -20,6 +20,17 @@
 	<select id="getClientToken" parameterType="int" resultType="String">
 		select token from client where clientId=#{client_id}
 	</select>
+
+	<select id="authenticate" parameterType="com.scheduler.models.Client" resultType="com.scheduler.models.Client">
+		select * from client where userName=#{userName} and password=#{password}
+	</select>
+	<select id="getClientName" parameterType="String" resultType="String">
+		select clientName from client where userName=#{userName} and password=#{password}
+	</select>
+	<select id="getClientId" parameterType="String" resultType="int">
+		select clientId from client where userName=#{userName} and password=#{password}
+	</select>
+
 	<select id="getLastClientId" parameterType="int" resultType="int">
 		select MAX(clientId) FROM client
 	</select>

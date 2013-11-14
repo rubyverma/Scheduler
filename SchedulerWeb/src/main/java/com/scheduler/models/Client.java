@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Client {
 	
-	private int m_clientId;
+	private int clientId;
 	private String clientName;
 	private String userName;
 	private String password;

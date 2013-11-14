@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.OfficialUserMapper">
+<select id="authenticate" parameterType="com.scheduler.models.OfficialUser" resultType="com.scheduler.models.OfficialUser">
+		select * from officialuser where officialName=#{officialName} and password=#{password}
+	</select>
+	<select id="getOfficialName" parameterType="String" resultType="String">
+		select officialName from officialuser where officialName=#{officialName} and password=#{password}
+	</select>
+	<select id="getOfficialId" parameterType="String" resultType="int">
+		select officialId from officialuser where officialName=#{officialName} and password=#{password}
+	</select>
+
 <!-- Author - Shalin Banjara -->
 <!-- Usage - To select a list of departments for a particular campus -->
 	<select id="getOfficialUserByDepartment" parameterType="int" resultType="com.scheduler.models.OfficialUser">
@@ -36,4 +46,5 @@
 		update officialuser
 		set departmentId = #{departmentId},roleId = #{roleId},officialName = #{officialName},email = #{email},password = #{password},firstName =#{firstName},lastName = #{lastName},dateJoined = #{dateJoined} where officialId = #{officialId}
 	</update>
+
 </mapper>

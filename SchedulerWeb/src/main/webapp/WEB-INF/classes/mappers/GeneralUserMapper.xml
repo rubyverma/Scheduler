@@ -5,6 +5,16 @@
 	<select id="getUserRegistrationId" parameterType="int" resultType="String">
 		select gcmRegId from generaluser where userId = #{user_id}
 	</select>
+
+	<select id="authenticate" parameterType="com.scheduler.models.GeneralUser" resultType="com.scheduler.models.GeneralUser">
+		select * from generaluser where username=#{username} and password=#{password}
+	</select>
+	<select id="getFirstName" parameterType="String" resultType="String">
+		select firstName from generaluser where username=#{username} and password=#{password}
+	</select>
+	<select id="getUserId" parameterType="String" resultType="int">
+		select userId from generaluser where username=#{username} and password=#{password}
+		</select>
 	<select id="getLastUserId" parameterType="int" resultType="int">
 		select MAX(userId) FROM generaluser
 	</select>

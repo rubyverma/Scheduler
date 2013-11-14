@@ -28,6 +28,28 @@ public class ClientService {
 		// TODO Auto-generated method stub
 		return clientMapper.getClientToken(client_id);
 	}
+
+	
+	public Client authenticate(Client c) {
+		
+		Client i = clientMapper.authenticate(c);
+		if(i == null) {
+			i = new Client();
+			i.setClientId(0);
+			return i;
+		}
+		return i;
+	}
+	
+   public String getClientName(String userName,String password) {
+		
+		return clientMapper.getClientName(userName,password);
+	}
+   public int getClientId(String userName,String password) {
+		
+		return clientMapper.getClientId(userName,password);
+	}
+	
 	public int getLastClientId() {
 		// TODO Auto-generated method stub
 		return clientMapper.getLastClientId();

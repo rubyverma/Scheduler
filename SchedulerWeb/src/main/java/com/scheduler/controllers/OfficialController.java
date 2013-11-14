@@ -2,6 +2,8 @@ package com.scheduler.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.scheduler.models.Announcement;
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
+
+import com.scheduler.models.Client;
+import com.scheduler.models.GeneralUser;
+import com.scheduler.models.Notification;
+import com.scheduler.models.OfficialUser;
+import com.scheduler.services.GeneralUserService;
+import com.scheduler.services.UserService;
+
 import com.scheduler.models.Campus;
 import com.scheduler.models.Department;
 import com.scheduler.models.GeneralUser;
@@ -33,6 +44,7 @@ import com.scheduler.services.DepartmentService;
 import com.scheduler.services.NotificationService;
 import com.scheduler.services.OfficialUserService;
 import com.scheduler.services.RolesService;
+
 
 @RequestMapping("/official")
 @Controller
@@ -58,6 +70,7 @@ public class OfficialController {
 	private RolesService rolesService;
 	
 	public List<AppointmentList> listofAppointment;
+
 
 	@RequestMapping(value = "/meeting/finish", method = RequestMethod.POST)
 	public String finishMeeting(
@@ -183,6 +196,46 @@ public class OfficialController {
 		
 		return "meeting/testmeeting";
 	}
+
+	// Author - Devraj Valecha
+			// Usage - Login for official user
+			// client
+		@RequestMapping(value = "/login", method = RequestMethod.GET)
+		public String loginOfficial(Model model)
+		{
+			return "officialuser/loginofficial";
+		}
+		
+		@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+		public String authenticateOfficial(@RequestParam("userName") String userName,
+				@RequestParam("password") String password, Model model,
+				HttpSession session) {
+			OfficialUser o1 = new OfficialUser();
+			o1.setOfficialName(userName);
+			o1.setPassword(password);
+			OfficialUser result = officialUserService.authenticate(o1);
+			if (result.getOfficialId()>0) {
+				String name = result.getFirstName();
+				int id = result.getOfficialId();
+				session.setAttribute("officialUserName", userName);
+				session.setAttribute("officialName", name);
+				session.setAttribute("officialId", id);
+			} else {
+				model.addAttribute("result", "Login Failed");
+				return "officialuser/errorofficiallogin";
+			}
+			return "redirect:dashboard";
+		}
+		
+
+		@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+		public String showDashboard(Model model)
+		{
+			return "officialuser/dashboard";
+		}
+		
+
+
 	
 	@RequestMapping(value = "users/view", method = RequestMethod.GET)
 	public String viewOfficialUsers(Model model) {
@@ -235,4 +288,5 @@ public class OfficialController {
 		return "redirect:/official/users/view";
 	}
 	
+
 }

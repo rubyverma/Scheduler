@@ -9,6 +9,8 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.UserMapper;
+import com.scheduler.models.Client;
+import com.scheduler.models.OfficialUser;
 import com.scheduler.models.User;
 
 @Component
@@ -45,4 +47,5 @@ public class UserService {
 	public String getNickName(int user_id) {
 		return "Nickname of " + user_id;
 	}
+   
 }
