@@ -2,10 +2,13 @@ package com.schedulerapp.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONException;
+
 import android.os.AsyncTask;
+
 import com.schedulerapp.httprequests.HttpClient;
-import com.schedulerapp.jsonparser.jsonParser;
+import com.schedulerapp.jsonparser.JsonParser;
 import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.utils.UrlUtils;
 

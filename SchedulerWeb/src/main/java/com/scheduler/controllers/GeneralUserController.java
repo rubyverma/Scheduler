@@ -1,8 +1,7 @@
 package com.scheduler.controllers;
 
-
 import org.springframework.web.bind.annotation.RequestParam;
-			
+
 import java.util.Random;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,104 +28,101 @@ public class GeneralUserController {
 
 	@Autowired(required = true)
 	private GeneralUserService generaluserService;
-	
-	
-	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public String showRegistrationForm(Model model)
-	{
+
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String showRegistrationForm(Model model) {
 		model.addAttribute("generaluser", new GeneralUser());
 		return "generaluser/registergeneraluser";
 	}
-	
-	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String saveUser(@ModelAttribute("generaluser") GeneralUser generaluser, Model model)
-	{
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String saveUser(
+			@ModelAttribute("generaluser") GeneralUser generaluser, Model model) {
 		String token;
 		int userId;
-		if (generaluser!=null)
-		{
+		if (generaluser != null) {
 			String to = generaluser.getEmail().toString();
-			ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+			ApplicationContext context = new ClassPathXmlApplicationContext(
+					"Spring-Mail.xml");
 			MailMail mm = (MailMail) context.getBean("mailMail");
 			Random randomGenerator = new Random();
-			int mytoken =randomGenerator.nextInt(999999-100000)+100000;
-			generaluser.setTocken(""+mytoken);
-			System.out.println(generaluser.getTocken());			
+			int mytoken = randomGenerator.nextInt(999999 - 100000) + 100000;
+			generaluser.setTocken("" + mytoken);
+			System.out.println(generaluser.getTocken());
 			int result = generaluserService.saveUser(generaluser);
 
-			userId= generaluserService.getLastUserId();
-			
+			userId = generaluserService.getLastUserId();
+
 			token = generaluserService.getUserToken(userId);
-					
-			model.addAttribute("generaluser",generaluser);
+
+			model.addAttribute("generaluser", generaluser);
 			System.out.println("generaluser saved successfully");
-		        mm.sendMail("Scheduler App", "Your Activation Link is http://localhost:8080/Scheduler/generaluser/verify/"+userId+"/"+token,to);
-			//model.addAttribute("client", new Client());
-		} else
-		{
-			model.addAttribute("result","fail");
+			mm.sendMail("Scheduler App",
+					"Your Activation Link is http://localhost:8080/Scheduler/generaluser/verify/"
+							+ userId + "/" + token, to);
+			// model.addAttribute("client", new Client());
+		} else {
+			model.addAttribute("result", "fail");
 		}
 		return "generaluser/userdashboard";
 	}
-	// Author - Sanket Patel
-		// Usage - uses the user id and token from the link to verify the correct user
-		@RequestMapping(value = "/verify/{userId}/{token}", method = RequestMethod.GET)
-		public String verifyUser(@PathVariable("userId") int userId,
-				@PathVariable("token") String tokenFromURL, Model model) {
-			
-			String tokenFromDB = generaluserService.getUserToken(userId);
-			// select token from client where clientId=client_id;
-			
-			if(tokenFromDB.equals(tokenFromURL)) {
-				int result = generaluserService.verifyUser(userId);
-				// update client set emailVerified=1 where clientId=client_id
-				model.addAttribute("result", "Thank you for verifying the email address");
-			} else {
-				model.addAttribute("result", "Sorry, verification failed");
-			}
-			
-			return "generaluser/verifyUser";
 
+	// Author - Sanket Patel
+	// Usage - uses the user id and token from the link to verify the correct
+	// user
+	@RequestMapping(value = "/verify/{userId}/{token}", method = RequestMethod.GET)
+	public String verifyUser(@PathVariable("userId") int userId,
+			@PathVariable("token") String tokenFromURL, Model model) {
+
+		String tokenFromDB = generaluserService.getUserToken(userId);
+		// select token from client where clientId=client_id;
+
+		if (tokenFromDB.equals(tokenFromURL)) {
+			int result = generaluserService.verifyUser(userId);
+			// update client set emailVerified=1 where clientId=client_id
+			model.addAttribute("result",
+					"Thank you for verifying the email address");
+		} else {
+			model.addAttribute("result", "Sorry, verification failed");
 		}
 
-		// Author - Devraj Valecha
-				// Usage - Login for general user
-				// general user
-			@RequestMapping(value = "/login", method = RequestMethod.GET)
-			public String loginGeneralUser(Model model)
-			{
-				return "generaluser/logingeneraluser";
-			}
-			
-			@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-			public String authenticateGeneralUser(@RequestParam("userName") String userName,
-					@RequestParam("password") String password, Model model,
-					HttpSession session) {
-				GeneralUser gu = new GeneralUser();
-				gu.setUsername(userName);;
-				gu.setPassword(password);
-				GeneralUser result = generaluserService.authenticate(gu);
-				if (result.getUserId()>0) {
-					String name = result.getFirstName();
-					int id = result.getUserId();
-					session.setAttribute("generalUserName", userName);
-					session.setAttribute("generalName", name);
-					session.setAttribute("generalId", id);
-				} else {
-					model.addAttribute("result", "Login Failed");
-					return "generaluser/errorgenerallogin";
-				}
-				return "redirect:dashboard";
-			}
-			
+		return "generaluser/verifyUser";
 
-			@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-			public String showDashboard(Model model)
-			{
-				return "generaluser/dashboard";
-			}
-			
+	}
 
+	// Author - Devraj Valecha
+	// Usage - Login for general user
+	// general user
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginGeneralUser(Model model) {
+		return "generaluser/logingeneraluser";
+	}
+
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	public String authenticateGeneralUser(
+			@RequestParam("userName") String userName,
+			@RequestParam("password") String password, Model model,
+			HttpSession session) {
+		GeneralUser gu = new GeneralUser();
+		gu.setUsername(userName);
+		gu.setPassword(password);
+		GeneralUser result = generaluserService.authenticate(gu);
+		if (result.getUserId() > 0) {
+			String name = result.getFirstName();
+			int id = result.getUserId();
+			session.setAttribute("generalUserName", userName);
+			session.setAttribute("generalName", name);
+			session.setAttribute("generalId", id);
+		} else {
+			model.addAttribute("result", "Login Failed");
+			return "generaluser/errorgenerallogin";
+		}
+		return "redirect:dashboard";
+	}
+
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String showDashboard(Model model) {
+		return "generaluser/dashboard";
+	}
 
 }

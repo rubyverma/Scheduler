@@ -20,5 +20,5 @@ public interface GeneralUserMapper {
 	int verifyUser(@Param("userId") int userId);
 	String getUserToken(@Param("userId") int userId);
 	int getLastUserId();
-
+	int updateGCMRegId(GeneralUser user);
 }
