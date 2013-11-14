@@ -15,6 +15,7 @@
 		</selectKey>
 	</insert>
 
+
 	<update id="finishAppointment" parameterType="int">
 		update
 		appointment set
@@ -121,4 +122,12 @@
 		where
 		appointmentId = #{appointmentId}
 	</update>
+	
+	<select id="getFinishedAppointments" parameterType="com.scheduler.models.Appointment" resultType="com.scheduler.models.Appointment">
+		select * from appointment WHERE appointmentDate = #{appointmentDate}  AND meetingFinished = 'Y' AND #{appointmentId} > appointmentId AND departmentTimeId = #{departmentTimeId} ORDER BY appointmentId
+	</select>
+	
+	<select id="getBeforeAppointments" parameterType="com.scheduler.models.Appointment" resultType="com.scheduler.models.Appointment">
+		select * from appointment WHERE appointmentDate = #{appointmentDate} AND #{appointmentId} > appointmentId AND departmentTimeId = #{departmentTimeId} AND meetingFinished = 'N' ORDER BY appointmentId
+	</select>
 </mapper>

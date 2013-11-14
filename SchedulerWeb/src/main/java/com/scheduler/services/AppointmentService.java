@@ -2,10 +2,13 @@ package com.scheduler.services;
 
 
 import java.sql.Date;
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.List;
 
 import com.scheduler.models.AppointmentList;
 import com.scheduler.models.AppointmentDepartment;
+import com.scheduler.models.DepartmentTimeslotLinkage;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
 import com.scheduler.request.SendPostRequest;
@@ -30,6 +33,9 @@ public class AppointmentService {
 	@Autowired(required = true)
 	private SendPostRequest postRequest;
 	
+	@Autowired(required = true)
+	private DepartmentTimeslotService departmentTimeslotService;
+	
 	
 	// Author - Shalin Banjara
 	// Usage - To save the appointment booked by the user. Validations are performed on the UI.
@@ -37,16 +43,7 @@ public class AppointmentService {
 		return appointmentMapper.saveAppointment(appointment);
 	}
 
-	// Author - Shalin Banjara
-	// Usage - To calculate the expected meeting time for a booked unfinished appointment
-	public String expectedMeetingTime(int appointmentId, Date appointmentDate) {
-		
-		
-
-		
-		return("Meeting Time");
-	}
-
+	
 	public boolean finishAppointment(Appointment appointment) {
 		// TODO Auto-generated method stub
 		// Appointment apptest=new Appointment();

@@ -44,4 +44,8 @@ public class DepartmentTimeslotService {
 		}
 		return finalDepartmenttimeslots;
 	}
+	
+	public DepartmentTimeslotLinkage getTimeslotByAppointment(@Param("departmentTimeId") int departmentTimeId){
+		return departmentTimeslotMapper.getTimeslotByAppointment(departmentTimeId);
+	}
 }

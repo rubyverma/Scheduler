@@ -12,5 +12,10 @@
 		departmentTimeId in (select departmentTimeId from departmenttimeslot 
 		where departmentId = #{departmentId}));
 	</select>
+	
+	<select id="getTimeslotByAppointment" parameterType="int" resultType="com.scheduler.models.DepartmentTimeslotLinkage">
+		select dept.*, ts.startTime, ts.stopTime from departmenttimeslot dept, timeslot ts where 
+		dept.departmentTimeId = #{departmentTimeId} and dept.timeslotId=ts.timeslotId;
+	</select>
 
 </mapper>

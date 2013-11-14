@@ -18,6 +18,7 @@ import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.Campus;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.CampusService;
+import com.scheduler.services.ExpectedMeetingTimeService;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,6 +30,9 @@ public class AppointmentController {
 	protected static final String JSON_CONTENT = "application/json";
 	@Autowired(required = true)
 	private AppointmentService appointmentService;
+	@Autowired(required = true)
+	private ExpectedMeetingTimeService expectedMeetingTimeService;
+	
 	@Autowired(required = true)
 	private CampusService campusService;
 	// TODO fetch userId and clientId from the session when user Login into the
@@ -102,6 +106,24 @@ public class AppointmentController {
 		List<AppointmentDepartment> appointments;
 		appointments = appointmentService.findAllUserAppointments(id);
 		return appointments;
+	}
+	
+	// Author - Shalin Banjara
+	// Usage - Returns the mobile request for viewing appointments
+	// Stub to check the expected meeting time for different appointments
+	@RequestMapping(value = "/expectedMeetingTime", method = RequestMethod.GET)
+	public String viewExpectedMeetingTime(Model model) {
+
+		String s = expectedMeetingTimeService.getExpectedMeetingTime(4);
+		System.out.println("Appointment4 meeting time :- " + s);
+		
+		s = expectedMeetingTimeService.getExpectedMeetingTime(5);
+		System.out.println("Appointment5 meeting time :- " + s);
+		
+		s = expectedMeetingTimeService.getExpectedMeetingTime(6);
+		System.out.println("Appointment6 meeting time :- " + s);
+		
+		return "redirect:/appointment/view"; 
 	}
 
 }

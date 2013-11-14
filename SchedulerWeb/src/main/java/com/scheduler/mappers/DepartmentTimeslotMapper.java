@@ -14,5 +14,5 @@ import com.scheduler.models.Utility;
 public interface DepartmentTimeslotMapper {
 	
 	List<DepartmentTimeslotLinkage> getTimeslotByDepartment(Utility u);
-
+	DepartmentTimeslotLinkage getTimeslotByAppointment(@Param("departmentTimeId") int departmentTimeId);
 }

@@ -18,6 +18,10 @@ public interface AppointmentMapper {
 	
 	int saveAppointment(Appointment appointment);
 	
+	List<Appointment> getFinishedAppointments(Appointment appointment);
+	
+	List<Appointment>  getBeforeAppointments (Appointment appointment);
+	
 	int finishAppointment(Appointment apptest);
 
 	int startAppointmentById(@Param("app_id") int app_id, @Param("official_id") int official_id );
@@ -36,6 +40,7 @@ public interface AppointmentMapper {
 	
 	GeneralUser getNextUserInQueue(@Param("department_id") int department_id);
 
-	 int cancelAppointment(int appointmentId)  throws BadSqlGrammarException;
-	 int userLate(int appointmentId)  throws BadSqlGrammarException;
+	int cancelAppointment(int appointmentId)  throws BadSqlGrammarException;
+	
+	int userLate(int appointmentId)  throws BadSqlGrammarException;
 }
