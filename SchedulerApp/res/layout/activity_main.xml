@@ -6,6 +6,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome" />
+
 	<Button
 	    android:id="@+id/button1"
 	    android:layout_width="wrap_content"
@@ -33,6 +39,11 @@
 	    android:text="Settings"
 	    android:onClick="openSettings" />
 
-	    a
+	<Button
+	    android:id="@+id/btnLogout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Logout"
+	    android:onClick="LogoutUser" />
 	
 </LinearLayout>

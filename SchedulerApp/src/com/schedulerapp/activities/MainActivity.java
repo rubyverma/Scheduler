@@ -3,38 +3,36 @@ package com.schedulerapp.activities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.schedulerapp.gcm.GcmHandler;
 import com.schedulerapp.httprequests.HttpRequests;
-import com.schedulerapp.models.User;
+import com.schedulerapp.preferences.SessionStorage;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private static final String TAG1 = "com.scheduler.androidapp";
-	private static String URL = "http://10.0.2.2:8080/Scheduler/user/api/save";
-	private static final String TAG = "GCM";
-	TextView txtData;
+
+	TextView txtData, tvWelcome;
 	Intent intent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_main);
+		tvWelcome = (TextView) findViewById(R.id.tvWelcome);
+		
+		checkLoggedIn();
+
 		// txtData = (TextView) findViewById(R.id.txtData);
 		// Button btnCancel = (Button) findViewById(R.id.btnCancel);
-		final JSONObject jsonObjectUser = new JSONObject();
+		// final JSONObject jsonObjectUser = new JSONObject();
 
-		// Author- Sonny
-		// To initialize Google Cloud messaging service
-		GcmHandler gcmHandler = new GcmHandler(this);
-		Log.i(TAG, "GCM registered: " + gcmHandler);
 	}
 
 	@Override
@@ -73,7 +71,7 @@ public class MainActivity extends Activity {
 		}
 
 		protected String doInBackground(String... params) {
-			User u = null;
+
 			HttpRequests request = new HttpRequests();
 			JSONObject result = request.getJSONFromUrl(params[0]);
 			String message = "Failed";
@@ -85,6 +83,38 @@ public class MainActivity extends Activity {
 			}
 			return message;
 		}
+	}
+
+	public void LogoutUser(View view) {
+
+		SessionStorage storage = new SessionStorage(this);
+		storage.LogoutUser();
+
+		Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+
+	}
+
+	public void checkLoggedIn() {
+
+		// if already logged in, skip login activity
+		SessionStorage storage = new SessionStorage(this);
+		if (Integer.parseInt(storage.GetPreferences("userId")) == 0) {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		}
+		
+		String username = storage.GetPreferences("username");
+		tvWelcome.setText("Welcome, " + username);
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		checkLoggedIn();
 	}
 
 }

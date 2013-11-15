@@ -36,7 +36,16 @@
 		emailVerified = 1
 		where userId = #{userId}
 	</update>
+	
 	<select id="getUserToken" parameterType="int" resultType="String">
 		select token from generaluser where userId=#{userId}
 	</select>
+	
+	<update id="updateGCMRegId" parameterType="com.scheduler.models.GeneralUser">
+		update
+		generaluser set
+		gcmRegId = #{gcmRegId}
+		where username = #{username}
+	</update>
+	
 </mapper>
