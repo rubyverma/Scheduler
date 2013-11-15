@@ -12,18 +12,19 @@ import com.scheduler.models.Department;
 @Repository(value="departmentMapper")
 @Component
 public interface DepartmentMapper {
-	
-	List<Department> getDepartmentByCampus(@Param("campusId") int campusId);
-	
-	 List<Department> getDepartmentByClient(@Param("clientId") int clientId);
 
-	int deleteDepartment(int departmentId) throws BadSqlGrammarException;
+	List<Department> getDepartmentByCampus(@Param("campusId") int campusId);
+	List<Department> getDepartmentByClient(@Param("clientId") int clientId);
+	
+	int deleteDepartment(int departmentID) throws BadSqlGrammarException;
 	
 	int saveDepartment(Department department) throws BadSqlGrammarException;
+	
+	int getSavedDepartmentById() throws BadSqlGrammarException;	
 
 	int updateDepartment(Department department) throws BadSqlGrammarException;
 	
-	Department getDepartmentById(int departmentId) throws BadSqlGrammarException;
+	Department getDepartmentById(int departmentID) throws BadSqlGrammarException;
 	
 	int validateDepartment(Department department) throws BadSqlGrammarException;
 

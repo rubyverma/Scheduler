@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	<div style="text-align: center;">
-		<a href="/Scheduler/campus/view" class="btn btn-danger">Close</a> <input
+		<a href="/Scheduler/campus/view" class="btn btn-default">Close</a> <input
 			type="submit" class="btn btn-primary" value="Save" />
 	</div>
 

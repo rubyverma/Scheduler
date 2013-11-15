@@ -16,7 +16,7 @@ import com.scheduler.models.Utility;
 
 @Component
 public class DepartmentTimeslotService {
-
+	
 	@Autowired(required = true)
 	private DepartmentTimeslotMapper departmentTimeslotMapper;
 	// Author - Shalin Banjara
@@ -45,9 +45,26 @@ public class DepartmentTimeslotService {
 		}
 		return finalDepartmenttimeslots;
 	}
+
+	public DepartmentTimeslotLinkage getTimeslotByAppointment(@Param("departmentTimeId") int departmentTimeId){
+		return departmentTimeslotMapper.getTimeslotByAppointment(departmentTimeId);
+	}
+
+	public int saveDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException {
+		return departmentTimeslotMapper.saveDepartmentTimeslot(slot);
+	}
+
+	public int updateDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException {
+		return departmentTimeslotMapper.updateDepartmentTimeslot(slot);
+	}
 	
-	 public int saveDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException {
-			return departmentTimeslotMapper.saveDepartmentTimeslot(slot);
+	public Departmenttimeslot getDepartmentTimeslot(int departmentId) throws BadSqlGrammarException  {
+		Departmenttimeslot slot = departmentTimeslotMapper.getDepartmentTimeslot(departmentId); 
+		if(slot != null) {
+			slot.setWorkingDays(Departmenttimeslot.getWorkingDays(slot.getWeekdays()));
 		}
+		return slot;
+	}
+	
 	
 }

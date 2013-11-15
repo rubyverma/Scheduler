@@ -41,9 +41,11 @@ import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.CampusService;
 import com.scheduler.services.DepartmentService;
+import com.scheduler.services.DepartmentTimeslotService;
 import com.scheduler.services.NotificationService;
 import com.scheduler.services.OfficialUserService;
 import com.scheduler.services.RolesService;
+import com.scheduler.services.TimeslotService;
 
 
 @RequestMapping("/official")
@@ -68,6 +70,9 @@ public class OfficialController {
 	
 	@Autowired(required = true)
 	private RolesService rolesService;
+
+	@Autowired(required = true)
+	private DepartmentTimeslotService departmentTimeslotService;
 	
 	public List<AppointmentList> listofAppointment;
 
@@ -246,6 +251,7 @@ public class OfficialController {
 		List<Department> departments = departmentService.departmentByClient(clientId);
 		for (Department department:departments)
 		{
+			department.setSlot(departmentTimeslotService.getDepartmentTimeslot(department.getDepartmentId()));
 			department.setOfficialUsers(officialUserService.getOfficialUserByDepartment(department.getDepartmentId()));
 		}
 		model.addAttribute("departments", departments);

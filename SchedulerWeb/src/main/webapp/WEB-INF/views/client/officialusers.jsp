@@ -23,13 +23,17 @@
 	<div class ="panel-heading">
 	     <b>${department.departmentName}</b>
 	     <div class="pull-right silent">
-        <a href="/Scheduler/department/edit/${department.departmentId}" class="label label-warning">Update</a> 
-        <a href="/Scheduler/department/delete/${department.departmentId}" class="label label-danger">Delete</a>
+	    <a href="/Scheduler/department/edit/${department.departmentId}" class="label label-warning">Update</a>
+	    <a href="/Scheduler/department/delete/${department.departmentId}" class="label label-danger">Delete</a>
       </div>
 	</div>
 	<div class ="panel-body">
 	<p><b>Department Description:</b></p>
-		<div class ="panel-body"> <p> ${department.departmentDescription}</p>
+		<div class ="panel-body"> 
+			<p> ${department.departmentDescription}</p><br/>	
+			<b>Working Hours: ${department.slot.startTime} - ${department.slot.stopTime}</b><br/>
+			<b>Working Days: ${department.slot.workingDays}</b><br/>
+						
 		</div>
 	</div>
 	<br>
@@ -61,7 +65,7 @@
 	</table>
 </div>
 </c:forEach>
- 
+
 <!-- Author - Shalin Banjara -->
 <!-- Usage - Popup for sending a notification to a particular User -->
 <div class="modal fade" id="addOfficialUser" tabindex="-1"
@@ -114,9 +118,9 @@
 		<!-- /.modal-dialog -->
 	</form:form>
 	</div>
- 
+
 </div>
- 
+
 <%@ include file="../includes/footer.jsp"%>
 <script src="/Scheduler/resources/js/calender.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>

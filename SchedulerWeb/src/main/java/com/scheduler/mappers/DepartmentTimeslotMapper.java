@@ -1,12 +1,12 @@
 package com.scheduler.mappers;
 
-import java.sql.Date;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import com.scheduler.models.Department;
+
 import com.scheduler.models.DepartmentTimeslotLinkage;
 import com.scheduler.models.Departmenttimeslot;
 import com.scheduler.models.Utility;
@@ -17,6 +17,14 @@ public interface DepartmentTimeslotMapper {
 	
 	List<DepartmentTimeslotLinkage> getTimeslotByDepartment(Utility u);
 	
+	DepartmentTimeslotLinkage getTimeslotByAppointment(@Param("departmentTimeId") int departmentTimeId);
+	
+	Departmenttimeslot getDepartmentTimeslot(int departmentId) throws BadSqlGrammarException ;
+	
 	int saveDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException;
+	
+	int updateDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException;
+	
+	
 
 }
