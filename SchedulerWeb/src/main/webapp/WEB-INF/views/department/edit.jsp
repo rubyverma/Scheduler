@@ -45,7 +45,7 @@
     <label for="inputContact" class="col-sm-2 control-label">Contact
       Info</label>
     <div class="col-sm-5">
-      <form:input class="form-control" path="contactInfo" id="contactInfo"
+      <form:input maxlength="10" class="form-control" path="contactInfo" id="contactInfo"
         placeholder="Contact" required="required"></form:input>
     </div>
   </div>

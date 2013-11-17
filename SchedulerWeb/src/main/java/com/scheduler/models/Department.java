@@ -17,7 +17,7 @@ public class Department {
 	private int campusId;
 	private String departmentName;
 	private String departmentHod;
-	private int contactInfo;
+	private long contactInfo;
 	private String departmentDescription;
 	private Date dateCreated;
 	private List<OfficialUser> officialUsers = new ArrayList<OfficialUser>();
