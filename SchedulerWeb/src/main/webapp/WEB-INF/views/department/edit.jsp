@@ -60,29 +60,28 @@
   </div>
 
   <div class="form-group">
-    <label for="inputName" class="col-sm-2 control-label">Select Timeslot</label>
-    <div class="col-sm-5">
-      <form:select class="form-control" path="timeslotId" id="timeslotId">
-        <c:forEach items="${timeslots}" var="s">
-         <option value="${s.timeslotId}"
-			 <c:if test="${(s.timeslotId == slot.timeslotId)}">
-			 	selected="selected"
-			 </c:if>         
-         >${s.startTime} - ${s.stopTime}</option>
-        </c:forEach>
-      </form:select>
-    </div>
-  </div>
-
-  <div class="form-group">
     <label for="inputName" class="col-sm-2 control-label">Select Days</label>
-    <div class="col-sm-5">
-      <form:checkbox path="days" value="1"/>&nbsp;Monday<br/> 
-      <form:checkbox path="days" value="2"/>&nbsp;Tuesday<br/>
-      <form:checkbox path="days" value="3"/>&nbsp;Wednesday<br/>
-      <form:checkbox path="days" value="4"/>&nbsp;Thursday<br/>
-      <form:checkbox path="days" value="5"/>&nbsp;Friday<br/>
-    </div>
+    <br/><br/>
+		 <table class="table">
+		    <tr>
+		      <td>Slots/Days</td>
+		      <td>Monday</td>
+		      <td>Tuesday</td>
+		      <td>Wednesday</td>
+		      <td>Thursday</td>
+		      <td>Friday</td>
+		    <tr>
+		    <c:forEach items="${timeslots}" var="s">
+		      <tr>
+		        <td>${s.startTime} - ${s.stopTime}</td>
+		        <td><form:checkbox path="days" value="${s.timeslotId},1"/></td>
+		        <td><form:checkbox path="days" value="${s.timeslotId},2"/></td>
+		        <td><form:checkbox path="days" value="${s.timeslotId},3"/></td>
+		        <td><form:checkbox path="days" value="${s.timeslotId},4"/></td>
+		        <td><form:checkbox path="days" value="${s.timeslotId},5"/></td>
+		      </tr>
+		    </c:forEach>
+		  </table>
   </div> 
 
   <div class="form-group">

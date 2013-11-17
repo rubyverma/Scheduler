@@ -251,7 +251,7 @@ public class OfficialController {
 		List<Department> departments = departmentService.departmentByClient(clientId);
 		for (Department department:departments)
 		{
-			department.setSlot(departmentTimeslotService.getDepartmentTimeslot(department.getDepartmentId()));
+			department.setSlots(departmentTimeslotService.getDepartmentTimeslot(department.getDepartmentId()));
 			department.setOfficialUsers(officialUserService.getOfficialUserByDepartment(department.getDepartmentId()));
 		}
 		model.addAttribute("departments", departments);

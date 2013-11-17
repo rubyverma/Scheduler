@@ -30,9 +30,13 @@
 	<div class ="panel-body">
 	<p><b>Department Description:</b></p>
 		<div class ="panel-body"> 
-			<p> ${department.departmentDescription}</p><br/>	
-			<b>Working Hours: ${department.slot.startTime} - ${department.slot.stopTime}</b><br/>
-			<b>Working Days: ${department.slot.workingDays}</b><br/>
+			<p> ${department.departmentDescription}</p><br/>
+			<c:forEach items="${department.slots}" var="slot">
+			    <b>Working Hours: ${slot.startTime} - ${slot.stopTime}</b><br/>
+          <b>Working Days: ${slot.workingDays}</b><br/>
+          <hr/>
+			</c:forEach>	
+
 						
 		</div>
 	</div>
@@ -125,3 +129,4 @@
 <script src="/Scheduler/resources/js/calender.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+

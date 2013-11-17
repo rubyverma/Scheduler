@@ -22,9 +22,9 @@ public class Department {
 	private Date dateCreated;
 	private List<OfficialUser> officialUsers = new ArrayList<OfficialUser>();
 
-	private Departmenttimeslot slot;
+	private List<Departmenttimeslot> slots;
 	private int timeslotId;
 	private int departmentTimeId;
 	private int capacity;
-	private String [] days;
+	private List<String> days;
 }

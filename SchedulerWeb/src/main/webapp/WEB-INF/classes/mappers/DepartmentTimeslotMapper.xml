@@ -39,5 +39,9 @@
     weekdays = #{weekdays},
     capacity = #{capacity}
     where departmentTimeId = #{departmentTimeId}
-  </update>  
+  </update> 
+  
+  <select id="deleteDepartmentTimeslot" parameterType="int">
+    delete from departmenttimeslot where departmentId = #{departmentId}
+  </select> 
 </mapper>

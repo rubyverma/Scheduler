@@ -28,10 +28,10 @@ public class Departmenttimeslot {
 		for (char c : selectedDays) {
 			if(c == '1') {
 				workingDays = workingDays + getDay(i);
-				i++;
 			}
+			i++;
 		}
-		return workingDays.substring(0, workingDays.length() - 1);
+		return workingDays.substring(0, workingDays.length() - 2);
 	 }
 	 
 	 private static String getDay(int day) {
@@ -54,3 +54,4 @@ public class Departmenttimeslot {
 		 return strday;
 	 }
 }
+

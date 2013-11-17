@@ -2,8 +2,8 @@
 
 <!-- Author - Ruby Verma
   Usage - UI for editing and updating general user details -->
-<title>Edit Details</title>
-<h3>Edit Details</h3>
+<title>Change Password</title>
+<h3>Change Password</h3>
 <c:if test="${!empty updated}">
    <div class="alert alert-success alert-dismissable">
    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

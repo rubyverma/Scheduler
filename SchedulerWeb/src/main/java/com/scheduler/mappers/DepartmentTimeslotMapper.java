@@ -19,8 +19,10 @@ public interface DepartmentTimeslotMapper {
 	
 	DepartmentTimeslotLinkage getTimeslotByAppointment(@Param("departmentTimeId") int departmentTimeId);
 	
-	Departmenttimeslot getDepartmentTimeslot(int departmentId) throws BadSqlGrammarException ;
+	List<Departmenttimeslot> getDepartmentTimeslot(int departmentId) throws BadSqlGrammarException ;
 	
+	void deleteDepartmentTimeslot(int departmentId);
+
 	int saveDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException;
 	
 	int updateDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException;

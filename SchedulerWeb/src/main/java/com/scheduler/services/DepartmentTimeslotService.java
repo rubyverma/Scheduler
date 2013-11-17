@@ -58,13 +58,20 @@ public class DepartmentTimeslotService {
 		return departmentTimeslotMapper.updateDepartmentTimeslot(slot);
 	}
 	
-	public Departmenttimeslot getDepartmentTimeslot(int departmentId) throws BadSqlGrammarException  {
-		Departmenttimeslot slot = departmentTimeslotMapper.getDepartmentTimeslot(departmentId); 
-		if(slot != null) {
-			slot.setWorkingDays(Departmenttimeslot.getWorkingDays(slot.getWeekdays()));
+	public List<Departmenttimeslot> getDepartmentTimeslot(int departmentId) throws BadSqlGrammarException  {
+		List<Departmenttimeslot> slots = departmentTimeslotMapper.getDepartmentTimeslot(departmentId);
+		if(slots != null && slots.size() > 0) {
+			for (Departmenttimeslot departmenttimeslot : slots) {
+				departmenttimeslot.setWorkingDays(Departmenttimeslot.getWorkingDays(departmenttimeslot.getWeekdays()));
+			}			
 		}
-		return slot;
+		return slots;
 	}
+	
+	public void deleteDepartmentTimeslot(int departmentId) {
+		departmentTimeslotMapper.deleteDepartmentTimeslot(departmentId);
+	}
+
 	
 	
 }
