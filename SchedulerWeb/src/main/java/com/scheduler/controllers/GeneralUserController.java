@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import com.scheduler.models.GeneralUser;
@@ -125,4 +127,45 @@ public class GeneralUserController {
 		return "generaluser/dashboard";
 	}
 
+	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
+	public String editUser(@PathVariable("userId") int userId, Model model) {
+		model.addAttribute("userId",userId);
+		model.addAttribute("generaluser",
+				generaluserService.getGeneralUser(userId));
+		return "generaluser/updateDetails";
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateUser(
+			@ModelAttribute("generaluser") GeneralUser generaluser,
+			RedirectAttributes ra, Model model) {
+		ra.addFlashAttribute("updated", "updated");
+		int result = generaluserService.updateUser(generaluser);
+		model.addAttribute("generaluser", result);
+		return "redirect:/generaluser/edit/" + generaluser.getUserId();
+	}	
+	
+	@RequestMapping(value = "/editpassword/{userId}", method = RequestMethod.GET)
+	public String updatePassword(@PathVariable("userId") int userId, Model model) {
+		model.addAttribute("userId",userId);
+		GeneralUser u = generaluserService.getGeneralUser(userId);
+		u.setPassword("");
+		model.addAttribute("generaluser", u);
+		return "generaluser/editPassword";
+	}
+	
+	@RequestMapping(value = "/savepassword", method = RequestMethod.POST)
+	public String editPassword(
+			@ModelAttribute("generaluser") GeneralUser generaluser,
+			RedirectAttributes ra, Model model) {
+		
+		if(!generaluser.getPassword().equals(generaluser.getRepassword())) {
+			ra.addFlashAttribute("ue","ue");
+			return "redirect:/generaluser/editpassword/" + generaluser.getUserId();
+		}
+		ra.addFlashAttribute("updated", "updated");
+		int result = generaluserService.updatePassword(generaluser);
+		model.addAttribute("generaluser", result);
+		return "redirect:/generaluser/editpassword/" + generaluser.getUserId();
+	}
 }

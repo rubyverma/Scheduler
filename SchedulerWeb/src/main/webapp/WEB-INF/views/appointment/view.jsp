@@ -21,7 +21,14 @@
         <td>${appointment.appointmentDate }</td>
         <td>${appointment.departmentName }</td>
         <td>${appointment.purposeOfVisit }</td>
-        <td>${appointment.meetingNotes}</td>
+         <td>
+         <c:if test = "${appointment.meetingFinished.equals('Y')}">
+  			 ${appointment.meetingNotes}
+		</c:if>
+          <c:if test = "${appointment.meetingNotes == null || appointment.meetingNotes.equals('')}">
+  			none
+		</c:if>
+		</td>
        <td>
         <c:if test = "${appointment.meetingFinished.equals('Y')}">
   			<span class="label label-success">Yes</span>

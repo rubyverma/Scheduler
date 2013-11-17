@@ -94,7 +94,7 @@
   </div>
     
    <div style="text-align: center;">
-	   <a href="/Scheduler/official/users/view" class="btn btn-danger">Canel</a>
+	   <a href="/Scheduler/official/users/view" class="btn btn-danger">Cancel</a>
        <input type="submit" name="Save" value="Save" class="btn btn-success"/>
 	</div>
 	

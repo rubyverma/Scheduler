@@ -1,8 +1,14 @@
 package com.scheduler.services;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.scheduler.mappers.GeneralUserMapper;
 import com.scheduler.models.GeneralUser;
@@ -66,5 +72,19 @@ public class GeneralUserService {
 		} else {
 			return false;
 		}
+	}
+	
+	public GeneralUser getGeneralUser(@Param("userId") int userId) {
+		  return generalUserMapper.getGeneralUser(userId);
+		}
+	
+	public int updateUser(GeneralUser generaluser)
+	{
+	  return generalUserMapper.updateUser(generaluser);
+	}
+	
+	public int updatePassword(GeneralUser generaluser)
+	{
+	  return generalUserMapper.updatePassword(generaluser);
 	}
 }
