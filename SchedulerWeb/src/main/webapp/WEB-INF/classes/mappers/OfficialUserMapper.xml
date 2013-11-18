@@ -46,5 +46,11 @@
 		update officialuser
 		set departmentId = #{departmentId},roleId = #{roleId},officialName = #{officialName},email = #{email},password = #{password},firstName =#{firstName},lastName = #{lastName},dateJoined = #{dateJoined} where officialId = #{officialId}
 	</update>
+	
+	<update id="updatePassword" parameterType="com.scheduler.models.OfficialUser">
+		update officialuser
+		set password = #{password}
+		where officialId = #{officialId}
+	</update>
 
 </mapper>

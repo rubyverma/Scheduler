@@ -22,14 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.scheduler.models.Announcement;
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
-
 import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
 import com.scheduler.models.OfficialUser;
 import com.scheduler.services.GeneralUserService;
 import com.scheduler.services.UserService;
-
 import com.scheduler.models.Campus;
 import com.scheduler.models.Department;
 import com.scheduler.models.GeneralUser;
@@ -47,7 +45,6 @@ import com.scheduler.services.OfficialUserService;
 import com.scheduler.services.RolesService;
 import com.scheduler.services.TimeslotService;
 
-
 @RequestMapping("/official")
 @Controller
 @Slf4j
@@ -61,21 +58,20 @@ public class OfficialController {
 
 	@Autowired(required = true)
 	private AnnouncementService announcementService;
-	
+
 	@Autowired(required = true)
 	private OfficialUserService officialUserService;
-	
+
 	@Autowired(required = true)
 	private DepartmentService departmentService;
-	
+
 	@Autowired(required = true)
 	private RolesService rolesService;
 
 	@Autowired(required = true)
 	private DepartmentTimeslotService departmentTimeslotService;
-	
-	public List<AppointmentList> listofAppointment;
 
+	public List<AppointmentList> listofAppointment;
 
 	@RequestMapping(value = "/meeting/finish", method = RequestMethod.POST)
 	public String finishMeeting(
@@ -96,10 +92,11 @@ public class OfficialController {
 	public String viewQueue(Model model) {
 		System.out.println("view queue started");
 
-		int departmentId=1;
-		String appointmentDate="2013-11-13";
-		listofAppointment= appointmentService.getAllAppointment(departmentId,appointmentDate);
-		model.addAttribute("appointmentList",listofAppointment);
+		int departmentId = 1;
+		String appointmentDate = "2013-11-13";
+		listofAppointment = appointmentService.getAllAppointment(departmentId,
+				appointmentDate);
+		model.addAttribute("appointmentList", listofAppointment);
 
 		// passing blank announcement object
 		model.addAttribute("announcement", new Announcement());
@@ -109,7 +106,7 @@ public class OfficialController {
 
 	@RequestMapping(value = "/meeting/start", method = RequestMethod.POST)
 	public String startMeeting(Model model) {
-		//insert the following fields to official user session
+		// insert the following fields to official user session
 		// get official_id and dept_id from the session variable
 		int official_id = 3; // hardcoded value
 		int department_id = 1; // hardcoded value
@@ -175,11 +172,12 @@ public class OfficialController {
 		// Redirecting to view the queue
 		return "redirect:/official/meeting/viewqueue";
 	}
+
 	@RequestMapping(value = "meeting/late", method = RequestMethod.GET)
 	public String userLate(RedirectAttributes ra, Model model) {
 
 		int result;
-		int appointmentId=1;
+		int appointmentId = 1;
 		try {
 			result = appointmentService.userLate(appointmentId);
 			model.addAttribute("result", result);
@@ -190,109 +188,151 @@ public class OfficialController {
 
 		return "redirect:/official/meeting/viewqueue";
 	}
-	
-	
+
 	@RequestMapping(value = "meeting/testmeeting", method = RequestMethod.GET)
 	public String testme(Model model) {
-		
-		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"Spring-Mail.xml");
 		MailMail mm = (MailMail) context.getBean("mailMail");
-       // mm.sendMail("Scheduler App", "This is a Test Email \n your activation code : 85647555 ","sanket.scorp@gmail.com");
-		
+		// mm.sendMail("Scheduler App",
+		// "This is a Test Email \n your activation code : 85647555 ","sanket.scorp@gmail.com");
+
 		return "meeting/testmeeting";
 	}
 
 	// Author - Devraj Valecha
-			// Usage - Login for official user
-			// client
-		@RequestMapping(value = "/login", method = RequestMethod.GET)
-		public String loginOfficial(Model model)
-		{
-			return "officialuser/loginofficial";
-		}
-		
-		@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-		public String authenticateOfficial(@RequestParam("userName") String userName,
-				@RequestParam("password") String password, Model model,
-				HttpSession session) {
-			OfficialUser o1 = new OfficialUser();
-			o1.setOfficialName(userName);
-			o1.setPassword(password);
-			OfficialUser result = officialUserService.authenticate(o1);
-			if (result.getOfficialId()>0) {
-				String name = result.getFirstName();
-				int id = result.getOfficialId();
-				session.setAttribute("officialUserName", userName);
-				session.setAttribute("officialName", name);
-				session.setAttribute("officialId", id);
-			} else {
-				model.addAttribute("result", "Login Failed");
-				return "officialuser/errorofficiallogin";
-			}
-			return "redirect:dashboard";
-		}
-		
+	// Usage - Login for official user
+	// client
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginOfficial(Model model) {
+		return "officialuser/loginofficial";
+	}
 
-		@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-		public String showDashboard(Model model)
-		{
-			return "officialuser/dashboard";
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	public String authenticateOfficial(
+			@RequestParam("userName") String userName,
+			@RequestParam("password") String password, Model model,
+			HttpSession session) {
+		OfficialUser o1 = new OfficialUser();
+		o1.setOfficialName(userName);
+		o1.setPassword(password);
+		OfficialUser result = officialUserService.authenticate(o1);
+		if (result.getOfficialId() > 0) {
+			String name = result.getFirstName();
+			int id = result.getOfficialId();
+			session.setAttribute("officialUserName", userName);
+			session.setAttribute("officialName", name);
+			session.setAttribute("officialId", id);
+		} else {
+			model.addAttribute("result", "Login Failed");
+			return "officialuser/errorofficiallogin";
 		}
-		
+		return "redirect:dashboard";
+	}
 
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String showDashboard(Model model) {
+		return "officialuser/dashboard";
+	}
 
-	
 	@RequestMapping(value = "users/view", method = RequestMethod.GET)
 	public String viewOfficialUsers(Model model) {
-		
+
 		int clientId = 1;
-		
+
 		List<Roles> roles = rolesService.getRoles();
-		List<Department> departments = departmentService.departmentByClient(clientId);
-		for (Department department:departments)
-		{
-			department.setSlots(departmentTimeslotService.getDepartmentTimeslot(department.getDepartmentId()));
-			department.setOfficialUsers(officialUserService.getOfficialUserByDepartment(department.getDepartmentId()));
+		List<Department> departments = departmentService
+				.departmentByClient(clientId);
+		for (Department department : departments) {
+			department.setSlots(departmentTimeslotService
+					.getDepartmentTimeslot(department.getDepartmentId()));
+			department.setOfficialUsers(officialUserService
+					.getOfficialUserByDepartment(department.getDepartmentId()));
 		}
 		model.addAttribute("departments", departments);
 		model.addAttribute("roles", roles);
 		model.addAttribute("officialUser", new OfficialUser());
 		return "client/officialusers";
 	}
-	
+
 	@RequestMapping(value = "users/save", method = RequestMethod.POST)
-	public String viewOfficialUsers(@ModelAttribute("officialUser") OfficialUser officialUser, Model model) {
-		
+	public String viewOfficialUsers(
+			@ModelAttribute("officialUser") OfficialUser officialUser,
+			Model model) {
+
 		int i = officialUserService.saveOfficialUser(officialUser);
 		return "redirect:/official/users/view";
 	}
-	
+
 	@RequestMapping(value = "users/delete/{officialId}", method = RequestMethod.GET)
-	public String deleteOfficialUsers(@PathVariable("officialId") int officialId, Model model) {
-		
+	public String deleteOfficialUsers(
+			@PathVariable("officialId") int officialId, Model model) {
+
 		int i = officialUserService.deleteOfficialUser(officialId);
 		return "redirect:/official/users/view";
 	}
-	
+
 	@RequestMapping(value = "users/edit/{officialId}", method = RequestMethod.GET)
-	public String editOfficialUsers(@PathVariable("officialId") int officialId, Model model) {
+	public String editOfficialUsers(@PathVariable("officialId") int officialId,
+			Model model) {
 		int clientId = 1;
 		List<Roles> roles = rolesService.getRoles();
-		List<Department> departments = departmentService.departmentByClient(clientId);
-		OfficialUser officialUser = officialUserService.getOfficialUserById(officialId);
+		List<Department> departments = departmentService
+				.departmentByClient(clientId);
+		OfficialUser officialUser = officialUserService
+				.getOfficialUserById(officialId);
 		model.addAttribute("Id", officialId);
 		model.addAttribute("departments", departments);
 		model.addAttribute("roles", roles);
 		model.addAttribute("officialUserEdit", officialUser);
 		return "client/editofficialuser";
 	}
-	
+
 	@RequestMapping(value = "users/update", method = RequestMethod.POST)
-	public String updateOfficialUsers(@ModelAttribute("officialUser") OfficialUser officialUser, Model model) {
-		
+	public String updateOfficialUsers(
+			@ModelAttribute("officialUser") OfficialUser officialUser,
+			Model model) {
+
 		int i = officialUserService.updateOfficialUser(officialUser);
 		return "redirect:/official/users/view";
 	}
-	
+
+	@RequestMapping(value = "/editpassword/{officialId}", method = RequestMethod.GET)
+	public String updatePassword(@PathVariable("officialId") int officialId,
+			Model model) {
+		model.addAttribute("userId", officialId);
+		OfficialUser u = officialUserService.getOfficialUserById(officialId);
+		u.setPassword("");
+		model.addAttribute("officialUser", u);
+		return "officialuser/editPassword";
+	}
+
+	@RequestMapping(value = "/savepassword", method = RequestMethod.POST)
+	public String editPassword(
+			@ModelAttribute("officialUser") OfficialUser officialUser,
+			RedirectAttributes ra, Model model) {
+
+		if (officialUser.getPassword().equals(officialUser.getRepassword())) {
+			// both passwords match. Update password
+			int rowsAffected = officialUserService.updatePassword(officialUser);
+			if (rowsAffected > 0) {
+				ra.addFlashAttribute("result", "success");
+				ra.addFlashAttribute("message", "Password changed successfully");
+			} else {
+				ra.addFlashAttribute("result", "fail");
+				ra.addFlashAttribute("message",
+						"Oops. Something went wrong. Try again later");
+			}
+		} else {
+			// send password doesn't match error
+			ra.addFlashAttribute("result", "fail");
+			ra.addFlashAttribute("message", "Password didnt match");
+		}
+
+		return "redirect:/official/editpassword/"
+				+ officialUser.getOfficialId();
+
+	}
 
 }

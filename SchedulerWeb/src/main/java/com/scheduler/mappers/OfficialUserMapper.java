@@ -25,5 +25,6 @@ public interface OfficialUserMapper {
 	int updateOfficialUser(OfficialUser officialUser);
 	int deleteOfficialUser(@Param("officialId") int officialId);
 	OfficialUser getOfficialUserById(@Param("officialId") int officialId);
+	int updatePassword(OfficialUser officialUser);
 
 }

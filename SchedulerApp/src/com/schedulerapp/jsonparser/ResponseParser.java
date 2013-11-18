@@ -2,11 +2,12 @@ package com.schedulerapp.jsonparser;
  
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
- 
+
+import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.models.Campus;
 import com.schedulerapp.models.Department;
 import com.schedulerapp.models.DepartmentTimeslotLinkage;
