@@ -32,12 +32,10 @@
 		<div class ="panel-body"> 
 			<p> ${department.departmentDescription}</p><br/>
 			<c:forEach items="${department.slots}" var="slot">
-			    <b>Working Hours: ${slot.startTime} - ${slot.stopTime}</b><br/>
-          <b>Working Days: ${slot.workingDays}</b><br/>
-          <hr/>
+			     <div class="row">
+			        <b>${slot.workingDays}:- ${slot.startTime} - ${slot.stopTime} (${slot.capacity})</b>
+  			   </div>
 			</c:forEach>	
-
-						
 		</div>
 	</div>
 	<br>

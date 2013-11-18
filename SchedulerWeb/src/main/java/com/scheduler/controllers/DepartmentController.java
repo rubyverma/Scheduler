@@ -1,10 +1,10 @@
 	package com.scheduler.controllers;
 	
-	import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+	import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.scheduler.models.Campus;
 import com.scheduler.models.Department;
 import com.scheduler.models.Departmenttimeslot;
-import com.scheduler.models.OfficialUser;
 import com.scheduler.models.Timeslot;
 import com.scheduler.services.CampusService;
 import com.scheduler.services.DepartmentService;
@@ -92,41 +92,48 @@ import com.scheduler.services.TimeslotService;
 		}
 	
 		@RequestMapping(value = "/edit/{departmentId}", method = RequestMethod.GET)
-		public String editNewDepartment(@PathVariable("departmentId") int departmentId, Model model) {
+		public String editNewDepartment(@PathVariable("departmentId") int departmentId, Model model, HttpServletRequest request) {
 			List<Campus> campuses = campusService.findAllCampuses(1);
 			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(1);
 			Department dept = departmentService.getDepartmentById(departmentId);
 			List<Departmenttimeslot> slots = departmentTimeslotService.getDepartmentTimeslot(departmentId);
 			
-			List<String> days = new ArrayList<String>();
+			Map<String, String> slotsMap = new HashMap<String, String>();
 			for (int index = 0; index < slots.size(); index++) {
-				Departmenttimeslot sl = slots.get(index);				
-				char [] selectedDays = sl.getWeekdays().toCharArray();
-				int i = 1;
-				for (char c : selectedDays) {
-					if(c == '1') {
-						String sd = sl.getTimeslotId() + ",";
-						sd = sd + i;
-						days.add(sd);
-					}
-					i++;
+				Departmenttimeslot sl = slots.get(index);
+				String key = "";
+				String value = Integer.toString(sl.getCapacity());
+				if(sl.getWeekdays().equals(Departmenttimeslot.DAY_1)) {
+					key = sl.getTimeslotId() + ",1";					
+				} else if(sl.getWeekdays().equals(Departmenttimeslot.DAY_2)) {
+					key = sl.getTimeslotId() + ",2";
+				} else if(sl.getWeekdays().equals(Departmenttimeslot.DAY_3)) {
+					key = sl.getTimeslotId() + ",3";
+				} else if(sl.getWeekdays().equals(Departmenttimeslot.DAY_4)) {
+					key = sl.getTimeslotId() + ",4";
+				} else if(sl.getWeekdays().equals(Departmenttimeslot.DAY_5)) {
+					key = sl.getTimeslotId() + ",5";
 				}
+				slotsMap.put(key, value);
 			}
-
-			dept.setCapacity(slots.get(0).getCapacity());
-		
-			dept.setDays(days);
+			dept.setSlotsMap(slotsMap);
+			
 			model.addAttribute("campuses", campuses);
 			model.addAttribute("timeslots", timeslots);
 			model.addAttribute("forEdit", true);
 			model.addAttribute("department", dept);
+			
+			request.setAttribute("department", dept);
+			request.setAttribute("timeslots", timeslots);
 			return "department/edit";
 		}
 		
 		// Author - Ruby Verma
 		// Usage - Adds and save new department
 		@RequestMapping(value = "/save", method = RequestMethod.POST)
-		public String saveDepartment(@ModelAttribute("department") Department department, Model model) {
+		public String saveDepartment(@ModelAttribute("department") Department department, Model model,
+				HttpServletRequest request) {
+			
 			int i = -1;
 			int deptId = -1;
 			if(department.getDepartmentId() == 0) {
@@ -139,58 +146,38 @@ import com.scheduler.services.TimeslotService;
 			
 			departmentTimeslotService.deleteDepartmentTimeslot(deptId);
 			
-			if(department.getDays() != null) {
-				Map<String, String> selectedDays = new HashMap<String, String>();
-				for (int j = 0; j < department.getDays().size(); j++) {
-					final String[] day = (department.getDays().get(j)).split(",");
-					String key = day[0];
-					String value = day[1];
-					if(selectedDays.containsKey(key)) {
-						value = selectedDays.get(key) + "," + value;
-					}
-					selectedDays.put(key, value);
-				}
+			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(1);
+			for (int index = 0; index < timeslots.size(); index++) {
+				Timeslot tsl = timeslots.get(index);
 				
-				Iterator it = selectedDays.entrySet().iterator();
-				while (it.hasNext()) {
-					Map.Entry<String, String> current = (Map.Entry<String, String>) it.next();
-					
-					Boolean [] days = new Boolean[7];
-					days[0] = false;
-					days[1] = false;
-					days[2] = false;
-					days[3] = false;
-					days[4] = false;
-					days[5] = false;
-					days[6] = false;
-					
-					String [] daysValue = current.getValue().split(",");
-					for (int j = 0; j < daysValue.length; j++) {
-						days[Integer.parseInt(daysValue[j]) - 1] = true;
+				for (int j = 1; j <= 5; j++) {
+					String key = tsl.getTimeslotId() + "," + j;
+					String value = StringUtils.trimAllWhitespace(request.getParameter(key));
+					if(value.equalsIgnoreCase("0") || value.equalsIgnoreCase("")) {
+						continue;
 					}
-					
-					String d = "";
-					for (Boolean b : days) {
-						if(b) {
-							d = d + "1";
-						} else {
-							d = d + "0";
-						}
-					}
-					System.out.println(current.getKey());
-					System.out.println(d);
-					System.out.println("---");
 					Departmenttimeslot slot = new Departmenttimeslot();
-					slot.setWeekdays(d);
+					if(j == 1) {
+						slot.setWeekdays(Departmenttimeslot.DAY_1);
+					} else if(j == 2) {
+						slot.setWeekdays(Departmenttimeslot.DAY_2);
+					} else if(j == 3) {
+						slot.setWeekdays(Departmenttimeslot.DAY_3);
+					} else if(j == 4) {
+						slot.setWeekdays(Departmenttimeslot.DAY_4);
+					} else if(j == 5) {
+						slot.setWeekdays(Departmenttimeslot.DAY_5);
+					}
 					slot.setDepartmentId(deptId);
-					slot.setCapacity(department.getCapacity());
-					slot.setTimeslotId(Integer.parseInt(current.getKey()));
+					slot.setCapacity(Integer.parseInt(value));
+					slot.setTimeslotId(tsl.getTimeslotId());
 					departmentTimeslotService.saveDepartmentTimeslot(slot);
-				}				
+					System.out.println("saved");
+				}
 			}
-
-			
 			return "redirect:/official/users/view";
 		}
 				
 	}
+
+

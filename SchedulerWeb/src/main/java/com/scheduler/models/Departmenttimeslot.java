@@ -1,5 +1,4 @@
 package com.scheduler.models;
-import java.sql.Date;
 import java.sql.Time;
 
 import lombok.AllArgsConstructor;
@@ -11,6 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Departmenttimeslot {
 
+	 public static String DAY_1 = "1000000";
+	 public static String DAY_2 = "0100000";
+	 public static String DAY_3 = "0010000";
+	 public static String DAY_4 = "0001000";
+	 public static String DAY_5 = "0000100";
+	 
 	 private int departmentTimeId;
 	 private int departmentId;
 	 private int timeslotId;
@@ -54,4 +59,6 @@ public class Departmenttimeslot {
 		 return strday;
 	 }
 }
+
+
 

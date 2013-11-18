@@ -1,3 +1,6 @@
+<%@page import="com.scheduler.models.Timeslot"%>
+<%@page import="java.util.List"%>
+<%@page import="com.scheduler.models.Department"%>
 <%@ include file="../includes/header.jsp"%>
 
 <title>Add Department</title>
@@ -6,9 +9,7 @@
 <form:form class="form-horizontal" role="form" method="POST"
   action="/Scheduler/department/save" modelAttribute="department">
   <form:hidden path="departmentId" />
-  <form:hidden path="departmentTimeId" />
-  
-    
+ 
   <div class="form-group">
     <label for="inputName" class="col-sm-2 control-label">Select Campus</label>
     <div class="col-sm-5">
@@ -71,27 +72,66 @@
 		      <td>Thursday</td>
 		      <td>Friday</td>
 		    <tr>
-		    <c:forEach items="${timeslots}" var="s">
-		      <tr>
-		        <td>${s.startTime} - ${s.stopTime}</td>
-		        <td><form:checkbox path="days" value="${s.timeslotId},1"/></td>
-		        <td><form:checkbox path="days" value="${s.timeslotId},2"/></td>
-		        <td><form:checkbox path="days" value="${s.timeslotId},3"/></td>
-		        <td><form:checkbox path="days" value="${s.timeslotId},4"/></td>
-		        <td><form:checkbox path="days" value="${s.timeslotId},5"/></td>
-		      </tr>
-		    </c:forEach>
+		    <%
+		      List<Timeslot> timeslots = (List<Timeslot>) request.getAttribute("timeslots");
+		      Department d = (Department) request.getAttribute("department");
+		      for (int index = 0; index < timeslots.size(); index++) {
+			    	Timeslot sl = timeslots.get(index);
+		 	    	out.print("<tr><td>");
+		 	    	out.print(sl.getStartTime());
+		 	    	out.print(" - ");
+		 	    	out.print(sl.getStopTime());
+		 	    	out.print("</td>");
+		 	    	
+		 	    	String key = sl.getTimeslotId() + ",1";
+		 	    	String value = "0";
+		 	    	if(d.getSlotsMap().containsKey(key)) {
+		 	    		value = d.getSlotsMap().get(key);
+		 	    	}
+		 	    	out.print("<td>");
+		 	    	out.print("<input type=\"number\" min=\"0\" class=\"form-control input-sm\" name='"+key+"' value='"+value+"' />");
+		 	    	out.print("</td>");
+
+            key = sl.getTimeslotId() + ",2";
+            value = "0";
+            if(d.getSlotsMap().containsKey(key)) {
+              value = d.getSlotsMap().get(key);
+            }
+            out.print("<td>");
+            out.print("<input type=\"number\" min=\"0\" class=\"form-control input-sm\" name='"+key+"' value='"+value+"' />");
+            out.print("</td>");
+
+            key = sl.getTimeslotId() + ",3";
+            value = "0";
+            if(d.getSlotsMap().containsKey(key)) {
+              value = d.getSlotsMap().get(key);
+            }
+            out.print("<td>");
+            out.print("<input type=\"number\" min=\"0\" class=\"form-control input-sm\" name='"+key+"' value='"+value+"' />");
+            out.print("</td>");
+            
+            key = sl.getTimeslotId() + ",4";
+            value = "0";
+            if(d.getSlotsMap().containsKey(key)) {
+              value = d.getSlotsMap().get(key);
+            }
+            out.print("<td>");
+            out.print("<input type=\"number\" min=\"0\" class=\"form-control input-sm\" name='"+key+"' value='"+value+"' />");
+            out.print("</td>");
+            
+            key = sl.getTimeslotId() + ",5";
+            value = "0";
+            if(d.getSlotsMap().containsKey(key)) {
+              value = d.getSlotsMap().get(key);
+            }
+            out.print("<td>");
+            out.print("<input type=\"number\" min=\"0\" class=\"form-control input-sm\" name='"+key+"' value='"+value+"' />");
+            out.print("</td></tr>");
+		      }
+		     %>
 		  </table>
   </div> 
 
-  <div class="form-group">
-    <label for="inputName" class="col-sm-2 control-label">Capacity</label>
-    <div class="col-sm-5">
-      <form:input class="form-control" path="capacity" id="capacity"
-        placeholder="Name" required="required"></form:input>
-    </div>
-  </div>
-    
    <div style="text-align: center;">
 	   <a href="/Scheduler/official/users/view" class="btn btn-danger">Cancel</a>
        <input type="submit" name="Save" value="Save" class="btn btn-success"/>
@@ -102,3 +142,4 @@
 
 
 <%@ include file="../includes/footer.jsp"%>
+
