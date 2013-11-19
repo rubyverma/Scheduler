@@ -19,6 +19,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+
+import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.GeneralUserService;
@@ -87,10 +89,45 @@ public class GeneralUserController {
 		} else {
 			model.addAttribute("result", "Sorry, verification failed");
 		}
-
 		return "generaluser/verifyUser";
-
 	}
+		
+			// Author - Devraj Valecha
+						// Usage - Reset password for general user
+						// general user
+					@RequestMapping(value = "/reset", method = RequestMethod.GET)
+					public String resetPasswordGeneralUser(Model model)
+					{
+						return "generaluser/resetpasswordgeneraluser";
+					}
+					@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
+					public String savePassword(@RequestParam("emailAddress") String email,Model model)
+					{
+						Random randomGenerator = new Random();
+						String myPassword =Integer.toString(randomGenerator.nextInt(20000));
+						int passwordUpdate = generaluserService.resetPassword(email,myPassword);
+						if(passwordUpdate>0)
+						{
+							String to = email;
+							ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+							MailMail mm = (MailMail) context.getBean("mailMail");
+							String url = "http://localhost:8080/Scheduler/generaluser/login";
+							mm.sendMail("Scheduler App",
+									"This is a Test Email \n your temporary password : " + myPassword + 
+									 " \n Below is the link provided to login to scheduler\n" + url,
+									to);
+						}
+						else
+						{
+							return "generaluser/passworderrorgeneraluser";
+						}
+						
+						return"generaluser/passwordsentgeneraluser";
+					}
+		
+
+
+
 
 	// Author - Devraj Valecha
 	// Usage - Login for general user

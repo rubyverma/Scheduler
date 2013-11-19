@@ -1,6 +1,7 @@
 package com.scheduler.controllers;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -298,6 +299,42 @@ public class OfficialController {
 		return "redirect:/official/users/view";
 	}
 
+	
+	// Author - Devraj Valecha
+				// Usage - Reset password for official user
+				// official user
+			@RequestMapping(value = "/reset", method = RequestMethod.GET)
+			public String resetPasswordOfficialUser(Model model)
+			{
+				return "officialuser/resetpasswordofficialuser";
+			}
+			@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
+			public String savePassword(@RequestParam("emailAddress") String email,Model model)
+			{
+				Random randomGenerator = new Random();
+				String myPassword =Integer.toString(randomGenerator.nextInt(20000));
+				int passwordUpdate = officialUserService.resetPassword(email,myPassword);
+				if(passwordUpdate>0)
+				{
+					String to = email;
+					ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+					MailMail mm = (MailMail) context.getBean("mailMail");
+					String url = "http://localhost:8080/Scheduler/official/login";
+					mm.sendMail("Scheduler App",
+							"This is a Test Email \n your temporary password : " + myPassword + 
+							 " \n Below is the link provided to login to scheduler\n" + url,
+							to);
+				}
+				else
+				{
+					return "officialuser/passworderrorofficialuser";
+				}
+				
+				return"officialuser/passwordsentofficialuser";
+			}
+	
+
+
 	@RequestMapping(value = "/editpassword/{officialId}", method = RequestMethod.GET)
 	public String updatePassword(@PathVariable("officialId") int officialId,
 			Model model) {
@@ -334,5 +371,6 @@ public class OfficialController {
 				+ officialUser.getOfficialId();
 
 	}
+
 
 }

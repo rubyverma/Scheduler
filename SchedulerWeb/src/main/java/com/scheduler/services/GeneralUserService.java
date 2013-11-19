@@ -62,6 +62,11 @@ public class GeneralUserService {
 		// TODO Auto-generated method stub
 		return generalUserMapper.getLastUserId();
 	}
+
+	public int resetPassword(String email,String myPassword) {
+		 return generalUserMapper.resetPassword(email,myPassword);
+
+		}
 	
 	public boolean updateGCMRegId(GeneralUser user) {
 		
@@ -87,4 +92,5 @@ public class GeneralUserService {
 	{
 	  return generalUserMapper.updatePassword(generaluser);
 	}
+
 }

@@ -8,12 +8,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.scheduler.models.Department;
+import com.scheduler.models.DepartmentStatistics;
 
 @Repository(value="departmentMapper")
 @Component
 public interface DepartmentMapper {
 
 	List<Department> getDepartmentByCampus(@Param("campusId") int campusId);
+	
 	List<Department> getDepartmentByClient(@Param("clientId") int clientId);
 	
 	int deleteDepartment(int departmentID) throws BadSqlGrammarException;
@@ -27,5 +29,8 @@ public interface DepartmentMapper {
 	Department getDepartmentById(int departmentID) throws BadSqlGrammarException;
 	
 	int validateDepartment(Department department) throws BadSqlGrammarException;
+
+	List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException;
+	
 
 }
