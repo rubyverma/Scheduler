@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.Campus;
 import com.scheduler.models.Department;
+import com.scheduler.models.DepartmentStatistics;
 import com.scheduler.models.Departmenttimeslot;
 import com.scheduler.models.Timeslot;
 import com.scheduler.services.CampusService;
@@ -90,7 +92,7 @@ import com.scheduler.services.TimeslotService;
 			model.addAttribute("timeslots", timeslots);
 			return "department/edit";
 		}
-	
+		
 		@RequestMapping(value = "/edit/{departmentId}", method = RequestMethod.GET)
 		public String editNewDepartment(@PathVariable("departmentId") int departmentId, Model model, HttpServletRequest request) {
 			List<Campus> campuses = campusService.findAllCampuses(1);
@@ -177,7 +179,19 @@ import com.scheduler.services.TimeslotService;
 			}
 			return "redirect:/official/users/view";
 		}
-				
+	
+		@RequestMapping(value = "/viewstats", method = RequestMethod.GET)
+		public String viewAllStastics(Model model) {
+		
+			try {
+				List<DepartmentStatistics> departmentStats= departmentService.getStatistics();
+				model.addAttribute("departmentStats", departmentStats);
+			} catch (BadSqlGrammarException e) {
+				model.addAttribute("error", e.getMessage());
+				System.out.println(e.getMessage());
+			}
+			return "department/viewstats";
+		}
 	}
 
 

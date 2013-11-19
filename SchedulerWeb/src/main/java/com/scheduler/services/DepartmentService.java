@@ -9,6 +9,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 import com.scheduler.mappers.DepartmentMapper;
 import com.scheduler.models.Department;
+import com.scheduler.models.DepartmentStatistics;
 
 @Component
 public class DepartmentService {
@@ -51,4 +52,9 @@ public class DepartmentService {
 	public int validateDepartment(Department department) throws BadSqlGrammarException {
 		return departmentMapper.validateDepartment(department);
 	}
+
+	public List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException {
+		return departmentMapper.getStatistics();
+	}
+	
 }
