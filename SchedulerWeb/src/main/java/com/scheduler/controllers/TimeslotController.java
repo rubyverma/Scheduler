@@ -152,12 +152,10 @@ public class TimeslotController {
 
 		boolean deleted = timeslotService.RemoveTimeslot(timeslotId);
 		if (deleted) {
-			redirectAttributes.addFlashAttribute("result",
-					"Timeslot removed successfully");
+			redirectAttributes.addFlashAttribute("result","Timeslot removed successfully");
+
 		} else {
-			redirectAttributes
-					.addFlashAttribute("result",
-							"Unable to remove because some departments are using this timeslot.");
+			redirectAttributes.addFlashAttribute("result","Unable to remove because some departments are using this timeslot.");
 		}
 
 		return "redirect:/timeslot/view";
