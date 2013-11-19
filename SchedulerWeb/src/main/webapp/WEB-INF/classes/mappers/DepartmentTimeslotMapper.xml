@@ -13,4 +13,35 @@
 		where departmentId = #{departmentId}));
 	</select>
 
+  <!-- Author - Ruby Verma -->
+  <!-- Usage - save department-->
+  <insert id="saveDepartmentTimeslot" parameterType="com.scheduler.models.Departmenttimeslot" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into departmenttimeslot(departmentId, timeslotId, weekdays, capacity) values
+    (#{departmentId}, #{timeslotId}, #{weekdays}, #{capacity})
+    <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+      select last_insert_id()
+    </selectKey>
+  </insert>
+  
+  
+   <!-- Author - Ruby Verma -->
+    <!-- Usage - To select a list of departments for a particular campus -->
+	<select id="getDepartmentTimeslot" parameterType="int" resultType="com.scheduler.models.Departmenttimeslot">
+		select * from departmenttimeslot dst, timeslot slt where departmentId = #{departmentId} and dst.timeslotId = slt.timeslotId
+	</select>
+
+  <!-- Author - Ruby Verma -->
+  <!-- Usage - update department-->
+  <update id="updateDepartmentTimeslot" parameterType="int">
+    update departmenttimeslot
+    set
+    timeslotId = #{timeslotId},
+    weekdays = #{weekdays},
+    capacity = #{capacity}
+    where departmentTimeId = #{departmentTimeId}
+  </update> 
+  
+  <select id="deleteDepartmentTimeslot" parameterType="int">
+    delete from departmenttimeslot where departmentId = #{departmentId}
+  </select> 
 </mapper>

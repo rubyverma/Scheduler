@@ -22,5 +22,9 @@ public interface GeneralUserMapper {
 	String getUserToken(@Param("userId") int userId);
 	int getLastUserId();
 	int resetPassword(@Param("email") String email,@Param("password") String password);
+	int updateGCMRegId(GeneralUser user);
+	GeneralUser getGeneralUser(@Param("userId") int userId);
+	int updateUser(GeneralUser generaluser);
+	int updatePassword(GeneralUser generaluser);
 
 }

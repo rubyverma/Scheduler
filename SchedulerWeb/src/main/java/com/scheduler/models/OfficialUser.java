@@ -16,6 +16,7 @@ public class OfficialUser {
 	private String roleName;
 	private String officialName;
 	private String password;
+	private String repassword;
 	private String email;
 	private String firstName;
 	private String lastName;

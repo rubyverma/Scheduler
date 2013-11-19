@@ -8,4 +8,5 @@ public class UrlUtils {
 	public static String GET_TIME_SLOT 	= "/api/getDepartmentTimeslot/";
 	public static String GET_APPOINTMENTS 	= "/appointment/mobileview/";
 	public static String SAVE_APPOINTMENT 	= "/api/saveappointment/";
+	public static String USER_AUTHENTICATE 	= "/api/authenticate/";
 }

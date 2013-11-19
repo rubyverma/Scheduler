@@ -15,6 +15,9 @@ import com.scheduler.models.GeneralUser;
 @Component
 public interface AppointmentMapper {
 
+	List<Appointment> getFinishedAppointments(Appointment appointment);
+	
+	List<Appointment>  getBeforeAppointments (Appointment appointment);
 	
 	int saveAppointment(Appointment appointment);
 	

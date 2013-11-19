@@ -6,6 +6,7 @@
 <h1>
 	Official Users
 <span class ="pull-right">
+  <a href="/Scheduler/department/new" class="btn btn-primary">Add Department</a>
  <button class="btn btn-primary" data-toggle="modal" data-target="#addOfficialUser">
   Add Official User
 </button>
@@ -19,10 +20,23 @@
 	<c:if test="${empty department.officialUsers}">
 		<div class="panel panel-danger">
 	</c:if>
-	<div class ="panel-heading"><b>${department.departmentName}</b></div>
+	<div class ="panel-heading">
+	     <b>${department.departmentName}</b>
+	     <div class="pull-right silent">
+	    <a href="/Scheduler/department/edit/${department.departmentId}" class="label label-warning">Update</a>
+	    <a href="/Scheduler/department/delete/${department.departmentId}" class="label label-danger">Delete</a>
+      </div>
+	</div>
 	<div class ="panel-body">
 	<p><b>Department Description:</b></p>
-		<div class ="panel-body"> <p> ${department.departmentDescription}</p> </div>
+		<div class ="panel-body"> 
+			<p> ${department.departmentDescription}</p><br/>
+			<c:forEach items="${department.slots}" var="slot">
+			     <div class="row">
+			        <b>${slot.workingDays}:- ${slot.startTime} - ${slot.stopTime} (${slot.capacity})</b>
+  			   </div>
+			</c:forEach>	
+		</div>
 	</div>
 	<br>
 	<table class = "table">
@@ -113,3 +127,4 @@
 <script src="/Scheduler/resources/js/calender.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+

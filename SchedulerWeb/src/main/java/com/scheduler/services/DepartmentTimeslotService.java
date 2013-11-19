@@ -11,11 +11,12 @@ import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.DepartmentTimeslotMapper;
 import com.scheduler.models.DepartmentTimeslotLinkage;
+import com.scheduler.models.Departmenttimeslot;
 import com.scheduler.models.Utility;
 
 @Component
 public class DepartmentTimeslotService {
-
+	
 	@Autowired(required = true)
 	private DepartmentTimeslotMapper departmentTimeslotMapper;
 	// Author - Shalin Banjara
@@ -44,4 +45,33 @@ public class DepartmentTimeslotService {
 		}
 		return finalDepartmenttimeslots;
 	}
+
+	public DepartmentTimeslotLinkage getTimeslotByAppointment(@Param("departmentTimeId") int departmentTimeId){
+		return departmentTimeslotMapper.getTimeslotByAppointment(departmentTimeId);
+	}
+
+	public int saveDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException {
+		return departmentTimeslotMapper.saveDepartmentTimeslot(slot);
+	}
+
+	public int updateDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException {
+		return departmentTimeslotMapper.updateDepartmentTimeslot(slot);
+	}
+	
+	public List<Departmenttimeslot> getDepartmentTimeslot(int departmentId) throws BadSqlGrammarException  {
+		List<Departmenttimeslot> slots = departmentTimeslotMapper.getDepartmentTimeslot(departmentId);
+		if(slots != null && slots.size() > 0) {
+			for (Departmenttimeslot departmenttimeslot : slots) {
+				departmenttimeslot.setWorkingDays(Departmenttimeslot.getWorkingDays(departmenttimeslot.getWeekdays()));
+			}			
+		}
+		return slots;
+	}
+	
+	public void deleteDepartmentTimeslot(int departmentId) {
+		departmentTimeslotMapper.deleteDepartmentTimeslot(departmentId);
+	}
+
+	
+	
 }

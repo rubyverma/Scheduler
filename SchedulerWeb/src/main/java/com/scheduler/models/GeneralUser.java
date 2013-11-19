@@ -14,6 +14,7 @@ public class GeneralUser {
         private int clientId;
         private String username;
         private String password;
+        private String repassword;
         private String firstName;
         private String lastName;
         private String email;

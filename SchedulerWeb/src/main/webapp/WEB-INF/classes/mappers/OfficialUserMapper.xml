@@ -52,4 +52,11 @@
 		password = #{password}
 		where email = #{email}
 	</update>
+	
+	<update id="updatePassword" parameterType="com.scheduler.models.OfficialUser">
+		update officialuser
+		set password = #{password}
+		where officialId = #{officialId}
+	</update>
+
 </mapper>

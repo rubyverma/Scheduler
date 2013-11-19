@@ -2,42 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.GeneralUserMapper">
 
-	<select id="getUserRegistrationId" parameterType="int" resultType="String">
+	<select id="getUserRegistrationId" parameterType="int"
+		resultType="String">
 		select gcmRegId from generaluser where userId = #{user_id}
 	</select>
 
-	<select id="authenticate" parameterType="com.scheduler.models.GeneralUser" resultType="com.scheduler.models.GeneralUser">
-		select * from generaluser where username=#{username} and password=#{password}
+	<select id="authenticate" parameterType="com.scheduler.models.GeneralUser"
+		resultType="com.scheduler.models.GeneralUser">
+		select * from generaluser where username=#{username} and
+		password=#{password}
 	</select>
 	<select id="getFirstName" parameterType="String" resultType="String">
-		select firstName from generaluser where username=#{username} and password=#{password}
+		select firstName from generaluser where username=#{username} and
+		password=#{password}
 	</select>
 	<select id="getUserId" parameterType="String" resultType="int">
-		select userId from generaluser where username=#{username} and password=#{password}
-		</select>
+		select
+		userId from generaluser where username=#{username} and
+		password=#{password}
+	</select>
 	<select id="getLastUserId" parameterType="int" resultType="int">
 		select MAX(userId) FROM generaluser
 	</select>
-	
-	
+
+
 	<insert id="saveUser" parameterType="com.scheduler.models.GeneralUser"
 		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		insert into generaluser(clientId,firstName,lastName, username, password,email,address,dob,gender,token)
+		insert into generaluser(clientId,firstName,lastName, username,
+		password,email,address,dob,gender,token)
 		values
-		(1,#{firstName},#{lastName},#{username}, #{password},#{email},#{address},#{dob},#{gender},#{tocken})
+		(1,#{firstName},#{lastName},#{username},
+		#{password},#{email},#{address},#{dob},#{gender},#{tocken})
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			select last_insert_id()
 		</selectKey>
 	</insert>
-	
+
 	<update id="verifyUser" parameterType="int">
 		update
 		generaluser set
 		emailVerified = 1
 		where userId = #{userId}
 	</update>
+
 	<select id="getUserToken" parameterType="int" resultType="String">
-		select token from generaluser where userId=#{userId}
+		select
+		token from generaluser where userId=#{userId}
 	</select>
 	 <update id="resetPassword" parameterType="String">
 		update
@@ -45,4 +55,37 @@
 		password = #{password}
 		where email = #{email}
 	</update>
+
+	<update id="updateGCMRegId" parameterType="com.scheduler.models.GeneralUser">
+		update
+		generaluser set
+		gcmRegId = #{gcmRegId}
+		where username = #{username}
+	</update>
+
+	<select id="getGeneralUser" parameterType="int"
+		resultType="com.scheduler.models.GeneralUser">
+		select * from generaluser where userId=#{userId}
+	</select>
+	
+	<update id="updateUser" parameterType="int">
+		update
+		generaluser set
+		username = #{username},
+		email = #{email},
+		firstName = #{firstName},
+		lastName = #{lastName},
+		address = #{address},
+		gender = #{gender}
+		where userId = #{userId}
+	</update>
+	
+	<update id="updatePassword" parameterType="int">
+		update
+		generaluser set
+		password = #{password}
+		where userId = #{userId}
+	</update>
+
+
 </mapper>

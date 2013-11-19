@@ -13,6 +13,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 
 import com.scheduler.mappers.ClientMapper;
 import com.scheduler.models.Appointment;
+import com.scheduler.models.GeneralUser;
 import com.scheduler.models.OfficialUser;
 
 @Component
@@ -68,6 +69,10 @@ public class OfficialUserService {
 	
 	public int updateOfficialUser(OfficialUser officialUser) throws BadSqlGrammarException {
 		return officialUserMapper.updateOfficialUser(officialUser);
+	}
+
+	public int updatePassword(OfficialUser officialUser) {
+		return officialUserMapper.updatePassword(officialUser);
 	}
 
 }
