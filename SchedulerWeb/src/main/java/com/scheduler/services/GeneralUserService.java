@@ -57,4 +57,8 @@ public GeneralUser authenticate(GeneralUser gu) {
 		// TODO Auto-generated method stub
 		return generalUserMapper.getLastUserId();
 	}
+	public int resetPassword(String email,String myPassword) {
+		 return generalUserMapper.resetPassword(email,myPassword);
+
+		}
 }

@@ -55,4 +55,8 @@ public class ClientService {
 		return clientMapper.getLastClientId();
 	}
 	
+	public int resetPassword(String email,String myPassword) {
+	 return clientMapper.resetPassword(email,myPassword);
+
+	}
 }

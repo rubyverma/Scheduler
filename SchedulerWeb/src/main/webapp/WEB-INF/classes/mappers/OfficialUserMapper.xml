@@ -46,5 +46,10 @@
 		update officialuser
 		set departmentId = #{departmentId},roleId = #{roleId},officialName = #{officialName},email = #{email},password = #{password},firstName =#{firstName},lastName = #{lastName},dateJoined = #{dateJoined} where officialId = #{officialId}
 	</update>
-
+<update id="resetPassword" parameterType="String">
+		update
+		officialuser set
+		password = #{password}
+		where email = #{email}
+	</update>
 </mapper>

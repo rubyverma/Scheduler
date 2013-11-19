@@ -39,4 +39,10 @@
 	<select id="getUserToken" parameterType="int" resultType="String">
 		select token from generaluser where userId=#{userId}
 	</select>
+	 <update id="resetPassword" parameterType="String">
+		update
+		generaluser set
+		password = #{password}
+		where email = #{email}
+	</update>
 </mapper>

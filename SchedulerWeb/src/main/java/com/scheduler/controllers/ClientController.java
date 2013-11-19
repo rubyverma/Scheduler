@@ -127,5 +127,38 @@ public class ClientController {
 		return "client/dashboard";
 	}
 	
-
+	// Author - Devraj Valecha
+			// Usage - Reset password for client
+			// client
+		@RequestMapping(value = "/reset", method = RequestMethod.GET)
+		public String resetPasswordClient(Model model)
+		{
+			return "client/resetpasswordclient";
+		}
+		@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
+		public String savePassword(@RequestParam("emailAddress") String email,Model model)
+		{
+			
+			Random randomGenerator = new Random();
+			String myPassword =Integer.toString(randomGenerator.nextInt(20000));
+			int passwordUpdate = clientService.resetPassword(email,myPassword);
+			if(passwordUpdate>0)
+			{
+				String to = email;
+				ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+				MailMail mm = (MailMail) context.getBean("mailMail");
+				String url = "http://localhost:8080/Scheduler/client/login";
+				mm.sendMail("Scheduler App",
+						"This is a Test Email \n your temporary password : " + myPassword + 
+						 " \n Below is the link provided to login to scheduler\n" + url,
+						to);
+			}
+			else
+			{
+				return "client/passworderrorclient";
+			}
+			
+			return"client/passwordsent";
+		}
+		
 }
