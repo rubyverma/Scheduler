@@ -8,7 +8,7 @@
     <th>Department ID</th>
     <th>Department</th>
     <th>Finished Appointment</th>
-    <th>Cancelled Appointment</th>
+    <th>Canceled Appointment</th>
     <th>Late Appointment</th>
     <th>Total Appointment</th>
 </tr>
@@ -17,7 +17,7 @@
         <td>${departmentStatistics.departmentId }</td>
         <td>${departmentStatistics.departmentName }</td>
         <td>${departmentStatistics.finishedAppointment }</td>
-        <td>${departmentStatistics.cancelledAppointment }</td>
+        <td>${departmentStatistics.canceledAppointment }</td>
         <td>${departmentStatistics.lateAppointment }</td>
         <td>${departmentStatistics.totalAppointment }</td>
     </tr>

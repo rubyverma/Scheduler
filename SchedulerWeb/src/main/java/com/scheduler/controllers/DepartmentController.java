@@ -185,7 +185,7 @@ import com.scheduler.services.TimeslotService;
 		
 			try {
 				List<DepartmentStatistics> departmentStats= departmentService.getStatistics();
-				model.addAttribute("departmentStats", departmentStats);
+				model.addAttribute("departmentStatistics", departmentStats);
 			} catch (BadSqlGrammarException e) {
 				model.addAttribute("error", e.getMessage());
 				System.out.println(e.getMessage());
