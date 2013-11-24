@@ -51,7 +51,6 @@ import com.scheduler.services.TimeslotService;
 @RequestMapping("/official")
 @Controller
 @Slf4j
-@Scope("session")
 public class OfficialController {
 
 	@Autowired(required = true)
@@ -81,7 +80,7 @@ public class OfficialController {
 	public String showOfficialDashboard(Model model) {
 		return "officialuser/dashboard";
 	}
-	
+
 	@RequestMapping(value = "/meeting/finish", method = RequestMethod.POST)
 	public String finishMeeting(
 			@ModelAttribute("appointment") Appointment appointment, Model model) {
@@ -221,8 +220,8 @@ public class OfficialController {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public String authenticateOfficial(
 			@RequestParam("userName") String userName,
-			@RequestParam("password") String password, Model model, HttpSession session) {
-		
+			@RequestParam("password") String password, Model model) {
+
 		OfficialUser o1 = new OfficialUser();
 		o1.setOfficialName(userName);
 		o1.setPassword(password);
@@ -230,14 +229,16 @@ public class OfficialController {
 		if (result.getOfficialId() > 0) {
 			String name = result.getFirstName();
 			int id = result.getOfficialId();
-			session.setAttribute("officialUserName", userName);
-			session.setAttribute("officialName", name);
-			session.setAttribute("officialId", id);
+			/*
+			 * session.setAttribute("officialUserName", userName);
+			 * session.setAttribute("officialName", name);
+			 * session.setAttribute("officialId", id);
+			 */
 		} else {
 			model.addAttribute("result", "Login Failed");
 			return "officialuser/errorofficiallogin";
 		}
-		System.out.println(session.getAttribute("officialName"));
+		// System.out.println(session.getAttribute("officialName"));
 		return "redirect:dashboard";
 	}
 
@@ -308,41 +309,39 @@ public class OfficialController {
 		return "redirect:/official/users/view";
 	}
 
-	
 	// Author - Devraj Valecha
-				// Usage - Reset password for official user
-				// official user
-			@RequestMapping(value = "/reset", method = RequestMethod.GET)
-			public String resetPasswordOfficialUser(Model model)
-			{
-				return "officialuser/resetpasswordofficialuser";
-			}
-			@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
-			public String savePassword(@RequestParam("emailAddress") String email,Model model)
-			{
-				Random randomGenerator = new Random();
-				String myPassword =Integer.toString(randomGenerator.nextInt(20000));
-				int passwordUpdate = officialUserService.resetPassword(email,myPassword);
-				if(passwordUpdate>0)
-				{
-					String to = email;
-					ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-					MailMail mm = (MailMail) context.getBean("mailMail");
-					String url = "http://localhost:8080/Scheduler/official/login";
-					mm.sendMail("Scheduler App",
-							"This is a Test Email \n your temporary password : " + myPassword + 
-							 " \n Below is the link provided to login to scheduler\n" + url,
-							to);
-				}
-				else
-				{
-					return "officialuser/passworderrorofficialuser";
-				}
-				
-				return"officialuser/passwordsentofficialuser";
-			}
-	
+	// Usage - Reset password for official user
+	// official user
+	@RequestMapping(value = "/reset", method = RequestMethod.GET)
+	public String resetPasswordOfficialUser(Model model) {
+		return "officialuser/resetpasswordofficialuser";
+	}
 
+	@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
+	public String savePassword(@RequestParam("emailAddress") String email,
+			Model model) {
+		Random randomGenerator = new Random();
+		String myPassword = Integer.toString(randomGenerator.nextInt(20000));
+		int passwordUpdate = officialUserService.resetPassword(email,
+				myPassword);
+		if (passwordUpdate > 0) {
+			String to = email;
+			ApplicationContext context = new ClassPathXmlApplicationContext(
+					"Spring-Mail.xml");
+			MailMail mm = (MailMail) context.getBean("mailMail");
+			String url = "http://localhost:8080/Scheduler/official/login";
+			mm.sendMail(
+					"Scheduler App",
+					"This is a Test Email \n your temporary password : "
+							+ myPassword
+							+ " \n Below is the link provided to login to scheduler\n"
+							+ url, to);
+		} else {
+			return "officialuser/passworderrorofficialuser";
+		}
+
+		return "officialuser/passwordsentofficialuser";
+	}
 
 	@RequestMapping(value = "/editpassword/{officialId}", method = RequestMethod.GET)
 	public String updatePassword(@PathVariable("officialId") int officialId,
@@ -380,6 +379,5 @@ public class OfficialController {
 				+ officialUser.getOfficialId();
 
 	}
-
 
 }

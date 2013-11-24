@@ -6,34 +6,37 @@
                     http://www.springframework.org/schema/security
                     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<http pattern="/resources/**" security="none" />
+	<http pattern="/" security="none" />
+
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="*" access="isAnonymous()" />
-	<!-- 
-		<intercept-url pattern="/" access="isAnonymous()" />
-		<intercept-url pattern="/login" access="isAnonymous()" />
-		<intercept-url pattern="/client/login" access="isAnonymous()" />
-		<intercept-url pattern="/official/login" access="isAnonymous()" />
-		<intercept-url pattern="/generaluser/login" access="isAnonymous()" />
-		<intercept-url pattern="/client/register" access="isAnonymous()" />
-		<intercept-url pattern="/logout" access="hasAnyRole('ROLE_USER','DA')" />
-		<intercept-url pattern="/accessdenied" access="isAnonymous()" />
-		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','DA')" /> -->
+		<intercept-url pattern="/client/register"
+			access="hasAnyRole('ROLE_ANONYMOUS','GU','OU', 'CL')" />
+		<intercept-url pattern="/login"
+			access="hasAnyRole('ROLE_ANONYMOUS','GU','OU', 'CL')" />
+		<intercept-url pattern="/logout" access="hasAnyRole('GU','OU', 'CL')" />
+		<!-- <intercept-url pattern="/**" access="hasAnyRole('GU','OU', 'CL')" /> -->
 		<form-login login-page="/login" default-target-url="/list"
-			authentication-failure-url="/accessdenied" />
+			authentication-failure-url="/login" />
 		<logout logout-success-url="/logout" />
+		<intercept-url pattern="/timeslot/view" access="hasAnyRole('CL')" />
 	</http>
-	
+
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="select username,password, true from generaluser where username=?"
-				authorities-by-username-query="select username,'ROLE_USER' from generaluser where username=?" />
+				authorities-by-username-query="select username,'GU' from generaluser where username=?" />
 		</authentication-provider>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="select email as username,password, true from officialuser where email=?"
-				authorities-by-username-query="select email as username,privilege as authority from officialuser ou, roles r where ou.roleId = r.roleId and ou.email = ?" />
+				authorities-by-username-query="select email as username, 'OU' from officialuser where email=?" />
+		</authentication-provider>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select email as username,password, true from client where email=?"
+				authorities-by-username-query="select email as username, 'CL' from client where email = ?" />
 		</authentication-provider>
 	</authentication-manager>
-
 </beans:beans>
