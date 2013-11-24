@@ -4,6 +4,11 @@ import org.springframework.mail.MailSendException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
+
+
+
+
+
 public class MailMail {
 
 	private MailSender mailSender;
@@ -19,17 +24,23 @@ public class MailMail {
 	}
 	
 	public void sendMail(String dear, String content,String to) {
-		
-		try {
+
+		try
+		{
+
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("schedulerapp1234@gmail.com");
 		message.setTo(to);
 		message.setSubject("Scheduler App");
 		message.setText(String.format(
+
 		simpleMailMessage.getText(), dear, content));
 		mailSender.send(message);
-		} catch(MailSendException mse) {
+		}
+		
+	    catch(MailSendException mse) {
 			mse.printStackTrace();
+
 		}
 		/*SimpleMailMessage message = new SimpleMailMessage(simpleMailMessage);
 		

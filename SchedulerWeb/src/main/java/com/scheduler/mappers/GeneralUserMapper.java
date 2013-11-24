@@ -5,6 +5,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 
@@ -20,8 +21,10 @@ public interface GeneralUserMapper {
 	int verifyUser(@Param("userId") int userId);
 	String getUserToken(@Param("userId") int userId);
 	int getLastUserId();
+	int resetPassword(@Param("email") String email,@Param("password") String password);
 	int updateGCMRegId(GeneralUser user);
 	GeneralUser getGeneralUser(@Param("userId") int userId);
 	int updateUser(GeneralUser generaluser);
 	int updatePassword(GeneralUser generaluser);
+
 }

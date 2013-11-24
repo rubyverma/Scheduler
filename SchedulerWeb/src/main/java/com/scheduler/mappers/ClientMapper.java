@@ -19,4 +19,5 @@ public interface ClientMapper {
     String getClientName(@RequestParam("userName")String userName,@RequestParam("password")String password);
     int getClientId(@RequestParam("userName")String userName,@RequestParam("password")String password);
 	int getLastClientId();
+    int resetPassword(@Param("email") String email,@Param("password") String password);
 }

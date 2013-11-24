@@ -91,5 +91,14 @@
     <property name="mapperInterface" value="com.scheduler.mappers.RolesMapper" />
     <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
+
+    <bean id="categoryMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="com.scheduler.mappers.CategoryMapper" />
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
     
+    <bean id="faqMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="com.scheduler.mappers.FaqMapper" />
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
 </beans>

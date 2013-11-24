@@ -49,6 +49,12 @@
 		select
 		token from generaluser where userId=#{userId}
 	</select>
+	 <update id="resetPassword" parameterType="String">
+		update
+		generaluser set
+		password = #{password}
+		where email = #{email}
+	</update>
 
 	<update id="updateGCMRegId" parameterType="com.scheduler.models.GeneralUser">
 		update
@@ -80,5 +86,6 @@
 		password = #{password}
 		where userId = #{userId}
 	</update>
+
 
 </mapper>
