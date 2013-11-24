@@ -11,5 +11,6 @@
     <string name="title_activity_view_notifications">View Notifications</string>
     <string name="title_activity_view_announcement">View Announcement</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_view_faqs">ViewFaqsActivity</string>
 
 </resources>
