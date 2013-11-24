@@ -53,8 +53,8 @@ public class DepartmentService {
 		return departmentMapper.validateDepartment(department);
 	}
 
-	public List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException {
-		return departmentMapper.getStatistics();
+	public List<DepartmentStatistics> getStatistics( int departmentID) throws BadSqlGrammarException {
+		return departmentMapper.getStatistics(departmentID);
 	}
 	
 }
