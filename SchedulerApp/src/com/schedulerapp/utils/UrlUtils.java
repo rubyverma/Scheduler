@@ -9,4 +9,6 @@ public class UrlUtils {
 	public static String GET_APPOINTMENTS 	= "/appointment/mobileview/";
 	public static String SAVE_APPOINTMENT 	= "/api/saveappointment/";
 	public static String USER_AUTHENTICATE 	= "/api/authenticate/";
+	public static String GET_CATEGORIES 	= "/api/getCategories";
+	public static String GET_FAQS 	= "/api/getFaqsByCategories/";
 }

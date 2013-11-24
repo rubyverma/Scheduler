@@ -30,7 +30,7 @@ public interface DepartmentMapper {
 	
 	int validateDepartment(Department department) throws BadSqlGrammarException;
 
-	List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException;
+	List<DepartmentStatistics> getStatistics(int departmentID) throws BadSqlGrammarException;
 	
 
 }

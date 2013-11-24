@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+
 	public void addAppointmentClick(View v) {
 		intent = new Intent(this, BookAppointment.class);
 		startActivity(intent);
@@ -52,6 +53,11 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 
+	public void viewFaqs(View v) {
+		intent = new Intent(this, ViewFaqsActivity.class);
+		startActivity(intent);
+	}
+	
 	public void openSettings(View view) {
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);

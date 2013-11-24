@@ -2,11 +2,13 @@ package com.scheduler.controllers;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.scheduler.models.Client;
+import com.scheduler.models.DepartmentStatistics;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.ClientService;
 
@@ -164,6 +167,19 @@ public class ClientController {
 			}
 			
 			return"client/passwordsent";
+		}
+		
+		@RequestMapping(value = "/viewstats", method = RequestMethod.GET)
+		public String viewAllStastics(Model model) {
+		
+			try {
+				List<DepartmentStatistics> departmentStats= clientService.getStatistics();
+				model.addAttribute("departmentStatistics", departmentStats);
+			} catch (BadSqlGrammarException e) {
+				model.addAttribute("error", e.getMessage());
+				System.out.println(e.getMessage());
+			}
+			return "client/viewstats";
 		}
 		
 }

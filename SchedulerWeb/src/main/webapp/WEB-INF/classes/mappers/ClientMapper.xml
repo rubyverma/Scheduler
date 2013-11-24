@@ -40,4 +40,19 @@
 		password = #{password}
 		where email = #{email}
 	</update>
+	<select id="getStatistics" resultType="com.scheduler.models.DepartmentStatistics">
+		select  departmentId,departmentName,(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where departmenttimeslot.departmentId=department.departmentId) as totalAppointment,
+(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where departmenttimeslot.departmentId=department.departmentId and meetingFinished='Y') as finishedAppointment
+,(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where departmenttimeslot.departmentId=department.departmentId and meetingFinished='N') as canceledAppointment
+,(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where departmenttimeslot.departmentId=department.departmentId and meetingFinished='L') as lateAppointment
+ from department
+	</select>
 </mapper>

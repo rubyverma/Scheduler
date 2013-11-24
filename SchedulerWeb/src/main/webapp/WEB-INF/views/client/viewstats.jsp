@@ -1,7 +1,7 @@
 <%@ include file="../includes/header.jsp"%>
 <title>My Appointments</title>
 
-<h3>Department Statistics</h3>
+<h3>All Department Statistics</h3>
 <c:if  test="${!empty departmentStatistics}">
 <table class="table table-hover table-bordered">
 <tr>
