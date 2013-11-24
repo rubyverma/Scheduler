@@ -54,12 +54,12 @@ public class GeneralUserController {
 			int result = generaluserService.saveUser(generaluser);
 
 			userId = generaluserService.getLastUserId();
-
+			String username=generaluser.getUsername();
 			token = generaluserService.getUserToken(userId);
 
 			model.addAttribute("generaluser", generaluser);
 			System.out.println("generaluser saved successfully");
-			mm.sendMail("Scheduler App",
+			mm.sendMail(" "+username,
 					"Your Activation Link is http://localhost:8080/Scheduler/generaluser/verify/"
 							+ userId + "/" + token, to);
 			// model.addAttribute("client", new Client());
