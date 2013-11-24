@@ -1,13 +1,16 @@
 package com.scheduler.controllers;
 
 import java.util.List;
+import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
@@ -48,6 +51,7 @@ import com.scheduler.services.TimeslotService;
 @RequestMapping("/official")
 @Controller
 @Slf4j
+@Scope("session")
 public class OfficialController {
 
 	@Autowired(required = true)
@@ -73,6 +77,11 @@ public class OfficialController {
 
 	public List<AppointmentList> listofAppointment;
 
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String showOfficialDashboard(Model model) {
+		return "officialuser/dashboard";
+	}
+	
 	@RequestMapping(value = "/meeting/finish", method = RequestMethod.POST)
 	public String finishMeeting(
 			@ModelAttribute("appointment") Appointment appointment, Model model) {
@@ -212,8 +221,8 @@ public class OfficialController {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public String authenticateOfficial(
 			@RequestParam("userName") String userName,
-			@RequestParam("password") String password, Model model,
-			HttpSession session) {
+			@RequestParam("password") String password, Model model, HttpSession session) {
+		
 		OfficialUser o1 = new OfficialUser();
 		o1.setOfficialName(userName);
 		o1.setPassword(password);
@@ -228,6 +237,7 @@ public class OfficialController {
 			model.addAttribute("result", "Login Failed");
 			return "officialuser/errorofficiallogin";
 		}
+		System.out.println(session.getAttribute("officialName"));
 		return "redirect:dashboard";
 	}
 
@@ -298,6 +308,42 @@ public class OfficialController {
 		return "redirect:/official/users/view";
 	}
 
+	
+	// Author - Devraj Valecha
+				// Usage - Reset password for official user
+				// official user
+			@RequestMapping(value = "/reset", method = RequestMethod.GET)
+			public String resetPasswordOfficialUser(Model model)
+			{
+				return "officialuser/resetpasswordofficialuser";
+			}
+			@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
+			public String savePassword(@RequestParam("emailAddress") String email,Model model)
+			{
+				Random randomGenerator = new Random();
+				String myPassword =Integer.toString(randomGenerator.nextInt(20000));
+				int passwordUpdate = officialUserService.resetPassword(email,myPassword);
+				if(passwordUpdate>0)
+				{
+					String to = email;
+					ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+					MailMail mm = (MailMail) context.getBean("mailMail");
+					String url = "http://localhost:8080/Scheduler/official/login";
+					mm.sendMail("Scheduler App",
+							"This is a Test Email \n your temporary password : " + myPassword + 
+							 " \n Below is the link provided to login to scheduler\n" + url,
+							to);
+				}
+				else
+				{
+					return "officialuser/passworderrorofficialuser";
+				}
+				
+				return"officialuser/passwordsentofficialuser";
+			}
+	
+
+
 	@RequestMapping(value = "/editpassword/{officialId}", method = RequestMethod.GET)
 	public String updatePassword(@PathVariable("officialId") int officialId,
 			Model model) {
@@ -334,5 +380,6 @@ public class OfficialController {
 				+ officialUser.getOfficialId();
 
 	}
+
 
 }

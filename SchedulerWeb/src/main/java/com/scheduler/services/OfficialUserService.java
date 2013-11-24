@@ -43,7 +43,10 @@ public class OfficialUserService {
 		return officialUserMapper.getOfficialId(userName, password);
 	}
 
+	public int resetPassword(String email,String myPassword) {
+		 return officialUserMapper.resetPassword(email,myPassword);
 
+		}
 
 	
 	public List<OfficialUser> getOfficialUserByDepartment(int departmentId){

@@ -37,7 +37,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Scheduler</a>
+				<a class="navbar-brand" href="/Scheduler">Scheduler</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -52,7 +52,7 @@
 							<li><a href="#">Account Settings</a></li>
 							<li><a href="#">Something else here</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Logout</a></li>
+							<li><a href="/Scheduler/logout">Logout</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -69,6 +69,7 @@
 		</c:if>
 <div class="row">
   	<div class="col-md-3">
+  		<!--  TODO: show only if user is logged in -->
   		<%@ include file="left_sidebar.jsp"%>
   	</div>
 	<div class="col-md-9">

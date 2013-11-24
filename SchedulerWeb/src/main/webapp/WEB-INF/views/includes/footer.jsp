@@ -1,7 +1,7 @@
 </div>
 </div>
 <hr>
-Copyright &copy; 2013
+&copy; 2013 Scheduler App
 </div>
 <!-- /container -->
 <script src="/Scheduler/resources/js/jquery.js"></script>
