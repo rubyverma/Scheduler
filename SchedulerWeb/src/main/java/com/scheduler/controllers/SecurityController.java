@@ -13,12 +13,16 @@ import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.OfficialUser;
 import com.scheduler.services.SecurityService;
+import com.scheduler.services.SessionService;
  
 @Controller
 public class SecurityController {
  
 	@Autowired
 	public SecurityService securityService;
+	
+		@Autowired
+		public SessionService sessionService;
 	
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String defaultPage(ModelMap map) {
@@ -34,12 +38,18 @@ public class SecurityController {
     	
     	if(user.getAuthorities().contains(new SimpleGrantedAuthority("CL"))) {
     		Client client = securityService.getClientByEmail(useremail);
+    		sessionService.userType = "CL";
+    		sessionService.client = client;
     		return "redirect:client/dashboard";
     	} else if(user.getAuthorities().contains(new SimpleGrantedAuthority("OU"))) {
     		OfficialUser officialuser = securityService.getOfficialByEmail(useremail);
+    		sessionService.userType = "OU";
+    		sessionService.officialUser = officialuser;
     		return "redirect:official/dashboard";
     	} else if(user.getAuthorities().contains(new SimpleGrantedAuthority("GU"))) {
     		GeneralUser generaluser = securityService.getUserByEmail(useremail);
+    		sessionService.userType = "GU";
+    		sessionService.generalUser = generaluser;
     		return "redirect:generaluser/dashboard";
     	}
         return "home/home";

@@ -45,7 +45,7 @@
 					<li><a href="#about">About</a></li>
 					<li><a href="#contact">Contact</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Lisa Harper <b class="caret"></b></a>
+						data-toggle="dropdown">${user.name} <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-header">Your Account</li>
 							<li><a href="#">My Profile</a></li>

@@ -24,11 +24,11 @@ import com.scheduler.services.ClientService;
 
 @RequestMapping("/client")
 @Controller
-public class ClientController {
+public class ClientController extends SessionController {
 
 	@Autowired(required = true)
 	private ClientService clientService;
-
+	
 	/*
 	 * @Autowired private MailSender mailSender;
 	 * 
@@ -132,6 +132,7 @@ public class ClientController {
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String showDashboard(Model model)
 	{
+		addUserModel(model);
 		return "client/dashboard";
 	}
 	

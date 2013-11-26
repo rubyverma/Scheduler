@@ -51,7 +51,7 @@ import com.scheduler.services.TimeslotService;
 @RequestMapping("/official")
 @Controller
 @Slf4j
-public class OfficialController {
+public class OfficialController extends SessionController {
 
 	@Autowired(required = true)
 	private AppointmentService appointmentService;
@@ -78,7 +78,7 @@ public class OfficialController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String showOfficialDashboard(Model model) {
-		return "officialuser/dashboard";
+		return "redirect:official/dashboard";
 	}
 
 	@RequestMapping(value = "/meeting/finish", method = RequestMethod.POST)
@@ -244,6 +244,7 @@ public class OfficialController {
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String showDashboard(Model model) {
+		addUserModel(model);
 		return "officialuser/dashboard";
 	}
 

@@ -1,5 +1,5 @@
 <%@ include file="../includes/header.jsp"%>
-<p class="lead">Welcome Sonny!</p>
+<p class="lead">Welcome ${user.name}!</p>
 <hr />
 <div class="row">
 	<div class="col-md-4">

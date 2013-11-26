@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
-import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.GeneralUserService;
@@ -28,14 +26,14 @@ import com.scheduler.services.GeneralUserService;
 @RequestMapping("/generaluser")
 @Controller
 @Slf4j
-public class GeneralUserController {
+public class GeneralUserController extends SessionController {
 
 	@Autowired(required = true)
 	private GeneralUserService generaluserService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String showGeneralUserDashboard(Model model) {
-		return "generaluser/dashboard";
+		return "redirect:generaluser/dashboard";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -166,6 +164,7 @@ public class GeneralUserController {
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String showDashboard(Model model) {
+		addUserModel(model);
 		return "generaluser/dashboard";
 	}
 
