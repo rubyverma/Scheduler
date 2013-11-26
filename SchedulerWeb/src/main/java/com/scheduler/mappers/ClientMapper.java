@@ -24,4 +24,9 @@ public interface ClientMapper {
 	int getLastClientId();
     int resetPassword(@Param("email") String email,@Param("password") String password);
     List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException;
+    Client getClientById(int clientId);
+	// Author - Shalin Banjara
+    int updateClientById(Client client);
+	// Author - Shalin Banjara
+    int updateClientPasswordById(Client client);
 }

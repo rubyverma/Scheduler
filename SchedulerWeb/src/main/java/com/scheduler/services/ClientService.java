@@ -65,4 +65,16 @@ public class ClientService {
 	public List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException {
 		return clientMapper.getStatistics();
 	}
+	
+	public Client getClientById(int clientId){
+		return clientMapper.getClientById(clientId);		
+	}
+	// Author - Shalin Banjara	
+	public int updateClientById(Client client){
+		return clientMapper.updateClientById(client);
+	}
+	// Author - Shalin Banjara	
+	public int updateClientPasswordById(Client client){
+		return clientMapper.updateClientPasswordById(client);
+	}
 }
