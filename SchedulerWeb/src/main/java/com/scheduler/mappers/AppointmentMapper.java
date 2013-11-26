@@ -2,10 +2,12 @@ package com.scheduler.mappers;
 
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
 import com.scheduler.models.AppointmentDepartment;
@@ -41,4 +43,6 @@ public interface AppointmentMapper {
 
 	 int cancelAppointment(int appointmentId)  throws BadSqlGrammarException;
 	 int userLate(int appointmentId)  throws BadSqlGrammarException;
+	 
+	 
 }

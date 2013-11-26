@@ -2,11 +2,13 @@ package com.scheduler.controllers;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.scheduler.models.AppointmentDepartment;
+import com.scheduler.models.Category;
 import com.scheduler.models.Client;
+import com.scheduler.models.Faq;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.ClientService;
 
@@ -161,4 +166,30 @@ public class ClientController {
 			return"client/passwordsent";
 		}
 		
+		// Author - Devraj Valecha
+					// FAQs
+					// client
+		
+		@RequestMapping(value = "/view", method = RequestMethod.GET)
+		public String viewAllFaqCategories( Model model) {
+			List<Category> categories = null;
+			try {
+				categories = clientService.findAllCategories();
+				model.addAttribute("categories", categories);
+			} catch (BadSqlGrammarException e) {
+				model.addAttribute("error", e.getMessage());
+				System.out.println(e.getMessage());
+			}
+			return "client/faqs";
+		}
+		@RequestMapping(value = "/viewfaqs/{categoryId}", method = RequestMethod.GET)
+		public String viewAllFaqs(@PathVariable("categoryId") int categoryId,
+				 Model model) {
+			List<Faq> fQns = clientService.getFaqQns(categoryId);
+			model.addAttribute("fQns",fQns);
+			return "client/faqsqa" ;
+
+
+		
+		}
 }

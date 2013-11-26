@@ -40,4 +40,10 @@
 		password = #{password}
 		where email = #{email}
 	</update>
+	<select id="getFaqQns" parameterType="int" resultType="com.scheduler.models.Faq">
+		select * from faq where categoryId=#{categoryId}
+	</select>
+	<select id="findAllCategories" resultType="String">
+		select categoryName from category
+	</select>
 </mapper>

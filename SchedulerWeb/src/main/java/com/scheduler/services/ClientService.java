@@ -1,11 +1,16 @@
 package com.scheduler.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.ClientMapper;
+import com.scheduler.models.AppointmentDepartment;
+import com.scheduler.models.Category;
 import com.scheduler.models.Client;
+import com.scheduler.models.Faq;
 
 @Component
 public class ClientService {
@@ -57,6 +62,16 @@ public class ClientService {
 	
 	public int resetPassword(String email,String myPassword) {
 	 return clientMapper.resetPassword(email,myPassword);
+
+	}
+	
+	public List<Faq> getFaqQns(int categoryId)
+	{
+		return clientMapper.getFaqQns(categoryId);
+	}
+	public List<Category> findAllCategories()
+			throws BadSqlGrammarException {
+		return clientMapper.findAllCategories();
 
 	}
 }
