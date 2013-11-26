@@ -31,7 +31,7 @@ public class ClientController extends SessionController {
 
 	@Autowired(required = true)
 	private ClientService clientService;
-	
+
 	/*
 	 * @Autowired private MailSender mailSender;
 	 * 
@@ -42,28 +42,26 @@ public class ClientController extends SessionController {
 	public String showClientDashboard(Model model) {
 		return "client/dashboard";
 	}
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("client", new Client());
 		return "client/registerclient";
 	}
 
-	
-	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String saveClient(@ModelAttribute("client") Client client, Model model)
-	{
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String saveClient(@ModelAttribute("client") Client client,
+			Model model) {
 		String token = null;
 		int cId;
-		if (client!=null)
-		{
+		if (client != null) {
 			String to = client.getEmail().toString();
-			ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+			ApplicationContext context = new ClassPathXmlApplicationContext(
+					"Spring-Mail.xml");
 			MailMail mm = (MailMail) context.getBean("mailMail");
 			Random randomGenerator = new Random();
-			int mytoken =randomGenerator.nextInt(999999-100000)+100000;
-			client.setToken(""+mytoken);
+			int mytoken = randomGenerator.nextInt(999999 - 100000) + 100000;
+			client.setToken("" + mytoken);
 			int result = clientService.saveClient(client);
 
 			model.addAttribute("client", client);
@@ -102,14 +100,13 @@ public class ClientController extends SessionController {
 	}
 
 	// Author - Devraj Valecha
-		// Usage - Login for client
-		// client
+	// Usage - Login for client
+	// client
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginClient(Model model)
-	{
+	public String loginClient(Model model) {
 		return "client/loginclient";
 	}
-	
+
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public String authenticateClient(@RequestParam("userName") String userName,
 			@RequestParam("password") String password, Model model,
@@ -118,7 +115,7 @@ public class ClientController extends SessionController {
 		c1.setUserName(userName);
 		c1.setPassword(password);
 		Client result = clientService.authenticate(c1);
-		if (result.getClientId()>0) {
+		if (result.getClientId() > 0) {
 			String name = result.getClientName();
 			int id = result.getClientId();
 			session.setAttribute("clientUserName", userName);
@@ -130,124 +127,123 @@ public class ClientController extends SessionController {
 		}
 		return "redirect:dashboard";
 	}
-	
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String showDashboard(Model model)
-	{
+	public String showDashboard(Model model) {
 		addUserModel(model);
 		return "client/dashboard";
 	}
-	
+
 	// Author - Devraj Valecha
-			// Usage - Reset password for client
-			// client
-		@RequestMapping(value = "/reset", method = RequestMethod.GET)
-		public String resetPasswordClient(Model model)
-		{
-			return "client/resetpasswordclient";
-		}
-		@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
-		public String savePassword(@RequestParam("emailAddress") String email,Model model)
-		{
-			
-			Random randomGenerator = new Random();
-			String myPassword =Integer.toString(randomGenerator.nextInt(20000));
-			int passwordUpdate = clientService.resetPassword(email,myPassword);
-			if(passwordUpdate>0)
-			{
-				String to = email;
-				ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-				MailMail mm = (MailMail) context.getBean("mailMail");
-				String url = "http://localhost:8080/Scheduler/client/login";
-				mm.sendMail("Scheduler App",
-						"This is a Test Email \n your temporary password : " + myPassword + 
-						 " \n Below is the link provided to login to scheduler\n" + url,
-						to);
-			}
-			else
-			{
-				return "client/passworderrorclient";
-			}
-			
-			return"client/passwordsent";
-		}
-		
+	// Usage - Reset password for client
+	// client
+	@RequestMapping(value = "/reset", method = RequestMethod.GET)
+	public String resetPasswordClient(Model model) {
+		return "client/resetpasswordclient";
+	}
 
-		// Author - Devraj Valecha
-					// FAQs
-					// client
-		
-		@RequestMapping(value = "/view", method = RequestMethod.GET)
-		public String viewAllFaqCategories( Model model) {
-			List<Category> categories = null;
-			try {
-				categories = clientService.findAllCategories();
-				model.addAttribute("categories", categories);
-		@RequestMapping(value = "/viewstats", method = RequestMethod.GET)
-		public String viewAllStastics(Model model) {
-		
-			try {
-				List<DepartmentStatistics> departmentStats= clientService.getStatistics();
-				model.addAttribute("departmentStatistics", departmentStats);
+	@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
+	public String savePassword(@RequestParam("emailAddress") String email,
+			Model model) {
 
-			} catch (BadSqlGrammarException e) {
-				model.addAttribute("error", e.getMessage());
-				System.out.println(e.getMessage());
-			}
-
-			return "client/faqs";
-		}
-		@RequestMapping(value = "/viewfaqs/{categoryId}", method = RequestMethod.GET)
-		public String viewAllFaqs(@PathVariable("categoryId") int categoryId,
-				 Model model) {
-			List<Faq> fQns = clientService.getFaqQns(categoryId);
-			model.addAttribute("fQns",fQns);
-			return "client/faqsqa" ;
-
-
-		
+		Random randomGenerator = new Random();
+		String myPassword = Integer.toString(randomGenerator.nextInt(20000));
+		int passwordUpdate = clientService.resetPassword(email, myPassword);
+		if (passwordUpdate > 0) {
+			String to = email;
+			ApplicationContext context = new ClassPathXmlApplicationContext(
+					"Spring-Mail.xml");
+			MailMail mm = (MailMail) context.getBean("mailMail");
+			String url = "http://localhost:8080/Scheduler/client/login";
+			mm.sendMail(
+					"Scheduler App",
+					"This is a Test Email \n your temporary password : "
+							+ myPassword
+							+ " \n Below is the link provided to login to scheduler\n"
+							+ url, to);
+		} else {
+			return "client/passworderrorclient";
 		}
 
-			return "client/viewstats";
+		return "client/passwordsent";
+	}
+
+	// Author - Devraj Valecha
+	// FAQs
+	// client
+
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String viewAllFaqCategories(Model model) {
+		List<Category> categories = null;
+
+		categories = clientService.findAllCategories();
+		model.addAttribute("categories", categories);
+
+		return "client/faqs";
+	}
+
+	@RequestMapping(value = "/viewfaqs/{categoryId}", method = RequestMethod.GET)
+	public String viewAllFaqs(@PathVariable("categoryId") int categoryId,
+			Model model) {
+		List<Faq> fQns = clientService.getFaqQns(categoryId);
+		model.addAttribute("fQns", fQns);
+		return "client/faqsqa";
+
+	}
+
+	@RequestMapping(value = "/viewstats", method = RequestMethod.GET)
+	public String viewAllStastics(Model model) {
+
+		try {
+			List<DepartmentStatistics> departmentStats = clientService
+					.getStatistics();
+			model.addAttribute("departmentStatistics", departmentStats);
+
+		} catch (BadSqlGrammarException e) {
+			model.addAttribute("error", e.getMessage());
+			System.out.println(e.getMessage());
 		}
-		
-		// Author - Shalin Banjara
-		@RequestMapping(value = "/edit/{clientId}", method = RequestMethod.GET)
-		public String editClient(@PathVariable("clientId") int clientId,Model model)
-		{
-			model.addAttribute("clientId", clientId);
-			model.addAttribute("client", clientService.getClientById(clientId));
-			//System.out.println(clientService.getClientById(clientId).getLogo());
-			return "client/editclient";
-		}
-		// Author - Shalin Banjara		
-		@RequestMapping(value = "/update", method = RequestMethod.POST)
-		public String updateClient(@ModelAttribute ("client") Client client,Model model)
-		{
-			int i = clientService.updateClientById(client);
-			System.out.println(client.getLogo());
-			return "client/dashboard";
-		}
-		// Author - Shalin Banjara		
-		@RequestMapping(value = "/editpassword/{clientId}", method = RequestMethod.GET)
-		public String editClientPassword(@PathVariable("clientId") int clientId,Model model)
-		{
-			model.addAttribute("password", clientService.getClientById(clientId).getPassword());
-			model.addAttribute("clientId", clientId);
-			model.addAttribute("client", new Client());
-			//System.out.println(clientService.getClientById(clientId).getLogo());
-			return "client/editclientpassword";
-		}
-		// Author - Shalin Banjara		
-		@RequestMapping(value = "/updatepassword", method = RequestMethod.POST)
-		public String updateClientPassword(@ModelAttribute ("client") Client client,Model model)
-		{
-			System.out.println(client.getClientId());
-			System.out.println(client.getPassword());
-			int i = clientService.updateClientPasswordById(client);
-			return "client/dashboard";
-		}
-		
+		return "client/viewstats";
+	}
+
+	// Author - Shalin Banjara
+	@RequestMapping(value = "/edit/{clientId}", method = RequestMethod.GET)
+	public String editClient(@PathVariable("clientId") int clientId, Model model) {
+		model.addAttribute("clientId", clientId);
+		model.addAttribute("client", clientService.getClientById(clientId));
+		// System.out.println(clientService.getClientById(clientId).getLogo());
+		return "client/editclient";
+	}
+
+	// Author - Shalin Banjara
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateClient(@ModelAttribute("client") Client client,
+			Model model) {
+		int i = clientService.updateClientById(client);
+		System.out.println(client.getLogo());
+		return "client/dashboard";
+	}
+
+	// Author - Shalin Banjara
+	@RequestMapping(value = "/editpassword/{clientId}", method = RequestMethod.GET)
+	public String editClientPassword(@PathVariable("clientId") int clientId,
+			Model model) {
+		model.addAttribute("password", clientService.getClientById(clientId)
+				.getPassword());
+		model.addAttribute("clientId", clientId);
+		model.addAttribute("client", new Client());
+		// System.out.println(clientService.getClientById(clientId).getLogo());
+		return "client/editclientpassword";
+	}
+
+	// Author - Shalin Banjara
+	@RequestMapping(value = "/updatepassword", method = RequestMethod.POST)
+	public String updateClientPassword(@ModelAttribute("client") Client client,
+			Model model) {
+		System.out.println(client.getClientId());
+		System.out.println(client.getPassword());
+		int i = clientService.updateClientPasswordById(client);
+		return "client/dashboard";
+	}
 
 }
