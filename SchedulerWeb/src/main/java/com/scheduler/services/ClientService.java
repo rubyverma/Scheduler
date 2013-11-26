@@ -7,8 +7,12 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
 
 import com.scheduler.mappers.ClientMapper;
+import com.scheduler.models.AppointmentDepartment;
+import com.scheduler.models.Category;
 import com.scheduler.models.Client;
+import com.scheduler.models.Faq;
 import com.scheduler.models.DepartmentStatistics;
+
 
 @Component
 public class ClientService {
@@ -62,6 +66,17 @@ public class ClientService {
 	 return clientMapper.resetPassword(email,myPassword);
 
 	}
+
+	
+	public List<Faq> getFaqQns(int categoryId)
+	{
+		return clientMapper.getFaqQns(categoryId);
+	}
+	public List<Category> findAllCategories()
+			throws BadSqlGrammarException {
+		return clientMapper.findAllCategories();
+
+
 	public List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException {
 		return clientMapper.getStatistics();
 	}
@@ -76,5 +91,6 @@ public class ClientService {
 	// Author - Shalin Banjara	
 	public int updateClientPasswordById(Client client){
 		return clientMapper.updateClientPasswordById(client);
+
 	}
 }

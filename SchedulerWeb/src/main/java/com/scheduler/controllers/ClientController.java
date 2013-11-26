@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.scheduler.models.AppointmentDepartment;
+import com.scheduler.models.Category;
 import com.scheduler.models.Client;
+import com.scheduler.models.Faq;
 import com.scheduler.models.DepartmentStatistics;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.ClientService;
@@ -170,16 +173,42 @@ public class ClientController extends SessionController {
 			return"client/passwordsent";
 		}
 		
+
+		// Author - Devraj Valecha
+					// FAQs
+					// client
+		
+		@RequestMapping(value = "/view", method = RequestMethod.GET)
+		public String viewAllFaqCategories( Model model) {
+			List<Category> categories = null;
+			try {
+				categories = clientService.findAllCategories();
+				model.addAttribute("categories", categories);
 		@RequestMapping(value = "/viewstats", method = RequestMethod.GET)
 		public String viewAllStastics(Model model) {
 		
 			try {
 				List<DepartmentStatistics> departmentStats= clientService.getStatistics();
 				model.addAttribute("departmentStatistics", departmentStats);
+
 			} catch (BadSqlGrammarException e) {
 				model.addAttribute("error", e.getMessage());
 				System.out.println(e.getMessage());
 			}
+
+			return "client/faqs";
+		}
+		@RequestMapping(value = "/viewfaqs/{categoryId}", method = RequestMethod.GET)
+		public String viewAllFaqs(@PathVariable("categoryId") int categoryId,
+				 Model model) {
+			List<Faq> fQns = clientService.getFaqQns(categoryId);
+			model.addAttribute("fQns",fQns);
+			return "client/faqsqa" ;
+
+
+		
+		}
+
 			return "client/viewstats";
 		}
 		
@@ -220,4 +249,5 @@ public class ClientController extends SessionController {
 			return "client/dashboard";
 		}
 		
+
 }

@@ -46,6 +46,12 @@
 		password = #{password}
 		where email = #{email}
 	</update>
+	<select id="getFaqQns" parameterType="int" resultType="com.scheduler.models.Faq">
+		select * from faq where categoryId=#{categoryId}
+	</select>
+	<select id="findAllCategories" resultType="String">
+		select categoryName from category
+	</select>
 	<select id="getStatistics" resultType="com.scheduler.models.DepartmentStatistics">
 		select
 		departmentId,departmentName,(SELECT COUNT(appointmentId) FROM
@@ -98,5 +104,6 @@
 		update client
 		set password = #{password} where clientId = #{clientId}
 	</update>
+
 
 </mapper>

@@ -10,4 +10,8 @@
 			select last_insert_id()
 		</selectKey>
 	</insert>
+	<select id="findAllCategories" parameterType="int"
+		resultType="com.scheduler.models.Category">
+		select categoryName from category where officialId = #{officialId}
+		</select>
 </mapper>
