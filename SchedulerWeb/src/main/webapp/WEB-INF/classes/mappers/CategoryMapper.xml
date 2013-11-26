@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.CategoryMapper">
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<select id="getAllCategories" resultType="com.scheduler.models.Category">
+		select * from category
+	</select>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<delete id="deleteCategory" parameterType="int">
+		delete from category where categoryId = #{categoryId}
+	</delete>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<insert id="addCategory" parameterType="com.scheduler.models.Category" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into category(officialId,categoryName) values (#{officialId},#{categoryName})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<update id="updateCategory" parameterType="com.scheduler.models.Category">
+		update category
+		set officialId=#{officialId}, categoryName=#{categoryName} where categoryId = #{categoryId}
+	</update>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<select id="getCategory" parameterType="int" resultType="com.scheduler.models.Category">
+		select * from category where categoryId=#{categoryId}
+	</select>
+	
+</mapper>

@@ -9,9 +9,11 @@ import org.json.JSONObject;
 
 import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.models.Campus;
+import com.schedulerapp.models.Category;
 import com.schedulerapp.models.Department;
 import com.schedulerapp.models.DepartmentTimeslotLinkage;
 import com.schedulerapp.models.Departmenttimeslot;
+import com.schedulerapp.models.Faq;
 import com.schedulerapp.models.User;
  
 public class ResponseParser {
@@ -63,6 +65,28 @@ public class ResponseParser {
 		return timeSlots;
 	}
 	
+	public List<Category> parseCategoryList(String result) throws NumberFormatException, JSONException {
+		List<Category> categories = new ArrayList<Category>();
+		categories.add(Category.getSelectPropmpt());
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			categories.add(Category.getCategoryFromJson(obj));
+		}
+		return categories;
+	}
+
+	
+	public List<Faq> parseFaqsList(String result) throws NumberFormatException, JSONException {
+		List<Faq> faqs = new ArrayList<Faq>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			faqs.add(Faq.getFaqFromJson(obj));
+		}
+		return faqs;
+	}
+	
 	public List<DepartmentTimeslotLinkage> parseDepartmenttimeslotLinkageList(String result) throws NumberFormatException, JSONException {
 		List<DepartmentTimeslotLinkage> timeSlots = new ArrayList<DepartmentTimeslotLinkage>();
 		timeSlots.add(DepartmentTimeslotLinkage.getSelectPropmpt());
@@ -72,5 +96,5 @@ public class ResponseParser {
 			timeSlots.add(DepartmentTimeslotLinkage.getDepartmentTimeslotLinkageFromJson(obj));
 		}
 		return timeSlots;
-	}	
+	}
 }

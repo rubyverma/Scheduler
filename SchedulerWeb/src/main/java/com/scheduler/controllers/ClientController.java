@@ -21,6 +21,7 @@ import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.Category;
 import com.scheduler.models.Client;
 import com.scheduler.models.Faq;
+import com.scheduler.models.DepartmentStatistics;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.ClientService;
 
@@ -37,6 +38,11 @@ public class ClientController {
 	 * @Autowired private SimpleMailMessage preConfiguredMessage;
 	 */
 
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String showClientDashboard(Model model) {
+		return "client/dashboard";
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("client", new Client());
@@ -166,6 +172,7 @@ public class ClientController {
 			return"client/passwordsent";
 		}
 		
+
 		// Author - Devraj Valecha
 					// FAQs
 					// client
@@ -176,10 +183,18 @@ public class ClientController {
 			try {
 				categories = clientService.findAllCategories();
 				model.addAttribute("categories", categories);
+		@RequestMapping(value = "/viewstats", method = RequestMethod.GET)
+		public String viewAllStastics(Model model) {
+		
+			try {
+				List<DepartmentStatistics> departmentStats= clientService.getStatistics();
+				model.addAttribute("departmentStatistics", departmentStats);
+
 			} catch (BadSqlGrammarException e) {
 				model.addAttribute("error", e.getMessage());
 				System.out.println(e.getMessage());
 			}
+
 			return "client/faqs";
 		}
 		@RequestMapping(value = "/viewfaqs/{categoryId}", method = RequestMethod.GET)
@@ -192,4 +207,46 @@ public class ClientController {
 
 		
 		}
+
+			return "client/viewstats";
+		}
+		
+		// Author - Shalin Banjara
+		@RequestMapping(value = "/edit/{clientId}", method = RequestMethod.GET)
+		public String editClient(@PathVariable("clientId") int clientId,Model model)
+		{
+			model.addAttribute("clientId", clientId);
+			model.addAttribute("client", clientService.getClientById(clientId));
+			//System.out.println(clientService.getClientById(clientId).getLogo());
+			return "client/editclient";
+		}
+		// Author - Shalin Banjara		
+		@RequestMapping(value = "/update", method = RequestMethod.POST)
+		public String updateClient(@ModelAttribute ("client") Client client,Model model)
+		{
+			int i = clientService.updateClientById(client);
+			System.out.println(client.getLogo());
+			return "client/dashboard";
+		}
+		// Author - Shalin Banjara		
+		@RequestMapping(value = "/editpassword/{clientId}", method = RequestMethod.GET)
+		public String editClientPassword(@PathVariable("clientId") int clientId,Model model)
+		{
+			model.addAttribute("password", clientService.getClientById(clientId).getPassword());
+			model.addAttribute("clientId", clientId);
+			model.addAttribute("client", new Client());
+			//System.out.println(clientService.getClientById(clientId).getLogo());
+			return "client/editclientpassword";
+		}
+		// Author - Shalin Banjara		
+		@RequestMapping(value = "/updatepassword", method = RequestMethod.POST)
+		public String updateClientPassword(@ModelAttribute ("client") Client client,Model model)
+		{
+			System.out.println(client.getClientId());
+			System.out.println(client.getPassword());
+			int i = clientService.updateClientPasswordById(client);
+			return "client/dashboard";
+		}
+		
+
 }

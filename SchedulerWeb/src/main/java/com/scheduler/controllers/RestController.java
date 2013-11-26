@@ -17,14 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scheduler.models.Appointment;
 import com.scheduler.models.Campus;
+import com.scheduler.models.Category;
 import com.scheduler.models.Department;
 import com.scheduler.models.DepartmentTimeslotLinkage;
+import com.scheduler.models.Faq;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Utility;
 import com.scheduler.services.AppointmentService;
 import com.scheduler.services.CampusService;
+import com.scheduler.services.CategoryService;
 import com.scheduler.services.DepartmentService;
 import com.scheduler.services.DepartmentTimeslotService;
+import com.scheduler.services.FaqService;
 import com.scheduler.services.GeneralUserService;
 
 @RequestMapping("/api")
@@ -44,6 +48,25 @@ public class RestController {
 	private AppointmentService appointmentService;
 	@Autowired(required = true)
 	private GeneralUserService generalUserService;
+
+	@Autowired(required = true)
+	private CategoryService categoryService;
+	@Autowired(required = true)
+	private FaqService faqService;
+
+	@RequestMapping(value = "/getCategories", method = RequestMethod.GET, produces = JSON_CONTENT)
+	@ResponseBody
+	public List<Category> getCategories() {
+		List<Category> categories = categoryService.getAllCategory();
+		return categories;
+	}
+
+	@RequestMapping(value = "/getFaqsByCategories/{id}", method = RequestMethod.GET, produces = JSON_CONTENT)
+	@ResponseBody
+	public List<Faq> getFaqsByCategory(@PathVariable int id) {
+		List<Faq> faqs = faqService.getAllFaqByCategory(id);
+		return faqs;
+	}
 
 	@RequestMapping(value = "/getCampusByClient/{id}", method = RequestMethod.GET, produces = JSON_CONTENT)
 	@ResponseBody

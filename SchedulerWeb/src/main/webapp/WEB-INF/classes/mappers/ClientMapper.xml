@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.ClientMapper">
-<insert id="saveClient" parameterType="com.scheduler.models.Client"
+	<insert id="saveClient" parameterType="com.scheduler.models.Client"
 		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		insert into client(clientName, userName, password,email,address,memo,phone1,phone2,phone3,contactPerson,website,token,dateJoined,logo)
+		insert into client(clientName, userName,
+		password,email,address,memo,phone1,phone2,phone3,contactPerson,website,token,dateJoined,logo)
 		values
-		(#{clientName},#{userName}, #{password},#{email},#{address},#{memo},#{phone1},#{phone2},#{phone3},#{contactPerson},#{website},#{token},'2013-11-11',#{logo})
+		(#{clientName},#{userName},
+		#{password},#{email},#{address},#{memo},#{phone1},#{phone2},#{phone3},#{contactPerson},#{website},#{token},'2013-11-11',#{logo})
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			select last_insert_id()
 		</selectKey>
@@ -21,20 +23,24 @@
 		select token from client where clientId=#{client_id}
 	</select>
 
-	<select id="authenticate" parameterType="com.scheduler.models.Client" resultType="com.scheduler.models.Client">
-		select * from client where userName=#{userName} and password=#{password}
+	<select id="authenticate" parameterType="com.scheduler.models.Client"
+		resultType="com.scheduler.models.Client">
+		select * from client where userName=#{userName} and
+		password=#{password}
 	</select>
 	<select id="getClientName" parameterType="String" resultType="String">
-		select clientName from client where userName=#{userName} and password=#{password}
+		select clientName from client where userName=#{userName} and
+		password=#{password}
 	</select>
 	<select id="getClientId" parameterType="String" resultType="int">
-		select clientId from client where userName=#{userName} and password=#{password}
+		select clientId from client where userName=#{userName} and
+		password=#{password}
 	</select>
 
 	<select id="getLastClientId" parameterType="int" resultType="int">
 		select MAX(clientId) FROM client
 	</select>
-    <update id="resetPassword" parameterType="String">
+	<update id="resetPassword" parameterType="String">
 		update
 		client set
 		password = #{password}
@@ -46,4 +52,58 @@
 	<select id="findAllCategories" resultType="String">
 		select categoryName from category
 	</select>
+	<select id="getStatistics" resultType="com.scheduler.models.DepartmentStatistics">
+		select
+		departmentId,departmentName,(SELECT COUNT(appointmentId) FROM
+		scheduler.appointment inner join departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId) as
+		totalAppointment,
+		(SELECT COUNT(appointmentId) FROM
+		scheduler.appointment inner join
+		departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId and
+		meetingFinished='Y') as finishedAppointment
+		,(SELECT
+		COUNT(appointmentId) FROM scheduler.appointment inner join
+		departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId and
+		meetingFinished='N') as canceledAppointment
+		,(SELECT
+		COUNT(appointmentId) FROM scheduler.appointment inner join
+		departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId and
+		meetingFinished='L') as lateAppointment
+		from department
+	</select>
+
+	<select id="getClientById" parameterType="int"
+		resultType="com.scheduler.models.Client">
+		select * FROM client where clientId = #{clientId}
+	</select>
+
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<update id="updateClientById" parameterType="com.scheduler.models.Client">
+		update client
+		set clientName =
+		#{clientName}, userName = #{userName},email = #{email}, address =
+		#{address}, memo = #{memo}, phone1 = #{phone1}, phone2 = #{phone2},
+		phone3 = #{phone3}, contactPerson= #{contactPerson}, website =
+		#{website}, logo= #{logo} where clientId = #{clientId}
+	</update>
+	
+	<update id="updateClientPasswordById" parameterType="com.scheduler.models.Client">
+		update client
+		set password = #{password} where clientId = #{clientId}
+	</update>
+
+
 </mapper>

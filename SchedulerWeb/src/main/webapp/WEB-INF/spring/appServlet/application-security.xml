@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                    http://www.springframework.org/schema/security
+                    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<http pattern="/resources/**" security="none" />
+	<http pattern="/" security="none" />
+
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/client/register"
+			access="hasAnyRole('ROLE_ANONYMOUS','GU','OU', 'CL')" />
+		<intercept-url pattern="/login"
+			access="hasAnyRole('ROLE_ANONYMOUS','GU','OU', 'CL')" />
+		<intercept-url pattern="/logout" access="hasAnyRole('GU','OU', 'CL')" />
+		<!-- <intercept-url pattern="/**" access="hasAnyRole('GU','OU', 'CL')" /> -->
+		<intercept-url pattern="/timeslot/view" access="hasAnyRole('CL')" />
+		<form-login login-page="/login" default-target-url="/list"
+			authentication-failure-url="/login" />
+		<logout logout-success-url="/logout" />
+		<access-denied-handler error-page="/accessdenied"/>
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select username,password, true from generaluser where username=?"
+				authorities-by-username-query="select username,'GU' from generaluser where username=?" />
+		</authentication-provider>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select email as username,password, true from officialuser where email=?"
+				authorities-by-username-query="select email as username, 'OU' from officialuser where email=?" />
+		</authentication-provider>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select email as username,password, true from client where email=?"
+				authorities-by-username-query="select email as username, 'CL' from client where email = ?" />
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>

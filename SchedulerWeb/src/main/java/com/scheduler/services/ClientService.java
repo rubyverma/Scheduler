@@ -11,6 +11,8 @@ import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.Category;
 import com.scheduler.models.Client;
 import com.scheduler.models.Faq;
+import com.scheduler.models.DepartmentStatistics;
+
 
 @Component
 public class ClientService {
@@ -64,6 +66,7 @@ public class ClientService {
 	 return clientMapper.resetPassword(email,myPassword);
 
 	}
+
 	
 	public List<Faq> getFaqQns(int categoryId)
 	{
@@ -72,6 +75,22 @@ public class ClientService {
 	public List<Category> findAllCategories()
 			throws BadSqlGrammarException {
 		return clientMapper.findAllCategories();
+
+
+	public List<DepartmentStatistics> getStatistics() throws BadSqlGrammarException {
+		return clientMapper.getStatistics();
+	}
+	
+	public Client getClientById(int clientId){
+		return clientMapper.getClientById(clientId);		
+	}
+	// Author - Shalin Banjara	
+	public int updateClientById(Client client){
+		return clientMapper.updateClientById(client);
+	}
+	// Author - Shalin Banjara	
+	public int updateClientPasswordById(Client client){
+		return clientMapper.updateClientPasswordById(client);
 
 	}
 }
