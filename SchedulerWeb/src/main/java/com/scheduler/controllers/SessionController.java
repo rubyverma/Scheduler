@@ -22,8 +22,6 @@ public abstract class SessionController {
 			sessionMap.put("id", Integer.toString(sessionService.client.getClientId()));
 			sessionMap.put("name", sessionService.client.getClientName());
 			sessionMap.put("email", sessionService.client.getEmail());
-			
-			
 		} else if (sessionService.userType.equals("OU")) {
 			sessionMap.put("id", Integer.toString(sessionService.officialUser.getOfficialId()));
 			sessionMap.put("name", sessionService.officialUser.getOfficialName());
