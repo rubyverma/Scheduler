@@ -16,10 +16,11 @@
 			access="hasAnyRole('ROLE_ANONYMOUS','GU','OU', 'CL')" />
 		<intercept-url pattern="/logout" access="hasAnyRole('GU','OU', 'CL')" />
 		<!-- <intercept-url pattern="/**" access="hasAnyRole('GU','OU', 'CL')" /> -->
+		<intercept-url pattern="/timeslot/view" access="hasAnyRole('CL')" />
 		<form-login login-page="/login" default-target-url="/list"
 			authentication-failure-url="/login" />
 		<logout logout-success-url="/logout" />
-		<intercept-url pattern="/timeslot/view" access="hasAnyRole('CL')" />
+		<access-denied-handler error-page="/accessdenied"/>
 	</http>
 
 	<authentication-manager>
