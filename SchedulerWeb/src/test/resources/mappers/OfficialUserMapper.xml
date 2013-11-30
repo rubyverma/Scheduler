@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.OfficialUserMapper">
+<select id="authenticate" parameterType="com.scheduler.models.OfficialUser" resultType="com.scheduler.models.OfficialUser">
+		select * from officialuser where officialName=#{officialName} and password=#{password}
+	</select>
+	<select id="getOfficialName" parameterType="String" resultType="String">
+		select officialName from officialuser where officialName=#{officialName} and password=#{password}
+	</select>
+	<select id="getOfficialId" parameterType="String" resultType="int">
+		select officialId from officialuser where officialName=#{officialName} and password=#{password}
+	</select>
+
+<!-- Author - Shalin Banjara -->
+<!-- Usage - To select a list of departments for a particular campus -->
+	<select id="getOfficialUserByDepartment" parameterType="int" resultType="com.scheduler.models.OfficialUser">
+		select officialuser.*, roles.roleName from officialuser, roles where officialuser.roleId=roles.roleId and departmentId = #{departmentId}
+	</select>
+	
+<!--Author - Shalin Banjara  -->
+<!--Usage - To insert a new booked appointment in the database  -->
+	<insert id="saveOfficialUser" parameterType="com.scheduler.models.OfficialUser"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into officialuser(departmentId,roleId,officialName,email,password,firstName,lastName,dateJoined,lastLogin)
+		values
+		(#{departmentId},#{roleId},#{officialName},#{email},#{password},#{firstName},#{lastName},#{dateJoined},NOW())
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of departments for a particular campus -->
+	<delete id="deleteOfficialUser" parameterType="int">
+		delete from officialuser where officialId=${officialId}
+	</delete>
+	
+<!-- Author - Shalin Banjara -->
+<!-- Usage - To select a list of departments for a particular campus -->
+	<select id="getOfficialUserById" parameterType="int" resultType="com.scheduler.models.OfficialUser">
+		select * from officialuser where officialId=${officialId}
+	</select>
+	
+	<update id="updateOfficialUser" parameterType="com.scheduler.models.OfficialUser">
+		update officialuser
+		set departmentId = #{departmentId},roleId = #{roleId},officialName = #{officialName},email = #{email},password = #{password},firstName =#{firstName},lastName = #{lastName},dateJoined = #{dateJoined} where officialId = #{officialId}
+	</update>
+<update id="resetPassword" parameterType="String">
+		update
+		officialuser set
+		password = #{password}
+		where email = #{email}
+	</update>
+	
+	<update id="updatePassword" parameterType="com.scheduler.models.OfficialUser">
+		update officialuser
+		set password = #{password}
+		where officialId = #{officialId}
+	</update>
+
+</mapper>

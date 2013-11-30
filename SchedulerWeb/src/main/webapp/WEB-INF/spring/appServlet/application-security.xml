@@ -15,12 +15,42 @@
 		<intercept-url pattern="/login"
 			access="hasAnyRole('ROLE_ANONYMOUS','GU','OU', 'CL')" />
 		<intercept-url pattern="/logout" access="hasAnyRole('GU','OU', 'CL')" />
-		<!-- <intercept-url pattern="/**" access="hasAnyRole('GU','OU', 'CL')" /> -->
+		<!-- <intercept-url pattern="/**" access="hasAnyRole('GU','OU', 'CL')" 
+			/> -->
+		<!-- Client pages start -->
+		<intercept-url pattern="/client/dashboard" access="hasAnyRole('CL')" />
+		<intercept-url pattern="/client/viewstats" access="hasAnyRole('CL')" />
+		<intercept-url pattern="/campus/view" access="hasAnyRole('CL')" />
+		<intercept-url pattern="/official/users/view" access="hasAnyRole('CL')" />
+		<intercept-url pattern="/department/new" access="hasAnyRole('CL')" />
+		<intercept-url pattern="/roles/view" access="hasAnyRole('CL')" />
 		<intercept-url pattern="/timeslot/view" access="hasAnyRole('CL')" />
+		<intercept-url pattern="/client/edit/**" access="hasAnyRole('CL')" />
+		<!-- Client pages end -->
+		<!-- Official pages start -->
+		<intercept-url pattern="/official/dashboard" access="hasAnyRole('OU')" />
+		<intercept-url pattern="/official/meeting/viewqueue" access="hasAnyRole('OU')" />
+		<intercept-url pattern="/official/meeting/start" access="hasAnyRole('OU')" />
+		<intercept-url pattern="/category/view" access="hasAnyRole('OU')" />
+		<intercept-url pattern="/official/users/edit/**" access="hasAnyRole('OU')" />
+		<intercept-url pattern="/official/editpassword/**" access="hasAnyRole('OU')" />
+		<!-- Official pages stop -->
+		<!-- Generaluser pages start -->
+		<intercept-url pattern="/generaluser/dashboard" access="hasAnyRole('GU')" />
+		<intercept-url pattern="/appointment/new" access="hasAnyRole('GU')" />
+		<intercept-url pattern="/appointment/view" access="hasAnyRole('GU')" />
+		<intercept-url pattern="/generaluser/announcements"
+			access="hasAnyRole('GU')" />
+		<intercept-url pattern="/generaluser/notifications"
+			access="hasAnyRole('GU')" />
+		<intercept-url pattern="/generaluser/edit/**" access="hasAnyRole('GU')" />
+		<intercept-url pattern="/generaluser/editpassword/**"
+			access="hasAnyRole('GU')" />
+		<!-- Generaluser pages stop -->
 		<form-login login-page="/login" default-target-url="/list"
 			authentication-failure-url="/login" />
 		<logout logout-success-url="/logout" />
-		<access-denied-handler error-page="/accessdenied"/>
+		<access-denied-handler error-page="/accessdenied" />
 	</http>
 
 	<authentication-manager>

@@ -10,7 +10,7 @@
 		</span>
 	</div>
 </div>
-<form:form action="../start" method="post" role="form">
+<form:form action="start" method="post" role="form">
 	<h3>Lists of Appointment From Database</h3>
 	<p><%=new java.util.Date()%></p>
 
@@ -50,7 +50,7 @@
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<form:form method="POST" action="broadcast"
+	<form:form method="POST" action="/Scheduler/official/meeting/broadcast"
 		modelAttribute="announcement">
 		<div class="modal-dialog">
 			<div class="modal-content">

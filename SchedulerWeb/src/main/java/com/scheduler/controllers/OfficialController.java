@@ -101,7 +101,7 @@ public class OfficialController extends SessionController {
 		System.out.println("view queue started");
 
 		int departmentId = 1;
-		String appointmentDate = "2013-11-13";
+		String appointmentDate = "2013-11-27";
 		listofAppointment = appointmentService.getAllAppointment(departmentId,
 				appointmentDate);
 		model.addAttribute("appointmentList", listofAppointment);
