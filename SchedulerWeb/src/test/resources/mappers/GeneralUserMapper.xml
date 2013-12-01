@@ -29,10 +29,10 @@
 	<insert id="saveUser" parameterType="com.scheduler.models.GeneralUser"
 		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into generaluser(clientId,firstName,lastName, username,
-		password,email,address,gender,token)
+		password,email,address,dob,gender,token)
 		values
 		(1,#{firstName},#{lastName},#{username},
-		#{password},#{email},#{address},#{gender},#{tocken})
+		#{password},#{email},#{address},#{dob},#{gender},#{tocken})
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			select last_insert_id()
 		</selectKey>

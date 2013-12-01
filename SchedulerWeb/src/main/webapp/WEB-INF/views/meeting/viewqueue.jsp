@@ -50,7 +50,7 @@
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<form:form method="POST" action="broadcast"
+	<form:form method="POST" action="/Scheduler/official/meeting/broadcast"
 		modelAttribute="announcement">
 		<div class="modal-dialog">
 			<div class="modal-content">
