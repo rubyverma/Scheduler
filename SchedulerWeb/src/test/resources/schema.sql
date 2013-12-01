@@ -196,3 +196,13 @@ CREATE TABLE IF NOT EXISTS `officialuser` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 INSERT INTO `officialuser` (`officialId`, `departmentId`, `roleId`, `officialName`, `email`, `password`, `firstName`, `lastName`, `dateJoined`, `lastLogin`) VALUES
 (1, 1, 2, 'Ashley Giles', 'm1@ccollge.com', 'abcd', 'Ashley', 'Giles', '2013-05-21', '2013-05-22 12:23:34');
+
+DROP TABLE IF EXISTS `campus`;
+CREATE TABLE `campus` (
+  `campusId` int(50) NOT NULL AUTO_INCREMENT,
+  `clientId` int(50) NOT NULL,
+  `campusName` varchar(50) NOT NULL,
+  `campusAddress` varchar(100) DEFAULT NULL,
+  `dateCreated` datetime NOT NULL,
+  PRIMARY KEY (`campusId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
