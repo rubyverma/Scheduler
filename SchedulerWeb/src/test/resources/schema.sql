@@ -29,3 +29,32 @@ CREATE TABLE IF NOT EXISTS `departmenttimeslot` (
 
 INSERT INTO `timeslot` (`timeslotId`, `clientId`, `startTime`, `stopTime`, `description`) VALUES
 (1, 1, '09:00:00', '13:00:00', 'New timeslot');
+
+
+DROP TABLE IF EXISTS `appointment`;
+CREATE TABLE IF NOT EXISTS `appointment` (
+  `appointmentId` int(50) NOT NULL AUTO_INCREMENT,
+  `departmentTimeId` int(50) NOT NULL,
+  `userId` int(50) NOT NULL,
+  `officialId` int(50) DEFAULT NULL,
+  `purposeOfVisit` varchar(255) DEFAULT NULL,
+  `startTime` time DEFAULT NULL,
+  `endTime` time DEFAULT NULL,
+  `meetingFinished` varchar(1) DEFAULT NULL,
+  `meetingNotes` text,
+  `dateCreated` datetime NOT NULL,
+  `appointmentDate` date NOT NULL,
+  PRIMARY KEY (`appointmentId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 
+
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE IF NOT EXISTS `department` (
+  `departmentId` INT(50) NOT NULL AUTO_INCREMENT,
+  `campusId` INT(50) NOT NULL,
+  `departmentName` VARCHAR(50) NOT NULL,
+  `departmentHod` VARCHAR(50) NOT NULL,
+  `contactInfo` INT(15) NOT NULL,
+  `departmentDescription` VARCHAR(255) DEFAULT NULL,
+  `dateCreated` DATETIME NOT NULL,
+  PRIMARY KEY (`departmentId`)
+) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
