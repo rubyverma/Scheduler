@@ -2,18 +2,18 @@ package com.scheduler.services;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.sql.Date;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.scheduler.BaseTest;
-import com.scheduler.models.AppointmentDepartment;
+import com.scheduler.models.GeneralUser;
 
-public class AppointmentServiceTest extends BaseTest {
+public class GeneralUserServiceTest extends BaseTest{
 
 	@Autowired(required=true)
-	private AppointmentService appointmentService;
-
+	private GeneralUserService generalUserService;
+	
 	
 }

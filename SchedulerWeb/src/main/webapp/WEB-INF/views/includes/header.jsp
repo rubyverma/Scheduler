@@ -17,11 +17,13 @@
 <!-- Bootstrap core CSS -->
 <link href="/Scheduler/resources/css/bootstrap.css" rel="stylesheet">
 <!-- Bootstrap theme -->
-<link href="/Scheduler/resources/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="/Scheduler/resources/css/bootstrap-theme.min.css"
+	rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="/Scheduler/resources/css/theme.css" rel="stylesheet">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="/resources/demos/style.css" />
 
 </head>
@@ -41,7 +43,21 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#">Home</a></li>
+					<c:choose>
+						<c:when test="${user.role == 'CL'}">
+							<li class="active"><a href="/Scheduler/client/dashboard">Home</a></li>
+						</c:when>
+						<c:when test="${user.role == 'OU'}">
+							<li class="active"><a href="/Scheduler/official/dashboard">Home</a></li>
+						</c:when>
+						<c:when test="${user.role == 'GU'}">
+							<li class="active"><a href="/Scheduler/generaluser/dashboard">Home</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="active"><a href="/Scheduler/login">Home</a></li>
+						</c:otherwise>
+					</c:choose>
+
 					<li><a href="#about">About</a></li>
 					<li><a href="#contact">Contact</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -67,9 +83,9 @@
 				${ error }
 			</p>
 		</c:if>
-<div class="row">
-  	<div class="col-md-3">
-  		<!--  TODO: show only if user is logged in -->
-  		<%@ include file="left_sidebar.jsp"%>
-  	</div>
-	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-3">
+				<!--  TODO: show only if user is logged in -->
+				<%@ include file="left_sidebar.jsp"%>
+			</div>
+			<div class="col-md-9">

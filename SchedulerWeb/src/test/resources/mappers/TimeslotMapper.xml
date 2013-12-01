@@ -8,9 +8,6 @@
 		timeslot(clientId, startTime, stopTime, description)
 		values
 		(#{clientId}, #{startTime}, #{stopTime}, #{description})
-		<selectKey keyProperty="timeslotId" resultType="Integer" order="AFTER">
-			select last_insert_id()
-		</selectKey>
 	</insert>
 
 	<select id="getTimeslotDetails" parameterType="int"

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scheduler.mappers.FaqMapper">
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<select id="getAllFaqbyCategory" parameterType="int" resultType="com.scheduler.models.Faq">
+		select * from faq where categoryId = #{categoryId}
+	</select>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<delete id="deleteFaq" parameterType="int">
+		delete from faq where faqId = #{faqId}
+	</delete>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<insert id="addFaq" parameterType="com.scheduler.models.Category" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into faq(categoryId,officialId,faqQuestion,faqAnswer,dateCreated) values (#{categoryId},#{officialId},#{faqQuestion},#{faqAnswer},NOW())
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<update id="updateFaq" parameterType="com.scheduler.models.Faq">
+		update faq
+		set categoryId = #{categoryId},officialId = #{officialId},faqQuestion = #{faqQuestion},faqAnswer = #{faqAnswer} where faqId = #{faqId}
+	</update>
+	
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of campuses for a particular client -->
+	<select id="getFaq" parameterType="int" resultType="com.scheduler.models.Faq">
+		select * from faq where faqId = #{faqId}
+	</select>
+	
+</mapper>

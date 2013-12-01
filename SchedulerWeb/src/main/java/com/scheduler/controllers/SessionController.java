@@ -13,7 +13,7 @@ public abstract class SessionController {
 	@Autowired
 	public SessionService sessionService;
 
-	private Map<String, String> sessionMap;
+	protected Map<String, String> sessionMap;
 
 	protected void addUserModel(Model model) {
 		sessionMap = new HashMap<String, String>();
@@ -22,8 +22,6 @@ public abstract class SessionController {
 			sessionMap.put("id", Integer.toString(sessionService.client.getClientId()));
 			sessionMap.put("name", sessionService.client.getClientName());
 			sessionMap.put("email", sessionService.client.getEmail());
-			
-			
 		} else if (sessionService.userType.equals("OU")) {
 			sessionMap.put("id", Integer.toString(sessionService.officialUser.getOfficialId()));
 			sessionMap.put("name", sessionService.officialUser.getOfficialName());

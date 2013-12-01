@@ -168,8 +168,10 @@ public class GeneralUserController extends SessionController {
 		return "generaluser/dashboard";
 	}
 
-	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
-	public String editUser(@PathVariable("userId") int userId, Model model) {
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String editUser(Model model) {
+		addUserModel(model);
+		int userId=Integer.parseInt(sessionMap.get("id"));
 		model.addAttribute("userId",userId);
 		model.addAttribute("generaluser",
 				generaluserService.getGeneralUser(userId));
