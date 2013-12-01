@@ -35,7 +35,7 @@
 				<a href="/Scheduler/appointment/view" class="list-group-item">View Appointments</a>
 				<a href="/Scheduler/generaluser/announcements" class="list-group-item">Announcements</a>
 				<a href="/Scheduler/generaluser/notifications" class="list-group-item">Notifications</a>
-				<a href="/Scheduler/generaluser/edit/${user.id}" class="list-group-item">Edit Profile</a>
+				<a href="/Scheduler/generaluser/edit" class="list-group-item">Edit Profile</a>
 				<a href="/Scheduler/generaluser/editpassword/${user.id}" class="list-group-item">Change Password</a>
 			</c:otherwise>
 		</c:choose>

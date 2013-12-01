@@ -101,7 +101,7 @@ public class OfficialController extends SessionController {
 		System.out.println("view queue started");
 
 		int departmentId = 1;
-		String appointmentDate = "2013-11-13";
+		String appointmentDate = "2013-11-27";
 		listofAppointment = appointmentService.getAllAppointment(departmentId,
 				appointmentDate);
 		model.addAttribute("appointmentList", listofAppointment);
@@ -330,7 +330,7 @@ public class OfficialController extends SessionController {
 			ApplicationContext context = new ClassPathXmlApplicationContext(
 					"Spring-Mail.xml");
 			MailMail mm = (MailMail) context.getBean("mailMail");
-			String url = "http://localhost:8080/Scheduler/official/login";
+			String url = "http://localhost:8080/Scheduler/login";
 			mm.sendMail(
 					"Scheduler App",
 					"This is a Test Email \n your temporary password : "

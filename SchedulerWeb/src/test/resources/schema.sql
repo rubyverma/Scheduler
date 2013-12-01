@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `dateCreated` datetime NOT NULL,
   `appointmentDate` date NOT NULL,
   PRIMARY KEY (`appointmentId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7; 
 
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE IF NOT EXISTS `department` (

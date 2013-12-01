@@ -85,6 +85,7 @@
 		select departmentTimeId from departmenttimeslot where
 		departmentId=#{department_id})
 		and meetingFinished='N'
+		and appointmentDate=CURDATE()
 		order by
 		appointmentId ASC
 		Limit 0,1
