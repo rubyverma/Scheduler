@@ -58,3 +58,25 @@ CREATE TABLE IF NOT EXISTS `department` (
   `dateCreated` DATETIME NOT NULL,
   PRIMARY KEY (`departmentId`)
 ) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+
+DROP TABLE IF EXISTS `announcement`;
+CREATE TABLE `announcement` (
+  `announcementId` int(50) NOT NULL AUTO_INCREMENT,
+  `officialId` int(50) NOT NULL,
+  `announcementHeader` varchar(100) NOT NULL,
+  `announcementDescription` varchar(255) DEFAULT NULL,
+  `gcmMessageId` int(100) NOT NULL,
+  `announcementDate` datetime NOT NULL,
+  PRIMARY KEY (`announcementId`),
+  UNIQUE KEY `UNIQUE` (`gcmMessageId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `userannouncements`;
+CREATE TABLE `userannouncements` (
+  `userAnnouncementId` int(11) NOT NULL AUTO_INCREMENT,
+  `announcementId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  PRIMARY KEY (`userAnnouncementId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
