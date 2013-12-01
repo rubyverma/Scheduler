@@ -177,3 +177,16 @@ CREATE TABLE `userannouncements` (
   `userId` int(11) NOT NULL,
   PRIMARY KEY (`userAnnouncementId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
+
+DROP TABLE IF EXISTS `campus`;
+CREATE TABLE `campus` (
+  `campusId` int(50) NOT NULL AUTO_INCREMENT,
+  `clientId` int(50) NOT NULL,
+  `campusName` varchar(50) NOT NULL,
+  `campusAddress` varchar(100) DEFAULT NULL,
+  `dateCreated` datetime NOT NULL,
+  PRIMARY KEY (`campusId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
