@@ -330,7 +330,7 @@ public class OfficialController extends SessionController {
 			ApplicationContext context = new ClassPathXmlApplicationContext(
 					"Spring-Mail.xml");
 			MailMail mm = (MailMail) context.getBean("mailMail");
-			String url = "http://localhost:8080/Scheduler/official/login";
+			String url = "http://localhost:8080/Scheduler/login";
 			mm.sendMail(
 					"Scheduler App",
 					"This is a Test Email \n your temporary password : "

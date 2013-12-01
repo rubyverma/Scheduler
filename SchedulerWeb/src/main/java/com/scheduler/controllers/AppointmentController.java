@@ -24,7 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequestMapping("/appointment")
 @Controller
-public class AppointmentController {
+public class AppointmentController extends SessionController {
 
 	protected static final String JSON_CONTENT = "application/json";
 	@Autowired(required = true)
@@ -72,6 +72,7 @@ public class AppointmentController {
 			model.addAttribute("error", e.getMessage());
 			System.out.println(e.getMessage());
 		}
+		addUserModel(model);
 		return "appointment/view";
 	}
 

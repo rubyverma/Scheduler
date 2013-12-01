@@ -10,7 +10,7 @@
 					<label>User Name:</label>
 					<form:input type="text" required="required" path="officialName"/>
 					<label>Password:</label>
-					<form:input type="text" required="required" path="password"/>
+					<form:input type="password" required="required" path="password"/>
 					<br><br>
 					<label>Role:</label>
 					<form:select name="role" class="abc" id="role" path ="roleId">

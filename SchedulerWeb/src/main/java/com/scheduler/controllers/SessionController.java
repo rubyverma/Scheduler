@@ -13,7 +13,7 @@ public abstract class SessionController {
 	@Autowired
 	public SessionService sessionService;
 
-	private Map<String, String> sessionMap;
+	protected Map<String, String> sessionMap;
 
 	protected void addUserModel(Model model) {
 		sessionMap = new HashMap<String, String>();
