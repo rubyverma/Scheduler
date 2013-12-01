@@ -37,5 +37,17 @@ public class GeneralUserServiceTest extends BaseTest{
 		assertTrue("Failed to Register General User",testResult==1);
 	}
 
-	
+	@Test
+	public void testGeneralUserVerification()
+	{
+		int testVerify=0;
+			int userId= generalUserService.getLastUserId();
+			String gettoken= generalUserService.getUserToken(userId);
+			if(gettoken.equals("123456"))
+			{
+			testVerify=generalUserService.verifyUser(userId);
+		
+			}
+			assertTrue("Failed to Verify General User",testVerify==1);
+	}
 }
