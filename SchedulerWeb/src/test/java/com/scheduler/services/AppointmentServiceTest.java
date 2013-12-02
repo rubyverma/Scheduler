@@ -19,6 +19,15 @@ public class AppointmentServiceTest extends BaseTest {
 	@Autowired(required=true)
 	private AppointmentService appointmentService;
 
+
+
+	@Test
+	public void testLateAppointment(){
+		int appointmentId=1;
+		int testResult=appointmentService.userLate(appointmentId);
+		assertTrue("Failed to mark the appointment as late",testResult==1);
+	}
+
 	@Test
 	public void testFindAllUserAppointments() {
 	  Appointment newAppointment = new Appointment();
