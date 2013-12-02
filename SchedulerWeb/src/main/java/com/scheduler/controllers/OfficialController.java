@@ -101,7 +101,7 @@ public class OfficialController extends SessionController {
 		System.out.println("view queue started");
 
 		int departmentId = 1;
-		String appointmentDate = "2013-11-27";
+		String appointmentDate = "2013-12-01";
 		listofAppointment = appointmentService.getAllAppointment(departmentId,
 				appointmentDate);
 		model.addAttribute("appointmentList", listofAppointment);
@@ -121,41 +121,43 @@ public class OfficialController extends SessionController {
 
 		Appointment nextAppointment = appointmentService
 				.findNextAppointment(department_id);
+		if (nextAppointment != null) {
+			// Code to start appointment
+			Appointment startedAppointment = appointmentService
+					.startAppointmentById(nextAppointment.getAppointmentId(),
+							official_id);
 
-		// Code to start appointment
-		Appointment startedAppointment = appointmentService
-				.startAppointmentById(nextAppointment.getAppointmentId(),
-						official_id);
+			if (startedAppointment != null) {
 
-		if (!startedAppointment.equals(null)) {
+				// Get next user in Queue (and send a push notification)
+				GeneralUser nextUser = appointmentService
+						.getNextUserInQueue(department_id);
+				//
+				Notification notification = new Notification();
+				notification.setOfficialId(official_id);
+				notification.setUserId(nextUser.getUserId());
+				notification.setNotificationHeader("Meeting starting soon!");
+				notification
+						.setNotificationDescription("You are the next person in queue");
+				boolean notifyNextUser = notificationService.notifyUser(
+						nextUser.getGcmRegId(), notification);
+				if (notifyNextUser) {
+					model.addAttribute("nextUserNotified", true);
+				}
 
-			// Get next user in Queue (and send a push notification)
-			GeneralUser nextUser = appointmentService
-					.getNextUserInQueue(department_id);
-			//
-			Notification notification = new Notification();
-			notification.setOfficialId(official_id);
-			notification.setUserId(nextUser.getUserId());
-			notification.setNotificationHeader("Meeting starting soon!");
-			notification
-					.setNotificationDescription("You are the next person in queue");
-			boolean notifyNextUser = notificationService.notifyUser(
-					nextUser.getGcmRegId(), notification);
-			if (notifyNextUser) {
-				model.addAttribute("nextUserNotified", true);
+				// if appointment is marked as started
+				model.addAttribute("started", "true");
+				model.addAttribute("appointment", startedAppointment);
+
+			} else {
+
+				// if appointment couldn't be marked as started
+				model.addAttribute("started", "false");
 			}
-
-			// if appointment is marked as started
-			model.addAttribute("started", "true");
-			model.addAttribute("appointment", startedAppointment);
-
-		} else {
-
-			// if appointment couldn't be marked as started
-			model.addAttribute("started", "false");
+			return "meeting/meeting";
 		}
 
-		return "meeting/meeting";
+		return "redirect:/official/meeting/viewqueue";
 
 	}
 
@@ -175,7 +177,8 @@ public class OfficialController extends SessionController {
 
 		boolean broadcasted = announcementService.addUserAnnouncement(
 				listofAppointment, announcement_id,
-				announcement.getAnnouncementHeader());
+				announcement.getAnnouncementHeader(),
+				announcement.getAnnouncementDescription());
 
 		// Redirecting to view the queue
 		return "redirect:/official/meeting/viewqueue";
