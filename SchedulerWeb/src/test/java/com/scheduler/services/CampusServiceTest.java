@@ -28,9 +28,7 @@ public class CampusServiceTest extends BaseTest {
 		//campusService.deleteCampus(1);
 		
 		assertNotNull(newCampus);
-		assertTrue("Failed to create campus", newCampusId>0);
-		
-		
+		assertTrue("Failed to create campus", newCampusId>0);	
 	}
 	
 	@Test
