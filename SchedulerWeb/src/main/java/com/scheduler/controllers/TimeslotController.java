@@ -125,7 +125,7 @@ public class TimeslotController {
 		String duplicate = timeslotService.checkDuplicate(updateTimeslot);
 		if( duplicate.equals("")) {
 			// not duplicate
-			newTimeslotId = timeslotService.CreateNewTimeslot(updateTimeslot);
+			Boolean updated = timeslotService.UpdateTimeslot(updateTimeslot);
 			if(newTimeslotId > 0) { saved = true; }
 			result = "Timeslot updated successfully";
 		} else {
