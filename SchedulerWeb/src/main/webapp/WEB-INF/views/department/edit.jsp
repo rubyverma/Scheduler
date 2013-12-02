@@ -7,7 +7,7 @@
 <h3>Add Department</h3>
 
 <form:form class="form-horizontal" role="form" method="POST"
-  action="save" modelAttribute="department">
+  action="/Scheduler/department/save" modelAttribute="department">
   <form:hidden path="departmentId" />
  
   <div class="form-group">
