@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `generaluser` (
 INSERT INTO `generaluser` (`userId`, `clientId`, `username`, `password`, `firstName`, `lastName`, `email`, `dob`, `address`, `gender`, `token`, `emailVerified`, `gcmRegId`) VALUES
 (1, 1, 'dkaith', 'cc1234', 'Kaith', 'Devon', 'dkaith@ccollege.com', '1985-12-14', '22 Progress Ave', 'Female', 'ab12', 1, '');
 
+DROP TABLE IF EXISTS `notification`;
 CREATE TABLE IF NOT EXISTS `notification` (
   `notificationId` int(50) NOT NULL AUTO_INCREMENT,
   `officialId` int(50) NOT NULL,
@@ -157,18 +158,16 @@ CREATE TABLE IF NOT EXISTS `department` (
   PRIMARY KEY (`departmentId`)
 ) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
-
 DROP TABLE IF EXISTS `announcement`;
-CREATE TABLE `announcement` (
+CREATE TABLE IF NOT EXISTS `announcement` (
   `announcementId` int(50) NOT NULL AUTO_INCREMENT,
   `officialId` int(50) NOT NULL,
   `announcementHeader` varchar(100) NOT NULL,
   `announcementDescription` varchar(255) DEFAULT NULL,
-  `gcmMessageId` int(100) NOT NULL,
+  `gcmMessageId` text,
   `announcementDate` datetime NOT NULL,
-  PRIMARY KEY (`announcementId`),
-  UNIQUE KEY `UNIQUE` (`gcmMessageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`announcementId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 
 DROP TABLE IF EXISTS `userannouncements`;
