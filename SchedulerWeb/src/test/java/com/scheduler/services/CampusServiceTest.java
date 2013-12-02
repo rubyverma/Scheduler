@@ -25,7 +25,6 @@ public class CampusServiceTest extends BaseTest {
 		newCampus.setDateCreated(Date.valueOf("2013-12-01"));
 		
 		int newCampusId = campusService.saveCampus(newCampus);
-		//campusService.deleteCampus(1);
 		
 		assertNotNull(newCampus);
 		assertTrue("Failed to create campus", newCampusId>0);	
@@ -43,12 +42,11 @@ public class CampusServiceTest extends BaseTest {
 		
 		Campus campusFromDB = campusService.getCampusById(1);
 		String actualName = campusFromDB.getCampusName();
+		
 		String expectedName = "Campus Test";
 		String actualAddress = campusFromDB.getCampusAddress();
 		String expectedAddress = "Campus Test Address";
-		
-		//campusService.deleteCampus(1);
-		
+
 		assertEquals(actualName, expectedName);
 		assertEquals(actualAddress, expectedAddress);
 	}
@@ -78,24 +76,23 @@ public class CampusServiceTest extends BaseTest {
 		newCampus.setCampusName("Campus Test");
 		newCampus.setCampusAddress("Campus Test Address");
 		newCampus.setDateCreated(Date.valueOf("2013-12-01"));
-		int newCampusId = campusService.saveCampus(newCampus);
+		campusService.saveCampus(newCampus);
 		int campusId = 1;
 		
 		Campus updateCampus = new Campus();
+		updateCampus.setCampusId(campusId);
 		updateCampus.setCampusName("Campus Test Update Name");
 		updateCampus.setCampusAddress("Campus Test update Address");
 
 		int actualUpdatedStatus = campusService.updateCampus(updateCampus);
-		int expectedUpdatedStatus = 0;
+		int expectedUpdatedStatus = 1;
 		assertEquals(actualUpdatedStatus, expectedUpdatedStatus);
 
 		Campus campusFromDB = campusService.getCampusById(1);
 		String actualName = campusFromDB.getCampusName();
-		String expectedName = "Campus Test";
+		String expectedName = "Campus Test Update Name";
 		String actualAddress = campusFromDB.getCampusAddress();
-		String expectedAddress = "Campus Test Address";
-		
-		//campusService.deleteCampus(1);
+		String expectedAddress = "Campus Test update Address";
 		
 		assertEquals(actualName, expectedName);
 		assertEquals(actualAddress, expectedAddress);
