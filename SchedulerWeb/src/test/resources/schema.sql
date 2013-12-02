@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `department` (
   `campusId` INT(50) NOT NULL,
   `departmentName` VARCHAR(50) NOT NULL,
   `departmentHod` VARCHAR(50) NOT NULL,
-  `contactInfo` INT(15) NOT NULL,
+  `contactInfo` BIGINT(15) NOT NULL,
   `departmentDescription` VARCHAR(255) DEFAULT NULL,
   `dateCreated` DATETIME NOT NULL,
   PRIMARY KEY (`departmentId`)
