@@ -2,8 +2,6 @@ package com.scheduler.controllers;
 
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
@@ -46,6 +44,7 @@ public class AppointmentController extends SessionController {
 		System.out.println("List of campuses" + campuses.toString());
 
 		model.addAttribute("campuses", campuses);
+		addUserModel(model);
 		return "appointment/newappointment";
 	}
 
@@ -55,7 +54,8 @@ public class AppointmentController extends SessionController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveAppointment(
 			@ModelAttribute("appointment") Appointment appointment, Model model) {
-
+		addUserModel(model);
+		int userId = Integer.parseInt(sessionMap.get("id"));
 		appointment.setUserId(userId);
 		appointment.setMeetingFinished("N");
 		int i = appointmentService.saveAppointment(appointment);
@@ -65,14 +65,16 @@ public class AppointmentController extends SessionController {
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String viewAllAppointments(Model model) {
 		List<AppointmentDepartment> appointments;
+		addUserModel(model);
+		int userId = Integer.parseInt(sessionMap.get("id"));
 		try {
-			appointments = appointmentService.findAllUserAppointments(1);
+			appointments = appointmentService.findAllUserAppointments(userId);
 			model.addAttribute("appointments", appointments);
 		} catch (BadSqlGrammarException e) {
 			model.addAttribute("error", e.getMessage());
 			System.out.println(e.getMessage());
 		}
-		addUserModel(model);
+		
 		return "appointment/view";
 	}
 

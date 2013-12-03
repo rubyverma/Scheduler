@@ -33,7 +33,7 @@ public class AnnouncementService {
 	}
 
 	public boolean addUserAnnouncement(List<AppointmentList> listofAppointment,
-			int announcement_id, String message) {
+			int announcement_id, String title, String message) {
 		
 		List<UserAnnouncement> userAnnouncements = new ArrayList<UserAnnouncement>();
 		List<String> deviceRegIds = new ArrayList<String>();
@@ -52,7 +52,7 @@ public class AnnouncementService {
 		int rowsAffected = announcementMapper.addUserAnnouncement(userAnnouncements);
 		
 		SendPostRequest request = new SendPostRequest();
-		String multicast_id = request.multicastMessage(deviceRegIds, message);
+		String multicast_id = request.multicastMessage(deviceRegIds, title, message);
 		return true;
 	}
 

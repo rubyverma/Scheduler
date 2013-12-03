@@ -33,7 +33,7 @@ function setDisabled() {
 		value="${appointment.appointmentId}" />
 	<div class="form-group">
 		<label>Meeting Notes</label>
-		<textarea class="form-control" id="meetingNotes" path="meetingNotes"
+		<textarea class="form-control" name="meetingNotes" path="meetingNotes"
 			rows="3" placeholder="Meeting Notes"></textarea>
 		<input type="submit" class="btn btn-default" value="Finish"></input>
 		<input type="button" onClick="location.href = 'late'" id="btnLate" disabled="disabled" class="btn btn-default" value="Late"></input>

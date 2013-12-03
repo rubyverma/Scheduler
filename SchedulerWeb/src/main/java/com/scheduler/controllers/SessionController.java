@@ -26,6 +26,7 @@ public abstract class SessionController {
 			sessionMap.put("id", Integer.toString(sessionService.officialUser.getOfficialId()));
 			sessionMap.put("name", sessionService.officialUser.getOfficialName());
 			sessionMap.put("email", sessionService.officialUser.getEmail());
+			sessionMap.put("deptId",Integer.toString(sessionService.officialUser.getDepartmentId()));
 		} else {
 			sessionMap.put("id", Integer.toString(sessionService.generalUser.getUserId()));
 			sessionMap.put("name", sessionService.generalUser.getFirstName() + " " + sessionService.generalUser.getLastName());

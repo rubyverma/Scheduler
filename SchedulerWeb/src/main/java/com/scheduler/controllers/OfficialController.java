@@ -1,16 +1,13 @@
 package com.scheduler.controllers;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
@@ -25,13 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.scheduler.models.Announcement;
 import com.scheduler.models.Appointment;
 import com.scheduler.models.AppointmentList;
-import com.scheduler.models.Client;
-import com.scheduler.models.GeneralUser;
-import com.scheduler.models.Notification;
-import com.scheduler.models.OfficialUser;
-import com.scheduler.services.GeneralUserService;
-import com.scheduler.services.UserService;
-import com.scheduler.models.Campus;
 import com.scheduler.models.Department;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.models.Notification;
@@ -40,13 +30,11 @@ import com.scheduler.models.Roles;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
-import com.scheduler.services.CampusService;
 import com.scheduler.services.DepartmentService;
 import com.scheduler.services.DepartmentTimeslotService;
 import com.scheduler.services.NotificationService;
 import com.scheduler.services.OfficialUserService;
 import com.scheduler.services.RolesService;
-import com.scheduler.services.TimeslotService;
 
 @RequestMapping("/official")
 @Controller
@@ -100,10 +88,10 @@ public class OfficialController extends SessionController {
 	public String viewQueue(Model model) {
 		System.out.println("view queue started");
 		addUserModel(model);
-		int departmentId = 1;//*************************************************************************
-		String appointmentDate = "2013-11-13";
-		listofAppointment = appointmentService.getAllAppointment(departmentId,
-				appointmentDate);
+		int departmentId = Integer.parseInt(sessionMap.get("deptId"));
+		
+		//String appointmentDate = "2013-11-13";
+		listofAppointment = appointmentService.getAllAppointment(departmentId);
 		model.addAttribute("appointmentList", listofAppointment);
 
 		// passing blank announcement object
@@ -116,45 +104,50 @@ public class OfficialController extends SessionController {
 	public String startMeeting(Model model) {
 		// insert the following fields to official user session
 		// get official_id and dept_id from the session variable
-		int department_id = 1; // hardcoded value//***********************************************************************
+		int official_id=Integer.parseInt(sessionMap.get("id"));
+		int department_id = Integer.parseInt(sessionMap.get("deptId")); 
 		addUserModel(model);
 		Appointment nextAppointment = appointmentService
 				.findNextAppointment(department_id);
+		if (nextAppointment != null) {
+			// Code to start appointment
+			Appointment startedAppointment = appointmentService
+					.startAppointmentById(nextAppointment.getAppointmentId(),
+							official_id);
 
-		// Code to start appointment
-		Appointment startedAppointment = appointmentService
-				.startAppointmentById(nextAppointment.getAppointmentId(),
-						Integer.parseInt(sessionMap.get("id")));
+			if (startedAppointment != null) {
 
-		if (!startedAppointment.equals(null)) {
+				// Get next user in Queue (and send a push notification)
+				GeneralUser nextUser = appointmentService
+						.getNextUserInQueue(department_id);
+				if(nextUser!=null)
+				{
+				//
+				Notification notification = new Notification();
+				notification.setOfficialId(official_id);
+				notification.setUserId(nextUser.getUserId());
+				notification.setNotificationHeader("Meeting starting soon!");
+				notification
+						.setNotificationDescription("You are the next person in queue");
+				boolean notifyNextUser = notificationService.notifyUser(
+						nextUser.getGcmRegId(), notification);
+				if (notifyNextUser) {
+					model.addAttribute("nextUserNotified", true);
+				}
+				}
+				// if appointment is marked as started
+				model.addAttribute("started", "true");
+				model.addAttribute("appointment", startedAppointment);
 
-			// Get next user in Queue (and send a push notification)
-			GeneralUser nextUser = appointmentService
-					.getNextUserInQueue(department_id);
-			//
-			Notification notification = new Notification();
-			notification.setOfficialId(Integer.parseInt(sessionMap.get("id")));
-			notification.setUserId(nextUser.getUserId());
-			notification.setNotificationHeader("Meeting starting soon!");
-			notification
-					.setNotificationDescription("You are the next person in queue");
-			boolean notifyNextUser = notificationService.notifyUser(
-					nextUser.getGcmRegId(), notification);
-			if (notifyNextUser) {
-				model.addAttribute("nextUserNotified", true);
+			} else {
+
+				// if appointment couldn't be marked as started
+				model.addAttribute("started", "false");
 			}
-
-			// if appointment is marked as started
-			model.addAttribute("started", "true");
-			model.addAttribute("appointment", startedAppointment);
-
-		} else {
-
-			// if appointment couldn't be marked as started
-			model.addAttribute("started", "false");
+			return "meeting/meeting";
 		}
 
-		return "meeting/meeting";
+		return "redirect:/official/meeting/viewqueue";
 
 	}
 
@@ -174,19 +167,19 @@ public class OfficialController extends SessionController {
 
 		boolean broadcasted = announcementService.addUserAnnouncement(
 				listofAppointment, announcement_id,
-				announcement.getAnnouncementHeader());
+				announcement.getAnnouncementHeader(),
+				announcement.getAnnouncementDescription());
 
 		// Redirecting to view the queue
 		return "redirect:/official/meeting/viewqueue";
 	}
 
 	@RequestMapping(value = "meeting/late", method = RequestMethod.GET)
-	public String userLate(RedirectAttributes ra, Model model) {
+	public String userLate(@ModelAttribute("appointment") Appointment appointment,RedirectAttributes ra, Model model) {
 
 		int result;
-		int appointmentId = 1;//****************************************************************************
 		try {
-			result = appointmentService.userLate(appointmentId);
+			result = appointmentService.userLate(appointment.getAppointmentId());
 			model.addAttribute("result", result);
 		} catch (BadSqlGrammarException e) {
 			model.addAttribute("error", e.getMessage());

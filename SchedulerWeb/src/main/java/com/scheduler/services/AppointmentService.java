@@ -89,9 +89,9 @@ public class AppointmentService {
 
 	}
 
-	public List<AppointmentList> getAllAppointment(@Param("departmentId") int departmentId, @Param("appointmentDate") String appointmentDate)
+	public List<AppointmentList> getAllAppointment(@Param("departmentId") int departmentId)
 	{
-		return appointmentMapper.getAllAppointment(departmentId,appointmentDate);
+		return appointmentMapper.getAllAppointment(departmentId);
 	}
 
 	public List<AppointmentDepartment> findAllUserAppointments(int userId)

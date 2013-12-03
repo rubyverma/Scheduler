@@ -103,28 +103,30 @@ public class DepartmentServiceTest extends BaseTest {
 		newDepartment.setContactInfo(3653653644L);
 		newDepartment.setDepartmentDescription("Department Description Test");
 		newDepartment.setDateCreated(Date.valueOf("2013-12-01"));
-		int newDepartmentId = departmentService.saveDepartment(newDepartment);
+		departmentService.saveDepartment(newDepartment);
 		int departmentId = 1;
 		
 		Department updateDepartment = new Department();
+		updateDepartment.setDepartmentId(departmentId);
 		updateDepartment.setDepartmentName("Department Test Update Name");
 		updateDepartment.setDepartmentHod("Department Test update HOD");
 		updateDepartment.setContactInfo(4165244456L);
 		updateDepartment.setDepartmentDescription("Department description updated test");
+		updateDepartment.setDateCreated(Date.valueOf("2013-12-01"));
 
 		int actualUpdatedStatus = departmentService.updateDepartment(updateDepartment);
-		int expectedUpdatedStatus = 0;
+		int expectedUpdatedStatus = 1;
 		assertEquals(actualUpdatedStatus, expectedUpdatedStatus);
 
 		Department departmentFromDB = departmentService.getDepartmentById(1);
 		String actualName = departmentFromDB.getDepartmentName();
-		String expectedName = "Department Name Test";
+		String expectedName = "Department Test Update Name";
 		String actualHOD = departmentFromDB.getDepartmentHod();
-		String expectedHOD = "Department HOD Test";
+		String expectedHOD = "Department Test update HOD";
 		Long actualInfo = departmentFromDB.getContactInfo();
-		Long expectedInfo = 3653653644L;
+		Long expectedInfo = 4165244456L;
 		String actualDescription = departmentFromDB.getDepartmentDescription();
-		String expectedDescription = "Department Description Test";
+		String expectedDescription = "Department description updated test";
 		Date actualDate = departmentFromDB.getDateCreated();
 		Date expectedDate = Date.valueOf("2013-12-01");
 		

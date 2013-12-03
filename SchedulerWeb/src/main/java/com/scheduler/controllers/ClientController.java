@@ -40,6 +40,7 @@ public class ClientController extends SessionController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String showClientDashboard(Model model) {
+		addUserModel(model);
 		return "client/dashboard";
 	}
 
@@ -180,7 +181,7 @@ public class ClientController extends SessionController {
 
 		categories = clientService.findAllCategories();
 		model.addAttribute("categories", categories);
-
+		addUserModel(model);
 		return "client/faqs";
 	}
 
@@ -189,6 +190,7 @@ public class ClientController extends SessionController {
 			Model model) {
 		List<Faq> fQns = clientService.getFaqQns(categoryId);
 		model.addAttribute("fQns", fQns);
+		addUserModel(model);
 		return "client/faqsqa";
 
 	}
@@ -205,15 +207,19 @@ public class ClientController extends SessionController {
 			model.addAttribute("error", e.getMessage());
 			System.out.println(e.getMessage());
 		}
+		addUserModel(model);
 		return "client/viewstats";
 	}
 
 	// Author - Shalin Banjara
-	@RequestMapping(value = "/edit/{clientId}", method = RequestMethod.GET)
-	public String editClient(@PathVariable("clientId") int clientId, Model model) {
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String editClient(Model model) {
+		addUserModel(model);
+		int clientId = Integer.parseInt(sessionMap.get("id"));
 		model.addAttribute("clientId", clientId);
 		model.addAttribute("client", clientService.getClientById(clientId));
 		// System.out.println(clientService.getClientById(clientId).getLogo());
+		
 		return "client/editclient";
 	}
 
@@ -223,18 +229,21 @@ public class ClientController extends SessionController {
 			Model model) {
 		int i = clientService.updateClientById(client);
 		System.out.println(client.getLogo());
+		addUserModel(model);
 		return "client/dashboard";
 	}
 
 	// Author - Shalin Banjara
-	@RequestMapping(value = "/editpassword/{clientId}", method = RequestMethod.GET)
-	public String editClientPassword(@PathVariable("clientId") int clientId,
-			Model model) {
+	@RequestMapping(value = "/editpassword", method = RequestMethod.GET)
+	public String editClientPassword(Model model) {
+		addUserModel(model);
+		int clientId = Integer.parseInt(sessionMap.get("id"));
 		model.addAttribute("password", clientService.getClientById(clientId)
 				.getPassword());
 		model.addAttribute("clientId", clientId);
 		model.addAttribute("client", new Client());
 		// System.out.println(clientService.getClientById(clientId).getLogo());
+		addUserModel(model);
 		return "client/editclientpassword";
 	}
 
@@ -245,6 +254,7 @@ public class ClientController extends SessionController {
 		System.out.println(client.getClientId());
 		System.out.println(client.getPassword());
 		int i = clientService.updateClientPasswordById(client);
+		addUserModel(model);
 		return "client/dashboard";
 	}
 

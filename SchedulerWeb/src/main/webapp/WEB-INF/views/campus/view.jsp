@@ -5,9 +5,9 @@
 <title>Campus</title>
 
 <h3 class="pull-left silent">Campus</h3>
-<button class="btn btn-primary pull-right btn-sm silent"
+<button class="btn btn-default pull-right"
 	data-toggle="modal" data-target="#myModal">
-	Add <span class="glyphicon glyphicon-plus"></span>
+	<span class="glyphicon glyphicon-plus"></span> Add New Campus
 </button>
 <br>
 <!-- Modal -->
