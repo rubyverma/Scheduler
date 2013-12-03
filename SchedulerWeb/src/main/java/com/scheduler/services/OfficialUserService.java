@@ -3,17 +3,10 @@ package com.scheduler.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.scheduler.mappers.OfficialUserMapper;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.BadSqlGrammarException;
-
-import com.scheduler.mappers.ClientMapper;
-import com.scheduler.models.Appointment;
-import com.scheduler.models.GeneralUser;
 import com.scheduler.models.OfficialUser;
 
 @Component

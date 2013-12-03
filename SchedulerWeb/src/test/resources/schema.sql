@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `appointment` (
 INSERT INTO `appointment` (`appointmentId`, `departmentTimeId`, `userId`, `officialId`, `purposeOfVisit`, `startTime`, `endTime`, `meetingFinished`, `meetingNotes`, `dateCreated`, `appointmentDate`) VALUES
 (1, 1, 1, 3, 'Course Enquiry', '00:00:00', '00:00:00', '', '', '2013-11-11 08:16:45', '2013-11-10');
 
+DROP TABLE IF EXISTS `generaluser`;
 CREATE TABLE IF NOT EXISTS `generaluser` (
   `userId` int(50) NOT NULL AUTO_INCREMENT,
   `clientId` int(50) NOT NULL,
@@ -70,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `generaluser` (
 INSERT INTO `generaluser` (`userId`, `clientId`, `username`, `password`, `firstName`, `lastName`, `email`, `dob`, `address`, `gender`, `token`, `emailVerified`, `gcmRegId`) VALUES
 (1, 1, 'dkaith', 'cc1234', 'Kaith', 'Devon', 'dkaith@ccollege.com', '1985-12-14', '22 Progress Ave', 'Female', 'ab12', 1, '');
 
+DROP TABLE IF EXISTS `notification`;
 CREATE TABLE IF NOT EXISTS `notification` (
   `notificationId` int(50) NOT NULL AUTO_INCREMENT,
   `officialId` int(50) NOT NULL,
@@ -89,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `department` (
   `campusId` INT(50) NOT NULL,
   `departmentName` VARCHAR(50) NOT NULL,
   `departmentHod` VARCHAR(50) NOT NULL,
-  `contactInfo` INT(15) NOT NULL,
+  `contactInfo` BIGINT(15) NOT NULL,
   `departmentDescription` VARCHAR(255) DEFAULT NULL,
   `dateCreated` DATETIME NOT NULL,
   PRIMARY KEY (`departmentId`)
@@ -156,18 +158,16 @@ CREATE TABLE IF NOT EXISTS `department` (
   PRIMARY KEY (`departmentId`)
 ) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
-
 DROP TABLE IF EXISTS `announcement`;
-CREATE TABLE `announcement` (
+CREATE TABLE IF NOT EXISTS `announcement` (
   `announcementId` int(50) NOT NULL AUTO_INCREMENT,
   `officialId` int(50) NOT NULL,
   `announcementHeader` varchar(100) NOT NULL,
   `announcementDescription` varchar(255) DEFAULT NULL,
-  `gcmMessageId` int(100) NOT NULL,
+  `gcmMessageId` text,
   `announcementDate` datetime NOT NULL,
-  PRIMARY KEY (`announcementId`),
-  UNIQUE KEY `UNIQUE` (`gcmMessageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`announcementId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 
 DROP TABLE IF EXISTS `userannouncements`;
@@ -177,3 +177,31 @@ CREATE TABLE `userannouncements` (
   `userId` int(11) NOT NULL,
   PRIMARY KEY (`userAnnouncementId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `officialuser`;
+CREATE TABLE IF NOT EXISTS `officialuser` (
+  `officialId` int(50) NOT NULL AUTO_INCREMENT,
+  `departmentId` int(50) NOT NULL,
+  `roleId` int(50) NOT NULL,
+  `officialName` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `dateJoined` date NOT NULL,
+  `lastLogin` datetime NOT NULL,
+  PRIMARY KEY (`officialId`),
+  KEY `UNIQUE` (`officialName`,`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+INSERT INTO `officialuser` (`officialId`, `departmentId`, `roleId`, `officialName`, `email`, `password`, `firstName`, `lastName`, `dateJoined`, `lastLogin`) VALUES
+(1, 1, 2, 'Ashley Giles', 'm1@ccollge.com', 'abcd', 'Ashley', 'Giles', '2013-05-21', '2013-05-22 12:23:34');
+
+DROP TABLE IF EXISTS `campus`;
+CREATE TABLE `campus` (
+  `campusId` int(50) NOT NULL AUTO_INCREMENT,
+  `clientId` int(50) NOT NULL,
+  `campusName` varchar(50) NOT NULL,
+  `campusAddress` varchar(100) DEFAULT NULL,
+  `dateCreated` datetime NOT NULL,
+  PRIMARY KEY (`campusId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

@@ -15,7 +15,7 @@ public class SendPostRequest {
 
 	private static final String API_KEY = "AIzaSyALsNzA33zOh51g0ECjYcGWtA2y3hbcZaY";
 
-	public String sendNotification(String registration_id, String notificationMessage) {
+	public String sendNotification(String registration_id, String notificationTitle, String notificationMessage) {
 		
 		String message_id = "";
 		Result result;
@@ -25,9 +25,8 @@ public class SendPostRequest {
 		// use this to send message with payload data
 		Message message = new Message.Builder().collapseKey("message")
 				.timeToLive(3).delayWhileIdle(true)
-				.addData("message", notificationMessage) // you can get this
-															// message on client
-															// side app
+				.addData("message", notificationMessage) 
+				.addData("title", notificationTitle)
 				.build();
 
 		try {
@@ -41,7 +40,7 @@ public class SendPostRequest {
 		return message_id;
 	}
 	
-	public String multicastMessage(List<String> devices, String messageToSend) {
+	public String multicastMessage(List<String> devices, String messageTitle, String messageToSend) {
 		
 		Sender sender = new Sender(API_KEY);
 		long multicast_id = 0;
@@ -50,6 +49,7 @@ public class SendPostRequest {
 				.timeToLive(3)
 				.delayWhileIdle(true)
 				.addData("message",  messageToSend)
+				.addData("title", messageTitle)
 				.build();
 		
 		try {
