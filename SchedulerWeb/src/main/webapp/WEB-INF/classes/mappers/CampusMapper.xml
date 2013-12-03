@@ -11,7 +11,7 @@
 	<!-- Author - Ruby Verma Usage - fetch all campus from db -->
 	<select id="findAllCampuses" parameterType="int"
 		resultType="com.scheduler.models.Campus">
-		SELECT * FROM campus
+		SELECT * FROM campus where clientId=#{clientId}
 		order by campusName
 	</select>
 
@@ -50,7 +50,7 @@
 		campusName = #{campusName},
 		campusAddress =
 		#{campusAddress},
-		dateCreated = CURTIME()
+		dateCreated = NOW()
 		where campusId = #{campusId}
 	</update>
 

@@ -19,7 +19,7 @@
 				<a href="/Scheduler/department/new" class="list-group-item">Create Department</a>
 				<a href="/Scheduler/roles/view" class="list-group-item">View Roles</a>
 				<a href="/Scheduler/timeslot/view" class="list-group-item">View Timeslots</a>
-				<a href="/Scheduler/client/edit/${user.id}" class="list-group-item">Edit Profile</a>
+				<a href="/Scheduler/client/edit" class="list-group-item">Edit Profile</a>
 			</c:when>
 			<c:when test="${user.role == 'OU'}">
 				<a href="/Scheduler/official/dashboard" class="list-group-item active">Dashboard</a>

@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.scheduler.models.Appointment;
 import com.scheduler.models.Category;
 import com.scheduler.models.Faq;
-import com.scheduler.services.AppointmentService;
 import com.scheduler.services.CategoryService;
 import com.scheduler.services.FaqService;
 
 @RequestMapping("/category")
 @Controller
-public class CategoryController {
+public class CategoryController extends SessionController {
 	
 	@Autowired(required = true)
 	private CategoryService categoryService;
@@ -36,19 +34,21 @@ public class CategoryController {
 		model.addAttribute("category", new Category());
 		model.addAttribute("faq", new Faq());
 		model.addAttribute("categories",categories);
+		addUserModel(model);
 		return "faq/adminfaq";
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String newCategory(Model model) {
-		
+		addUserModel(model);
 		return "faq/newcategory";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveCategory(@ModelAttribute("category") Category category,Model model) {
 		//TODO would be fetched from the session variable;
-		int officialId = 1;
+		addUserModel(model);
+		int officialId = Integer.parseInt(sessionMap.get("id"));
 		category.setOfficialId(officialId);
 		categoryService.addCategory(category);
 		System.out.println(category.getCategoryName());
@@ -69,6 +69,7 @@ public class CategoryController {
 		}
 		
 		System.out.println(categoryId);
+		addUserModel(model);
 		return "redirect:/category/view";
 	}
 
@@ -77,13 +78,15 @@ public class CategoryController {
 		Category category = categoryService.getCategory(categoryId);
 		model.addAttribute("category", category);
 		model.addAttribute("categoryId", categoryId);
+		addUserModel(model);
 		return "faq/adminupdatecategory";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateCategory(@ModelAttribute("category") Category category, Model model) {
 		//TODO would be fetched from the session variable;
-		int officialId = 1;
+		addUserModel(model);
+		int officialId = Integer.parseInt(sessionMap.get("id"));
 		category.setOfficialId(officialId);
 		int i = categoryService.updateCategory(category);
 		System.out.println(category.getCategoryId());

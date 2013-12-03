@@ -16,47 +16,42 @@ import com.scheduler.services.AnnouncementService;
 
 @RequestMapping("/generaluser")
 @Controller
-public class AnnouncementController {
+public class AnnouncementController extends SessionController {
 	protected static final String JSON_CONTENT = "application/json";
 
 	@Autowired(required = true)
 	private AnnouncementService announcementService;
-	
-	@RequestMapping(value = "/announcements" , method = RequestMethod.GET)
-	public String viewAllAnnouncements(Model model)
-	{
+
+	@RequestMapping(value = "/announcements", method = RequestMethod.GET)
+	public String viewAllAnnouncements(Model model) {
 		List<Announcement> announcements = null;
-			try{
-					announcements = announcementService.getAllAnnouncements(1);
-					model.addAttribute("announcements", announcements);
-		
-				}
-			catch(BadSqlGrammarException e)
-				{
-					model.addAttribute("ERROR",e.getMessage());
-					System.out.println(e.getMessage());
-				}
-			return "generaluser/announcements";
-	
+		try {
+			announcements = announcementService.getAllAnnouncements(1);
+			model.addAttribute("announcements", announcements);
+
+		} catch (BadSqlGrammarException e) {
+			model.addAttribute("ERROR", e.getMessage());
+			System.out.println(e.getMessage());
+		}
+		addUserModel(model);
+		return "generaluser/announcements";
+
 	}
-	
+
 	// Android App fetches all the announcements for an individual user
-	
-	@RequestMapping(value = "/getannouncement/{id}" , method = RequestMethod.GET, produces = JSON_CONTENT)
+
+	@RequestMapping(value = "/getannouncement/{id}", method = RequestMethod.GET, produces = JSON_CONTENT)
 	@ResponseBody
-	public List<Announcement> getAnnouncement(@PathVariable int id)
-	{
-		
-		try{
+	public List<Announcement> getAnnouncement(@PathVariable int id) {
+
+		try {
 			List<Announcement> announcement = null;
 			announcement = announcementService.getAllAnnouncements(id);
-			return announcement ;
-		}
-	catch(BadSqlGrammarException e)
-		{
+			return announcement;
+		} catch (BadSqlGrammarException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
-	
+
 	}
 }

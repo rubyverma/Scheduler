@@ -34,7 +34,7 @@ import com.scheduler.services.TimeslotService;
 	@RequestMapping("/department")
 	@Controller
 	@Slf4j
-	public class DepartmentController {
+	public class DepartmentController extends SessionController {
 	
 		@Autowired(required = true)
 		private OfficialUserService officialUserService;
@@ -90,6 +90,7 @@ import com.scheduler.services.TimeslotService;
 			model.addAttribute("department", dept);
 			model.addAttribute("campuses", campuses);
 			model.addAttribute("timeslots", timeslots);
+			addUserModel(model);
 			return "department/edit";
 		}
 		

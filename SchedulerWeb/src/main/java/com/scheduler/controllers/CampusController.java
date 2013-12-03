@@ -1,9 +1,6 @@
 package com.scheduler.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Controller;
@@ -15,15 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.scheduler.models.Appointment;
-import com.scheduler.models.AppointmentDepartment;
 import com.scheduler.models.Campus;
 import com.scheduler.services.CampusService;
 
 @RequestMapping("/campus")
 @Controller
-public class CampusController {
+public class CampusController extends SessionController {
 
 	protected static final String JSON_CONTENT = "application/json";
 
@@ -36,8 +30,10 @@ public class CampusController {
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String viewAllCampuses(Model model) {
 		List<Campus> campuses;
+		addUserModel(model);
+		int clientId = Integer.parseInt(sessionMap.get("id"));
 		try {
-			campuses = campusService.findAllCampuses(1);
+			campuses = campusService.findAllCampuses(clientId);
 			model.addAttribute("campuses", campuses);
 		} catch (BadSqlGrammarException e) {
 			model.addAttribute("error", e.getMessage());
@@ -51,8 +47,10 @@ public class CampusController {
 	// Usage - Adds and save new campus
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = JSON_CONTENT)
 	@ResponseBody
-	public int saveCampus(@RequestBody Campus campus) {
-		campus.setClientId(1);
+	public int saveCampus(@RequestBody Campus campus, Model model) {
+		addUserModel(model);
+		int clientId = Integer.parseInt(sessionMap.get("id"));
+		campus.setClientId(clientId);
 		int i = campusService.saveCampus(campus);
 		return i;
 	}
@@ -72,7 +70,7 @@ public class CampusController {
 			model.addAttribute("error", e.getMessage());
 			System.out.println(e.getMessage());
 		}
-
+		addUserModel(model);
 		return "redirect:/campus/view?deleted=1";
 	}
 
@@ -82,6 +80,7 @@ public class CampusController {
 	public String editCampus(@PathVariable("campusId") int campusId, Model model) {
 		campus = campusService.getCampusById(campusId);
 		model.addAttribute("campus", campus);
+		addUserModel(model);
 		return "campus/edit";
 	}
 
@@ -90,14 +89,15 @@ public class CampusController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateCampus(@ModelAttribute("campus") Campus campus,
 			Model model) {
-
+		addUserModel(model);
+		int clientId = Integer.parseInt(sessionMap.get("id"));
 		int count = campusService.validateEntry(campus);
 		if (count > 0) {
 			System.out.println("Already Exists");
 			model.addAttribute("exists", 1);
 			return "redirect:/campus/edit/" + campus.getCampusId();
 		} else {
-			campus.setClientId(1);
+			campus.setClientId(clientId);
 			int i = campusService.updateCampus(campus);
 		}
 
