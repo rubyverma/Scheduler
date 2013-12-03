@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -6,52 +6,78 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome" />
-
-	<Button
-	    android:id="@+id/button1"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:onClick="addAppointmentClick"
-	    android:text="Add Appointement" />
-
-	<Button
-	    android:id="@+id/btnViewNotification"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="View Notifications" />
-	
-	<Button
-	    android:id="@+id/btnViewAnnouncement"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="View Announcement"
-	    android:onClick="viewAppointmentClick" />
-	
 	<Button
 	    android:id="@+id/btnViewFaqs"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="View FAQ"
-	    android:onClick="viewFaqs" />
-	
-
-	<Button
-	    android:id="@+id/btnSettings"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="Settings"
-	    android:onClick="openSettings" />
+	    android:layout_above="@+id/btnSettings"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_marginBottom="14dp"
+	    android:onClick="viewFaqs"
+	    android:text="Frequently Asked Questions"
+	    style="@style/buttonGreen" />
 
 	<Button
 	    android:id="@+id/btnLogout"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:onClick="LogoutUser"
 	    android:text="Logout"
-	    android:onClick="LogoutUser" />
+	    style="@style/buttonGreenLogout" />
+
+	<Button
+	    android:id="@+id/btnViewAnnouncement"
+	    android:layout_above="@+id/btnViewFaqs"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:onClick="viewAppointmentClick"
+	    android:text="View Announcements"
+	    style="@style/buttonGreen" />
+
+	<Button
+	    android:id="@+id/btnViewNotification"
+	    android:layout_above="@+id/btnViewAnnouncement"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:text="View My Notifications"
+	    style="@style/buttonGreen" />
+
+	<Button
+	    android:id="@+id/button1"
+	    android:layout_above="@+id/btnViewNotification"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:onClick="addAppointmentClick"
+	    android:text="Make an Appointment"
+	    style="@style/buttonGreen" />
+
+	<Button
+	    android:id="@+id/btnSettings"
+	    android:layout_above="@+id/btnLogout"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:onClick="openSettings"
+	    android:text="Settings"
+	    style="@style/buttonGreen" />
+
+	<TextView
+	    android:id="@+id/tvWelcome"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/button1"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginBottom="21dp"
+	    android:gravity="center"
+	    android:text="Welcome" />
+
+	<ImageView
+	    android:id="@+id/imageView1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_alignParentTop="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="20dp"
+	    android:src="@drawable/scheduler_logo" />
 	
-</LinearLayout>
+</RelativeLayout>
