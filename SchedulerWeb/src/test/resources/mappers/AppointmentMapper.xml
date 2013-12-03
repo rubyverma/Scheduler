@@ -106,8 +106,7 @@
 		Limit 0,1
 	</select>
 
-	<update id="cancelAppointment" parameterType="int" flushCache="true"
-		statementType="PREPARED">
+	<update id="cancelAppointment" parameterType="com.scheduler.models.Appointment" flushCache="true">
 		update appointment
 		set meetingFinished = 'C'
 		where appointmentId = #{appointmentId}

@@ -18,7 +18,7 @@ import com.scheduler.services.FaqService;
 
 @RequestMapping("/faq")
 @Controller
-public class FaqController {
+public class FaqController extends SessionController{
 	
 	@Autowired(required = true)
 	private FaqService faqService;
@@ -28,15 +28,14 @@ public class FaqController {
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String newFaq(Model model) {
-		
+		addUserModel(model);
 		return "faq/new";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveFaq(@ModelAttribute("faq") Faq faq, Model model) {
 		//TODO would be fetched from the session variable;
-		int officialId = 1;
-		faq.setOfficialId(officialId);
+		faq.setOfficialId(Integer.parseInt(sessionMap.get("id")));
 		faqService.addFaq(faq);
 		System.out.println(faq.getCategoryId());
 		System.out.println(faq.getFaqQuestion());
@@ -61,6 +60,7 @@ public class FaqController {
 
 	@RequestMapping(value = "/edit/{faqId}", method = RequestMethod.GET)
 	public String editFaq(@PathVariable("faqId") int faqId, Model model) {
+		addUserModel(model);
 		List<Category> categories = categoryService.getAllCategory();
 		Faq faq = faqService.getFaq(faqId);
 		model.addAttribute("faq", faq);
@@ -72,8 +72,7 @@ public class FaqController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateFaq(@ModelAttribute("faq")Faq faq, Model model) {
 		//TODO would be fetched from the session variable;
-		int officialId = 1;
-		faq.setOfficialId(officialId);
+		faq.setOfficialId(Integer.parseInt(sessionMap.get("id")));
 		int i = faqService.updateFaq(faq);
 		System.out.println(faq.getFaqId());
 		return "redirect:/category/view";

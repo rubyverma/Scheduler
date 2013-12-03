@@ -19,33 +19,12 @@ public class AppointmentServiceTest extends BaseTest {
 	@Autowired(required=true)
 	private AppointmentService appointmentService;
 
-
-
+	
 	@Test
-	public void testLateAppointment(){
-		int appointmentId=1;
-		int testResult=appointmentService.userLate(appointmentId);
-		assertTrue("Failed to mark the appointment as late",testResult==1);
-	}
-
-	@Test
-	public void testFindAllUserAppointments() {
-	  Appointment newAppointment = new Appointment();
-	  newAppointment.setAppointmentId(51);
-	  newAppointment.setDepartmentTimeId(1);
-	  newAppointment.setUserId(1);
-	  newAppointment.setOfficialId(2);
-	  newAppointment.setPurposeOfVisit("Visit");
-	  newAppointment.setStartTime(Time.valueOf("12:00:00"));
-	  newAppointment.setEndTime(Time.valueOf("12:15:00"));
-	  newAppointment.setMeetingFinished("N");
-	  newAppointment.setMeetingNotes("Notes");
-	  newAppointment.setDateCreated(Date.valueOf("2013-11-30"));
-	  newAppointment.setAppointmentDate(Date.valueOf("2013-12-2"));
-	  appointmentService.saveAppointment(newAppointment);
-	  
-	  List<AppointmentDepartment> appointments = appointmentService.findAllUserAppointments(1);
-	  assertNotNull(appointments);
-	  assertTrue(appointments.size()>=0);
+	public void testCancelAppointment()
+	{
+		int AppointmentId=1;
+		int testResult=appointmentService.cancelAppointment(AppointmentId);
+		assertTrue("Failed to cancel appointment ",testResult==1);
 	}
 }

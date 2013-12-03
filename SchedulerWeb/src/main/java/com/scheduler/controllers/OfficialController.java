@@ -99,9 +99,9 @@ public class OfficialController extends SessionController {
 	@RequestMapping(value = "/meeting/viewqueue", method = RequestMethod.GET)
 	public String viewQueue(Model model) {
 		System.out.println("view queue started");
-
-		int departmentId = 1;
-		String appointmentDate = "2013-11-27";
+		addUserModel(model);
+		int departmentId = 1;//*************************************************************************
+		String appointmentDate = "2013-11-13";
 		listofAppointment = appointmentService.getAllAppointment(departmentId,
 				appointmentDate);
 		model.addAttribute("appointmentList", listofAppointment);
@@ -116,16 +116,15 @@ public class OfficialController extends SessionController {
 	public String startMeeting(Model model) {
 		// insert the following fields to official user session
 		// get official_id and dept_id from the session variable
-		int official_id = 3; // hardcoded value
-		int department_id = 1; // hardcoded value
-
+		int department_id = 1; // hardcoded value//***********************************************************************
+		addUserModel(model);
 		Appointment nextAppointment = appointmentService
 				.findNextAppointment(department_id);
 
 		// Code to start appointment
 		Appointment startedAppointment = appointmentService
 				.startAppointmentById(nextAppointment.getAppointmentId(),
-						official_id);
+						Integer.parseInt(sessionMap.get("id")));
 
 		if (!startedAppointment.equals(null)) {
 
@@ -134,7 +133,7 @@ public class OfficialController extends SessionController {
 					.getNextUserInQueue(department_id);
 			//
 			Notification notification = new Notification();
-			notification.setOfficialId(official_id);
+			notification.setOfficialId(Integer.parseInt(sessionMap.get("id")));
 			notification.setUserId(nextUser.getUserId());
 			notification.setNotificationHeader("Meeting starting soon!");
 			notification
@@ -167,9 +166,9 @@ public class OfficialController extends SessionController {
 
 		// TODO insert the following fields to official user session
 		// get official_id and dept_id from the session variable
-		int official_id = 1234; // hardcoded value
+		
 
-		announcement.setOfficialId(official_id);
+		announcement.setOfficialId(Integer.parseInt(sessionMap.get("id")));
 		int announcement_id = announcementService
 				.addNewAnnouncement(announcement);
 
@@ -185,7 +184,7 @@ public class OfficialController extends SessionController {
 	public String userLate(RedirectAttributes ra, Model model) {
 
 		int result;
-		int appointmentId = 1;
+		int appointmentId = 1;//****************************************************************************
 		try {
 			result = appointmentService.userLate(appointmentId);
 			model.addAttribute("result", result);
@@ -214,6 +213,7 @@ public class OfficialController extends SessionController {
 	// client
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginOfficial(Model model) {
+		addUserModel(model);
 		return "officialuser/loginofficial";
 	}
 
@@ -251,11 +251,11 @@ public class OfficialController extends SessionController {
 	@RequestMapping(value = "users/view", method = RequestMethod.GET)
 	public String viewOfficialUsers(Model model) {
 
-		int clientId = 1;
-
+		
+		addUserModel(model);
 		List<Roles> roles = rolesService.getRoles();
 		List<Department> departments = departmentService
-				.departmentByClient(clientId);
+				.departmentByClient(Integer.parseInt(sessionMap.get("id")));
 		for (Department department : departments) {
 			department.setSlots(departmentTimeslotService
 					.getDepartmentTimeslot(department.getDepartmentId()));
@@ -288,10 +288,10 @@ public class OfficialController extends SessionController {
 	@RequestMapping(value = "users/edit/{officialId}", method = RequestMethod.GET)
 	public String editOfficialUsers(@PathVariable("officialId") int officialId,
 			Model model) {
-		int clientId = 1;
+		addUserModel(model);
 		List<Roles> roles = rolesService.getRoles();
 		List<Department> departments = departmentService
-				.departmentByClient(clientId);
+				.departmentByClient(Integer.parseInt(sessionMap.get("id")));
 		OfficialUser officialUser = officialUserService
 				.getOfficialUserById(officialId);
 		model.addAttribute("Id", officialId);
@@ -315,6 +315,7 @@ public class OfficialController extends SessionController {
 	// official user
 	@RequestMapping(value = "/reset", method = RequestMethod.GET)
 	public String resetPasswordOfficialUser(Model model) {
+		addUserModel(model);
 		return "officialuser/resetpasswordofficialuser";
 	}
 
@@ -347,6 +348,7 @@ public class OfficialController extends SessionController {
 	@RequestMapping(value = "/editpassword/{officialId}", method = RequestMethod.GET)
 	public String updatePassword(@PathVariable("officialId") int officialId,
 			Model model) {
+		addUserModel(model);
 		model.addAttribute("userId", officialId);
 		OfficialUser u = officialUserService.getOfficialUserById(officialId);
 		u.setPassword("");
