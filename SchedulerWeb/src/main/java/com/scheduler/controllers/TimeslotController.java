@@ -19,10 +19,7 @@ import com.scheduler.services.TimeslotService;
 
 @RequestMapping("/timeslot")
 @Controller
-public class TimeslotController {
-
-	// TODO hardcoded clientId -- need to replace with session
-	private int clientId = 1;
+public class TimeslotController extends SessionController {
 
 	@Autowired(required = true)
 	private TimeslotService timeslotService;
@@ -32,8 +29,8 @@ public class TimeslotController {
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String viewAllTimeslots(
 			@ModelAttribute("deleteResult") String deleteResult, Model model) {
-
-		List<Timeslot> timeslots = timeslotService.GetAllTimeslots(clientId);
+		addUserModel(model);
+		List<Timeslot> timeslots = timeslotService.GetAllTimeslots(Integer.parseInt(sessionMap.get("id")));
 		model.addAttribute("timeslots", timeslots);
 		model.addAttribute("deleteResult", deleteResult);
 		model.addAttribute("timeslot", new Timeslot());
@@ -49,7 +46,7 @@ public class TimeslotController {
 		boolean saved = false;
 		String result = "";
 		int timeslotId = 0;
-
+		addUserModel(model);
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("stopTime");
 		String description = request.getParameter("description");
@@ -59,7 +56,7 @@ public class TimeslotController {
 		Time endTimeObj = timeslotService.convertTime(endTime);
 
 		Timeslot newTimeslot = new Timeslot();
-		newTimeslot.setClientId(clientId);
+		newTimeslot.setClientId(Integer.parseInt(sessionMap.get("id")));
 		newTimeslot.setStartTime(startTimeObj);
 		newTimeslot.setStopTime(endTimeObj);
 		newTimeslot.setDescription(description);
@@ -91,7 +88,7 @@ public class TimeslotController {
 	// Usage - Edit time slot
 	@RequestMapping(value = "/edit/{timeslotId}", method = RequestMethod.GET)
 	public String editTimeslot(@PathVariable int timeslotId, Model model) {
-
+		addUserModel(model);
 		Timeslot timeslot = timeslotService.GetTimeslotDetails(timeslotId);
 		model.addAttribute("timeslot", timeslot);
 		return "timeslot/edit";
@@ -102,7 +99,6 @@ public class TimeslotController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateTimeslots(HttpServletRequest request, Model model,
 			RedirectAttributes redirectAttributes) {
-
 		boolean saved = false;
 		String result = "";
 		int newTimeslotId = 0;
@@ -117,7 +113,7 @@ public class TimeslotController {
 
 		Timeslot updateTimeslot = new Timeslot();
 		updateTimeslot.setTimeslotId(timeslotId);
-		updateTimeslot.setClientId(clientId);
+		updateTimeslot.setClientId(Integer.parseInt(sessionMap.get("id")));
 		updateTimeslot.setStartTime(startTimeObj);
 		updateTimeslot.setStopTime(endTimeObj);
 		updateTimeslot.setDescription(description);
@@ -149,7 +145,6 @@ public class TimeslotController {
 	@RequestMapping(value = "/delete/{timeslotId}", method = RequestMethod.GET)
 	public String removeTimeslot(@PathVariable int timeslotId, Model model,
 			RedirectAttributes redirectAttributes) {
-
 		boolean deleted = timeslotService.RemoveTimeslot(timeslotId);
 		if (deleted) {
 			redirectAttributes.addFlashAttribute("result","Timeslot removed successfully");

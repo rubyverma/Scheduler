@@ -35,9 +35,10 @@ public class GeneralUserController extends SessionController {
 	public String showGeneralUserDashboard(Model model) {
 		return "redirect:generaluser/dashboard";
 	}
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
+		addUserModel(model);
 		model.addAttribute("generaluser", new GeneralUser());
 		return "generaluser/registergeneraluser";
 	}
@@ -59,12 +60,12 @@ public class GeneralUserController extends SessionController {
 			int result = generaluserService.saveUser(generaluser);
 
 			userId = generaluserService.getLastUserId();
-			String username=generaluser.getUsername();
+			String username = generaluser.getUsername();
 			token = generaluserService.getUserToken(userId);
 
 			model.addAttribute("generaluser", generaluser);
 			System.out.println("generaluser saved successfully");
-			mm.sendMail(" "+username,
+			mm.sendMail(" " + username,
 					"Your Activation Link is http://localhost:8080/Scheduler/generaluser/verify/"
 							+ userId + "/" + token, to);
 			// model.addAttribute("client", new Client());
@@ -94,49 +95,48 @@ public class GeneralUserController extends SessionController {
 		}
 		return "generaluser/verifyUser";
 	}
-		
-			// Author - Devraj Valecha
-						// Usage - Reset password for general user
-						// general user
-					@RequestMapping(value = "/reset", method = RequestMethod.GET)
-					public String resetPasswordGeneralUser(Model model)
-					{
-						return "generaluser/resetpasswordgeneraluser";
-					}
-					@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
-					public String savePassword(@RequestParam("emailAddress") String email,Model model)
-					{
-						Random randomGenerator = new Random();
-						String myPassword =Integer.toString(randomGenerator.nextInt(20000));
-						int passwordUpdate = generaluserService.resetPassword(email,myPassword);
-						if(passwordUpdate>0)
-						{
-							String to = email;
-							ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-							MailMail mm = (MailMail) context.getBean("mailMail");
-							String url = "http://localhost:8080/Scheduler/generaluser/login";
-							mm.sendMail("Scheduler App",
-									"This is a Test Email \n your temporary password : " + myPassword + 
-									 " \n Below is the link provided to login to scheduler\n" + url,
-									to);
-						}
-						else
-						{
-							return "generaluser/passworderrorgeneraluser";
-						}
-						
-						return"generaluser/passwordsentgeneraluser";
-					}
-		
 
+	// Author - Devraj Valecha
+	// Usage - Reset password for general user
+	// general user
+	@RequestMapping(value = "/reset", method = RequestMethod.GET)
+	public String resetPasswordGeneralUser(Model model) {
+		addUserModel(model);
+		return "generaluser/resetpasswordgeneraluser";
+	}
 
+	@RequestMapping(value = "/saveTemporaryPassword", method = RequestMethod.POST)
+	public String savePassword(@RequestParam("emailAddress") String email,
+			Model model) {
+		Random randomGenerator = new Random();
+		String myPassword = Integer.toString(randomGenerator.nextInt(20000));
+		int passwordUpdate = generaluserService
+				.resetPassword(email, myPassword);
+		if (passwordUpdate > 0) {
+			String to = email;
+			ApplicationContext context = new ClassPathXmlApplicationContext(
+					"Spring-Mail.xml");
+			MailMail mm = (MailMail) context.getBean("mailMail");
+			String url = "http://localhost:8080/Scheduler/generaluser/login";
+			mm.sendMail(
+					"Scheduler App",
+					"This is a Test Email \n your temporary password : "
+							+ myPassword
+							+ " \n Below is the link provided to login to scheduler\n"
+							+ url, to);
+		} else {
+			return "generaluser/passworderrorgeneraluser";
+		}
 
+		return "generaluser/passwordsentgeneraluser";
+	}
 
 	// Author - Devraj Valecha
 	// Usage - Login for general user
 	// general user
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGeneralUser(Model model) {
+		addUserModel(model);
 		return "generaluser/logingeneraluser";
 	}
 
@@ -171,8 +171,8 @@ public class GeneralUserController extends SessionController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String editUser(Model model) {
 		addUserModel(model);
-		int userId=Integer.parseInt(sessionMap.get("id"));
-		model.addAttribute("userId",userId);
+		int userId = Integer.parseInt(sessionMap.get("id"));
+		model.addAttribute("userId", userId);
 		model.addAttribute("generaluser",
 				generaluserService.getGeneralUser(userId));
 		return "generaluser/updateDetails";
@@ -186,25 +186,27 @@ public class GeneralUserController extends SessionController {
 		int result = generaluserService.updateUser(generaluser);
 		model.addAttribute("generaluser", result);
 		return "redirect:/generaluser/edit/" + generaluser.getUserId();
-	}	
-	
+	}
+
 	@RequestMapping(value = "/editpassword/{userId}", method = RequestMethod.GET)
 	public String updatePassword(@PathVariable("userId") int userId, Model model) {
-		model.addAttribute("userId",userId);
+		model.addAttribute("userId", userId);
+		addUserModel(model);
 		GeneralUser u = generaluserService.getGeneralUser(userId);
 		u.setPassword("");
 		model.addAttribute("generaluser", u);
 		return "generaluser/editPassword";
 	}
-	
+
 	@RequestMapping(value = "/savepassword", method = RequestMethod.POST)
 	public String editPassword(
 			@ModelAttribute("generaluser") GeneralUser generaluser,
 			RedirectAttributes ra, Model model) {
-		
-		if(!generaluser.getPassword().equals(generaluser.getRepassword())) {
-			ra.addFlashAttribute("ue","ue");
-			return "redirect:/generaluser/editpassword/" + generaluser.getUserId();
+
+		if (!generaluser.getPassword().equals(generaluser.getRepassword())) {
+			ra.addFlashAttribute("ue", "ue");
+			return "redirect:/generaluser/editpassword/"
+					+ generaluser.getUserId();
 		}
 		ra.addFlashAttribute("updated", "updated");
 		int result = generaluserService.updatePassword(generaluser);

@@ -20,7 +20,7 @@ import com.scheduler.services.NotificationService;
 
 @RequestMapping("/generaluser")
 @Controller
-public class NotificationController {
+public class NotificationController extends SessionController {
 
 	protected static final String JSON_CONTENT = "application/json";
 	
@@ -33,8 +33,8 @@ public class NotificationController {
 	public String viewAllNotifications(Model model) {
 		List<Notification> notifications = null;
 		try {
-			int userId = 1;// This is to be fetched from session
-			notifications = notificationService.findAllNotifications(userId);
+			addUserModel(model);
+			notifications = notificationService.findAllNotifications(Integer.parseInt(sessionMap.get("id")));
 			model.addAttribute("notifications", notifications);
 
 		} catch (BadSqlGrammarException e) {
@@ -49,7 +49,6 @@ public class NotificationController {
 	@RequestMapping(value = "/create/notification/{userId}", method = RequestMethod.GET)
 	public String createNotification(@PathVariable("userId") String userId,
 			Model model) {
-
 		String[] s = userId.split(":");
 		System.out.println(s[0] + s[1] + s[2]);
 		model.addAttribute("userId", Integer.parseInt(s[0]));
@@ -65,10 +64,8 @@ public class NotificationController {
 	public String sendNotification(
 			@ModelAttribute("notification") Notification notification,
 			Model model) {
-		// TODO fetch official ID from the session.
-		int officialId = 1;
 
-		notification.setOfficialId(officialId);
+		notification.setOfficialId(Integer.parseInt(sessionMap.get("id")));
 		//notification.setUserId(1);
 		System.out.println(generalUserService.getUserGCMregId(notification
 				.getUserId()));

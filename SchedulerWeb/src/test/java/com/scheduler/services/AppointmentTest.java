@@ -3,11 +3,13 @@ package com.scheduler.services;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
 import com.scheduler.BaseTest;
 import com.scheduler.models.Appointment;
 
+import static org.junit.Assert.*;
+
 public class AppointmentTest extends BaseTest {
+	
 	
 	@Autowired(required = true)
 	private AppointmentService appointmentService;

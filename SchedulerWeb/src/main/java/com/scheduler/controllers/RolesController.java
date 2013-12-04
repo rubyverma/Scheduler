@@ -17,7 +17,7 @@ import com.scheduler.services.RolesService;
 
 @RequestMapping("/roles")
 @Controller
-public class RolesController {
+public class RolesController extends SessionController {
 	protected static final String JSON_CONTENT = "application/json";
 
 	@Autowired(required = true)
@@ -26,6 +26,7 @@ public class RolesController {
 	@RequestMapping(value = "/view" , method = RequestMethod.GET)
 	public String viewRoles(Model model)
 	{
+		addUserModel(model);
 		List<Roles> roles = rolesService.getRoles();
 		model.addAttribute("roles", roles);
 		model.addAttribute("newRole", new Roles());
@@ -36,8 +37,8 @@ public class RolesController {
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	public String saveRoles(@ModelAttribute("role") Roles role,	Model model)
 	{
-		int clinetId = 1; // to be fetched from session.
-		role.setClientId(clinetId);
+	
+		role.setClientId(Integer.parseInt(sessionMap.get("id")));
 		int i = rolesService.saveRole(role);
 		return "redirect:../roles/view";
 	}
@@ -45,7 +46,7 @@ public class RolesController {
 	@RequestMapping(value = "/edit/{roleId}" , method = RequestMethod.GET)
 	public String editRoles(@PathVariable("roleId") int roleId,	Model model)
 	{
-		int clinetId = 1; // to be fetched from session.
+		addUserModel(model);
 		Roles role = rolesService.getRoleByRoleId(roleId);
 		model.addAttribute("Id",role.getRoleId());
 		model.addAttribute("role", role);
@@ -55,8 +56,8 @@ public class RolesController {
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
 	public String updateRoles(@ModelAttribute("role") Roles role,	Model model)
 	{
-		int clinetId = 1; // to be fetched from session.
-		role.setClientId(clinetId);
+		
+		role.setClientId(Integer.parseInt(sessionMap.get("id")));
 		int i = rolesService.updateRole(role);
 		return "redirect:../roles/view";
 	}

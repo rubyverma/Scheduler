@@ -31,7 +31,7 @@ public interface AppointmentMapper {
 	
 	GeneralUser getUserByAppointmentId(@Param("app_id") int app_id);
 
-	List<AppointmentList> getAllAppointment(@Param("departmentId") int departmentId , @Param("appointmentDate") String appointmentDate);
+	List<AppointmentList> getAllAppointment(@Param("departmentId") int departmentId);
 
 	List<AppointmentDepartment> findAllUserAppointments(int userId) throws BadSqlGrammarException;
 

@@ -15,20 +15,13 @@
 		</selectKey>
 	</insert>
 
-	<update id="finishAppointment" parameterType="int">
-		update
-		appointment set
-		endTime = CURTIME(),
-		meetingNotes=#{meetingNotes},
-		meetingFinished
-		='Y'
+	<update id="finishAppointment" parameterType="com.scheduler.models.Appointment">
 		update appointment
 		set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
 		meetingFinished ='Y'
-		where appointmentId
-		=#{app_id}
+		where appointmentId=#{appointmentId}
 	</update>
 
 	<update id="startAppointmentById" parameterType="int">
@@ -62,7 +55,7 @@
 		inner join departmenttimeslot on
 		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
 		where departmenttimeslot.departmentId=#{departmentId}
-		and appointment.appointmentDate=#{appointmentDate}
+		and appointment.appointmentDate=curdate()
 		and appointment.meetingFinished='N'
 		order by time(appointment.dateCreated) asc;
 	</select>

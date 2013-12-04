@@ -34,21 +34,23 @@
 	    android:text="View Announcements"
 	    style="@style/buttonGreen" />
 
+	 <Button
+	     android:id="@+id/viewAppointment"
+	     style="@style/buttonGreen"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_above="@+id/btnViewNotification"
+	     android:layout_alignParentLeft="true"
+	     android:layout_alignParentRight="true"
+	     android:onClick="viewAppointmentClick"
+	     android:text="View Appointment" />
+	 
 	<Button
 	    android:id="@+id/btnViewNotification"
 	    android:layout_above="@+id/btnViewAnnouncement"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentRight="true"
 	    android:text="View My Notifications"
-	    style="@style/buttonGreen" />
-
-	<Button
-	    android:id="@+id/button1"
-	    android:layout_above="@+id/btnViewNotification"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentRight="true"
-	    android:onClick="addAppointmentClick"
-	    android:text="Make an Appointment"
 	    style="@style/buttonGreen" />
 
 	<Button
@@ -64,20 +66,27 @@
 	    android:id="@+id/tvWelcome"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_above="@+id/button1"
 	    android:layout_alignParentLeft="true"
-	    android:layout_marginBottom="21dp"
+	    android:layout_below="@+id/imageView1"
 	    android:gravity="center"
-	    android:text="Welcome" />
+	    android:text="Welcome"
+	    android:textSize="20sp" />
+
+	<Button
+	    android:id="@+id/button1"
+	    style="@style/buttonGreen"
+	    android:layout_above="@+id/viewAppointment"
+	    android:layout_alignParentLeft="true"
+	    android:onClick="addAppointmentClick"
+	    android:text="Make an Appointment" />
 
 	<ImageView
 	    android:id="@+id/imageView1"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
+	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="20dp"
+	    android:layout_marginTop="14dp"
 	    android:src="@drawable/scheduler_logo" />
 	
 </RelativeLayout>
