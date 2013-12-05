@@ -70,9 +70,9 @@ public class Department {
 	public static Department getDepartmentFromJson(JSONObject obj) throws JSONException {
 		Department department = new Department();
 		department.setCampusId(obj.getInt("campusId"));
-		department.setContactInfo(obj.getInt("contactInfo"));
-		department.setDepartmentDescription(obj.getString("departmentDescription"));
-		department.setDepartmentHod(obj.getString("departmentHod"));
+		//department.setContactInfo(obj.getInt("contactInfo"));
+		//department.setDepartmentDescription(obj.getString("departmentDescription"));
+		//department.setDepartmentHod(obj.getString("departmentHod"));
 		department.setDepartmentId(obj.getInt("departmentId"));
 		department.setDepartmentName(obj.getString("departmentName"));
 		return department;
