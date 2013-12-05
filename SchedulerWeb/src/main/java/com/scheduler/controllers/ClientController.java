@@ -23,7 +23,9 @@ import com.scheduler.models.Client;
 import com.scheduler.models.Faq;
 import com.scheduler.models.DepartmentStatistics;
 import com.scheduler.request.MailMail;
+import com.scheduler.services.CampusService;
 import com.scheduler.services.ClientService;
+import com.scheduler.services.DepartmentService;
 
 @RequestMapping("/client")
 @Controller
@@ -32,6 +34,12 @@ public class ClientController extends SessionController {
 	@Autowired(required = true)
 	private ClientService clientService;
 
+	@Autowired(required = true)
+	private CampusService campusService;
+	
+	@Autowired(required = true)
+	private DepartmentService departmentService;
+	
 	/*
 	 * @Autowired private MailSender mailSender;
 	 * 
@@ -134,6 +142,9 @@ public class ClientController extends SessionController {
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String showDashboard(Model model) {
 		addUserModel(model);
+		int clientId = Integer.parseInt(sessionMap.get("id"));
+		model.addAttribute("campusCount", campusService.findAllCampuses(clientId).size());
+		model.addAttribute("departmentCount", departmentService.departmentByClient(clientId).size());
 		return "client/dashboard";
 	}
 

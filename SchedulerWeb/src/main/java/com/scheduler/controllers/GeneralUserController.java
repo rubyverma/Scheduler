@@ -21,7 +21,10 @@ import javax.servlet.http.HttpSession;
 
 import com.scheduler.models.GeneralUser;
 import com.scheduler.request.MailMail;
+import com.scheduler.services.AnnouncementService;
+import com.scheduler.services.AppointmentService;
 import com.scheduler.services.GeneralUserService;
+import com.scheduler.services.NotificationService;
 
 @RequestMapping("/generaluser")
 @Controller
@@ -30,6 +33,15 @@ public class GeneralUserController extends SessionController {
 
 	@Autowired(required = true)
 	private GeneralUserService generaluserService;
+	
+	@Autowired(required = true)
+	private AppointmentService appointmentService;
+	
+	@Autowired(required = true)
+	private AnnouncementService announcementService;
+	
+	@Autowired(required = true)
+	private NotificationService notificationService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String showGeneralUserDashboard(Model model) {
@@ -165,6 +177,10 @@ public class GeneralUserController extends SessionController {
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String showDashboard(Model model) {
 		addUserModel(model);
+		int userId = Integer.parseInt(sessionMap.get("id"));
+		model.addAttribute("appointmentCount", appointmentService.getAppointmentCountByUserId(userId));
+		model.addAttribute("announcementCount", announcementService.getAllAnnouncements(userId).size());
+		model.addAttribute("notificationCount", notificationService.findAllNotifications(userId).size());
 		return "generaluser/dashboard";
 	}
 

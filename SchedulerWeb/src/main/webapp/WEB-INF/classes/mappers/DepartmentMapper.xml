@@ -1,80 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.DepartmentMapper">
-<!-- Author - Shalin Banjara -->
-<!-- Usage - To select a list of departments for a particular campus -->
-	<select id="getDepartmentByCampus" parameterType="int" resultType="com.scheduler.models.Department">
-		select departmentId, departmentName from department where campusId = #{campusId}
-	</select>
-	
 	<!-- Author - Shalin Banjara -->
-<!-- Usage - To select a list of departments for a particular campus -->
-	<select id="getDepartmentByClient" parameterType="int" resultType="com.scheduler.models.Department">
-		select * from department where campusId in(select campusId from campus where clientId=#{clientId})
+	<!-- Usage - To select a list of departments for a particular campus -->
+	<select id="getDepartmentByCampus" parameterType="int"
+		resultType="com.scheduler.models.Department">
+		select departmentId, departmentName from department where
+		campusId = #{campusId}
 	</select>
 
-  <!-- Author - Ruby Verma -->
-  <!-- Usage - deletes selected department -->
-  <delete id="deleteDepartment" parameterType="int">
-    delete from department where departmentId = #{departmentId}
-  </delete>
-
-  <!-- Author - Ruby Verma -->
-  <!-- Usage - select department by departmentId-->  
-  <select id="getDepartmentById" parameterType="int" resultType="com.scheduler.models.Department">
-    SELECT * FROM department where departmentId = #{departmentId}
-  </select>
-
-  <!-- Author - Ruby Verma -->
-  <!-- Usage - select department by departmentId-->  
-  <select id="getSavedDepartmentById" resultType="int">
-    SELECT max(departmentId) FROM department
-  </select>
-  
-  <!-- Author - Ruby Verma -->
-  <!-- Usage - save department-->
-  <insert id="saveDepartment" parameterType="com.scheduler.models.Department" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    insert into department(campusId, departmentName, departmentHod, contactInfo, departmentDescription, dateCreated) values
-    (#{campusId}, #{departmentName}, #{departmentHod}, #{contactInfo}, #{departmentDescription}, Now())
-    <selectKey keyProperty="id" resultType="Integer" order="AFTER">
-      select last_insert_id()
-    </selectKey>
-  </insert>
-
-  <!-- Author - Ruby Verma -->
-  <!-- Usage - update department-->
-  <update id="updateDepartment" parameterType="int">
-    update department
-    set
-    campusId = #{campusId},
-    departmentName = #{departmentName},
-    departmentHod = #{departmentHod},
-    contactInfo = #{contactInfo},
-    departmentDescription = #{departmentDescription}
-    where departmentId = #{departmentId}
-  </update>
-
-  <!-- Author - Ruby Verma -->
-  <!-- Usage - vatelide department by name and hod-->
-  <select id="validateDepartment" resultType="int" parameterType="com.scheduler.models.Department">
-    SELECT count(*) FROM department where departmentName = #{departmentName} and departmentHod = #{departmentHod}
-  </select>	
-
-	<select id="getStatistics" parameterType="int" resultType="com.scheduler.models.DepartmentStatistics">
-		select  departmentId,departmentName,(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
-		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
-		where departmenttimeslot.departmentId=department.departmentId) as totalAppointment,
-(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
-		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
-		where departmenttimeslot.departmentId=department.departmentId and meetingFinished='Y') as finishedAppointment
-,(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
-		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
-		where departmenttimeslot.departmentId=department.departmentId and meetingFinished='N') as canceledAppointment
-,(SELECT COUNT(appointmentId)  FROM scheduler.appointment  inner join departmenttimeslot on
-		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
-		where departmenttimeslot.departmentId=department.departmentId and meetingFinished='L') as lateAppointment
- from department where departmentId=#{departmentId}
+	<!-- Author - Shalin Banjara -->
+	<!-- Usage - To select a list of departments for a particular campus -->
+	<select id="getDepartmentByClient" parameterType="int"
+		resultType="com.scheduler.models.Department">
+		select * from department where campusId in(select campusId
+		from campus where clientId=#{clientId})
 	</select>
 
+	<!-- Author - Ruby Verma -->
+	<!-- Usage - deletes selected department -->
+	<delete id="deleteDepartment" parameterType="int">
+		delete from department where departmentId = #{departmentId}
+	</delete>
+
+	<!-- Author - Ruby Verma -->
+	<!-- Usage - select department by departmentId -->
+	<select id="getDepartmentById" parameterType="int"
+		resultType="com.scheduler.models.Department">
+		SELECT * FROM department where departmentId = #{departmentId}
+	</select>
+
+	<!-- Author - Ruby Verma -->
+	<!-- Usage - select department by departmentId -->
+	<select id="getSavedDepartmentById" resultType="int">
+		SELECT max(departmentId) FROM department
+	</select>
+
+	<!-- Author - Ruby Verma -->
+	<!-- Usage - save department -->
+	<insert id="saveDepartment" parameterType="com.scheduler.models.Department"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into department(campusId, departmentName, departmentHod,
+		contactInfo, departmentDescription, dateCreated) values
+		(#{campusId}, #{departmentName}, #{departmentHod}, #{contactInfo},
+		#{departmentDescription}, Now())
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<!-- Author - Ruby Verma -->
+	<!-- Usage - update department -->
+	<update id="updateDepartment" parameterType="int">
+		update department
+		set
+		campusId = #{campusId},
+		departmentName = #{departmentName},
+		departmentHod = #{departmentHod},
+		contactInfo = #{contactInfo},
+		departmentDescription = #{departmentDescription}
+		where departmentId = #{departmentId}
+	</update>
+
+	<!-- Author - Ruby Verma -->
+	<!-- Usage - vatelide department by name and hod -->
+	<select id="validateDepartment" resultType="int"
+		parameterType="com.scheduler.models.Department">
+		SELECT count(*) FROM department where departmentName = #{departmentName} and
+		departmentHod = #{departmentHod}
+	</select>
+
+	<select id="getStatistics" parameterType="int"
+		resultType="com.scheduler.models.DepartmentStatistics">
+		select departmentId,departmentName,(SELECT
+		COUNT(appointmentId) FROM scheduler.appointment inner join
+		departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId) as
+		totalAppointment,
+		(SELECT COUNT(appointmentId) FROM scheduler.appointment inner join
+		departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId and
+		meetingFinished='Y') as finishedAppointment
+		,(SELECT COUNT(appointmentId) FROM scheduler.appointment inner join
+		departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId and
+		meetingFinished='N') as canceledAppointment
+		,(SELECT COUNT(appointmentId) FROM scheduler.appointment inner join
+		departmenttimeslot on
+		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
+		where
+		departmenttimeslot.departmentId=department.departmentId and
+		meetingFinished='L') as lateAppointment
+		from department where departmentId=#{departmentId}
+	</select>
 
 </mapper>

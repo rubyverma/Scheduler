@@ -32,7 +32,7 @@
 		<intercept-url pattern="/official/meeting/viewqueue" access="hasAnyRole('OU')" />
 		<intercept-url pattern="/official/meeting/start" access="hasAnyRole('OU')" />
 		<intercept-url pattern="/category/view" access="hasAnyRole('OU')" />
-		<intercept-url pattern="/official/users/edit/**" access="hasAnyRole('OU')" />
+		<intercept-url pattern="/official/users/edit/**" access="hasAnyRole('CL', 'OU')" />
 		<intercept-url pattern="/official/editpassword/**" access="hasAnyRole('OU')" />
 		<!-- Official pages stop -->
 		<!-- Generaluser pages start -->

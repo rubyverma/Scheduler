@@ -6,7 +6,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">Appointments</div>
 			<div class="panel-body">
-				<h3>05 Scheduled</h3>
+				<h3>${appointmentCount} Appointments</h3>
 			</div>
 		</div>
 	</div>
@@ -14,7 +14,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">Announcements</div>
 			<div class="panel-body">
-				<h3>21 Unread</h3>
+				<h3>${announcementCount} announcements</h3>
 			</div>
 		</div>
 	</div>
@@ -22,20 +22,18 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">Notifications</div>
 			<div class="panel-body">
-				<h3>02 Unread</h3>
+				<h3>${notificationCount} notifications</h3>
 			</div>
 		</div>
 	</div>
 </div>
 <h4>New to Scheduler?</h4>
 <div class="panel panel-info">
-	<div class="panel-body">Lorem ipsum dolor sit amet, consectetur
-		adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-		ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-		irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-		fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-		sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+	<div class="panel-body">Scheduler Application tries to overcome the existing scenario of scheduling appointments, 
+by allocating tokens to users via internet and estimating the time of appointment. Alert will 
+be given to the users android device, which will save time in waiting in front of the office to 
+see the official. Also the app will provide necessary information about other services 
+provided by the institution, which may keep the users from scheduling appointments at all.</div>
 </div>
 <h4>Know it more!</h4>
 <div class="row">

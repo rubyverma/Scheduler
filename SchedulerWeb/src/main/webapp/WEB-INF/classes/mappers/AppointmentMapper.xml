@@ -115,4 +115,15 @@
 		where
 		appointmentId = #{appointmentId}
 	</update>
+	
+	<select id="getAppointmentCount" parameterType="int" resultType="int">
+		select count(*) from appointment where 
+		departmentTimeId IN (select departmentTimeId from
+		departmenttimeslot
+		where departmentId = #{department_id})
+	</select>
+	
+	<select id="getAppointmentCountByUserId" parameterType="int" resultType="int">
+		select count(*) from appointment where userId = ${userId}
+	</select>
 </mapper>

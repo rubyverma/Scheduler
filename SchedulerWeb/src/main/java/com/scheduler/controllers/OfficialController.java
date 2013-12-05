@@ -238,6 +238,9 @@ public class OfficialController extends SessionController {
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String showDashboard(Model model) {
 		addUserModel(model);
+		int departmentId = Integer.parseInt(sessionMap.get("deptId"));
+		model.addAttribute("appointmentCount", appointmentService.getAppointmentCount(departmentId));
+		model.addAttribute("staffCount", officialUserService.getStaffCount(departmentId));
 		return "officialuser/dashboard";
 	}
 

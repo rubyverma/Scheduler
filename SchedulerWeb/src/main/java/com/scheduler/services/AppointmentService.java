@@ -118,5 +118,15 @@ public class AppointmentService {
 	public int userLate(@Param("appointmentId") int appointmentId)  throws BadSqlGrammarException {
 		return appointmentMapper.userLate(appointmentId);
 	}
+	
+	public int getAppointmentCount(int departmentId)
+	{
+		return appointmentMapper.getAppointmentCount(departmentId);
+	}
+	
+	public int getAppointmentCountByUserId(int userId)
+	{
+		return appointmentMapper.getAppointmentCountByUserId(userId);
+	}
 
 }

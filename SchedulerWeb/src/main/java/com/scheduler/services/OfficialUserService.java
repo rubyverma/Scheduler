@@ -67,5 +67,9 @@ public class OfficialUserService {
 	public int updatePassword(OfficialUser officialUser) {
 		return officialUserMapper.updatePassword(officialUser);
 	}
+	
+	public int getStaffCount(int department_id) {
+		return officialUserMapper.getStaffCount(department_id);
+	}
 
 }

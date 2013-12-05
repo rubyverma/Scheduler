@@ -27,5 +27,6 @@ public interface OfficialUserMapper {
 	OfficialUser getOfficialUserById(@Param("officialId") int officialId);
 	int resetPassword(@Param("email") String email,@Param("password") String password);
 	int updatePassword(OfficialUser officialUser);
+	int getStaffCount(@Param("department_id") int department_id);
 
 }
