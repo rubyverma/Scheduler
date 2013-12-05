@@ -194,6 +194,11 @@ public class BookAppointment extends Activity {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     	Date currentDate = sdf.parse(current);
     	Date selected = sdf.parse(txtData.getText().toString());
+    	
+    	Calendar c = Calendar.getInstance();
+    	c.setTime(sdf.parse(txtData.getText().toString()));
+    	c.add(Calendar.DATE, 1);
+    	
     	if(selected.compareTo(currentDate) < 0){
 			Toast.makeText(getApplicationContext(), "Selected date must be greater than or equal to curent date", Toast.LENGTH_LONG).show();
 			return;    		
@@ -221,7 +226,7 @@ public class BookAppointment extends Activity {
             jsonObjectUser.put("purposeOfVisit", txtPurpose.getText().toString());
             jsonObjectUser.put("userId", "1");
             jsonObjectUser.put("meetingFinished", "N");
-            jsonObjectUser.put("appointmentDate", txtData.getText().toString());
+            jsonObjectUser.put("appointmentDate", sdf.format(c.getTime()));
 	    } catch (JSONException e) {
 	            e.printStackTrace();
 	    }	
