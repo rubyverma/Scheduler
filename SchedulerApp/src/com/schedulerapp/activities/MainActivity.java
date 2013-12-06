@@ -53,6 +53,16 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 
+	public void viewAnnouncementsClick(View v) {
+		intent = new Intent(this, ViewAnnouncement.class);
+		startActivity(intent);
+	}
+	
+	public void viewNotificationsClick(View v) {
+		intent = new Intent(this, ViewNotifications.class);
+		startActivity(intent);
+	}
+	
 	public void viewFaqs(View v) {
 		intent = new Intent(this, ViewFaqsActivity.class);
 		startActivity(intent);

@@ -7,6 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+
+import com.schedulerapp.models.Announcement;
 import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.models.Campus;
 import com.schedulerapp.models.Category;
@@ -14,6 +17,7 @@ import com.schedulerapp.models.Department;
 import com.schedulerapp.models.DepartmentTimeslotLinkage;
 import com.schedulerapp.models.Departmenttimeslot;
 import com.schedulerapp.models.Faq;
+import com.schedulerapp.models.Notification;
 import com.schedulerapp.models.User;
  
 public class ResponseParser {
@@ -97,4 +101,24 @@ public class ResponseParser {
 		}
 		return timeSlots;
 	}
+	
+	public List<Notification> parseNotificationList(String result) throws NumberFormatException, JSONException {
+		List<Notification> notification = new ArrayList<Notification>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			notification.add(Notification.getNotificationFromJson(obj));
+		}
+		return notification;
+	}	
+	
+	public List<Announcement> parseAnnouncementList(String result) throws NumberFormatException, JSONException {
+		List<Announcement> announcement = new ArrayList<Announcement>();
+		JSONArray jObj = new JSONArray(result);
+		for (int i=0; i<jObj.length(); i++) {
+			JSONObject obj = jObj.getJSONObject(i);
+			announcement.add(Announcement.getAnnouncementFromJson(obj));
+		}
+		return announcement;
+	}	
 }

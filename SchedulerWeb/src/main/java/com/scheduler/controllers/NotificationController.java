@@ -80,24 +80,5 @@ public class NotificationController extends SessionController {
 		return "redirect:/official/meeting/viewqueue/";
 	}
 	
-	// Android App fetches all the notifications for an individual user
-	
-	@RequestMapping(value = "/getnotifications/{id}" , method = RequestMethod.GET, produces = JSON_CONTENT)
-	@ResponseBody
-	public List<Notification> getAllNotifications(@PathVariable int id)
-	{
-		
-		try{
-			List<Notification> notification = null;
-			notification = notificationService.findAllNotifications(id);
-			return notification ;
-		}
-	catch(BadSqlGrammarException e)
-		{
-			System.out.println(e.getMessage());
-		}
-		return null;
-	
-	}
 	
 }

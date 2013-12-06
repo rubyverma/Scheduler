@@ -11,4 +11,7 @@ public class UrlUtils {
 	public static String USER_AUTHENTICATE 	= "/api/authenticate/";
 	public static String GET_CATEGORIES 	= "/api/getCategories";
 	public static String GET_FAQS 	= "/api/getFaqsByCategories/";
+	public static String GET_NOTIFICATIONS 	= "/api/getnotifications/";
+	public static String GET_ANNOUNCEMENTS 	= "/api/getannouncement/";
+
 }

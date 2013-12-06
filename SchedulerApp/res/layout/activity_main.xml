@@ -30,7 +30,7 @@
 	    android:layout_above="@+id/btnViewFaqs"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentRight="true"
-	    android:onClick="viewAppointmentClick"
+	    android:onClick="viewAnnouncementsClick"
 	    android:text="View Announcements"
 	    style="@style/buttonGreen" />
 
@@ -50,6 +50,7 @@
 	    android:layout_above="@+id/btnViewAnnouncement"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentRight="true"
+	      android:onClick="viewNotificationsClick"
 	    android:text="View My Notifications"
 	    style="@style/buttonGreen" />
 

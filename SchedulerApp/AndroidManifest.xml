@@ -72,14 +72,22 @@
                 <action android:name="org.openudid.GETUDID" />
             </intent-filter>
         </service>
- 
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-            
+
         <activity
             android:name="com.schedulerapp.activities.ViewappointmentsActivity"
             android:label="@string/title_activity_viewappointments" >
+        </activity>
+        <activity
+            android:name="com.schedulerapp.activities.ViewNotifications"
+            android:label="@string/title_activity_view_notifications" >
+        </activity>
+        <activity
+            android:name="com.schedulerapp.activities.ViewAnnouncement"
+            android:label="@string/title_activity_view_announcements" >
         </activity>
         <activity
             android:name="com.schedulerapp.activities.SettingsActivity"
@@ -95,4 +103,5 @@
             android:label="@string/title_activity_view_faqs" >
         </activity>
     </application>
+
 </manifest>
