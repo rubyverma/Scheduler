@@ -37,21 +37,4 @@ public class AnnouncementController extends SessionController {
 		return "generaluser/announcements";
 
 	}
-
-	// Android App fetches all the announcements for an individual user
-
-	@RequestMapping(value = "/getannouncement/{id}", method = RequestMethod.GET, produces = JSON_CONTENT)
-	@ResponseBody
-	public List<Announcement> getAnnouncement(@PathVariable int id) {
-
-		try {
-			List<Announcement> announcement = null;
-			announcement = announcementService.getAllAnnouncements(id);
-			return announcement;
-		} catch (BadSqlGrammarException e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
-
-	}
 }
