@@ -69,7 +69,7 @@ public class ClientController extends SessionController {
 		String clientname="";
 		if (client != null) {
 			String to = client.getEmail().toString();
-			cId=client.getClientId();
+			
 			clientname=client.getUserName();
 			ApplicationContext context = new ClassPathXmlApplicationContext(
 					"Spring-Mail.xml");
@@ -78,9 +78,9 @@ public class ClientController extends SessionController {
 			int mytoken = randomGenerator.nextInt(999999 - 100000) + 100000;
 			client.setToken("" + mytoken);
 			int result = clientService.saveClient(client);
-			
 			model.addAttribute("client", client);
 			System.out.println("client saved successfully");
+			cId=clientService.getClientId(to);
 			mm.sendMail(" "+clientname,
 					"Your Activation Link is http://localhost:8080/Scheduler/client/verify/"
 							+ cId + "/" + mytoken, to);

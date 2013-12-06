@@ -34,5 +34,6 @@ public interface ClientMapper {
     int updateClientById(Client client);
 	// Author - Shalin Banjara
     int updateClientPasswordById(Client client);
+	int getClientId(String to);
 
 }

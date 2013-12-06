@@ -22,7 +22,6 @@
 	<select id="getClientToken" parameterType="int" resultType="String">
 		select token from client where clientId=#{client_id}
 	</select>
-
 	<select id="authenticate" parameterType="com.scheduler.models.Client"
 		resultType="com.scheduler.models.Client">
 		select * from client where userName=#{userName} and
@@ -33,8 +32,7 @@
 		password=#{password}
 	</select>
 	<select id="getClientId" parameterType="String" resultType="int">
-		select clientId from client where userName=#{userName} and
-		password=#{password}
+		select clientId from client where email=#{to}
 	</select>
 
 	<select id="getLastClientId" parameterType="int" resultType="int">
@@ -104,6 +102,5 @@
 		update client
 		set password = #{password} where clientId = #{clientId}
 	</update>
-
 
 </mapper>

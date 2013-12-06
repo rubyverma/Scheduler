@@ -21,5 +21,13 @@ public class AppointmentTest extends BaseTest {
 		Appointment startedAppointment = appointmentService.startAppointmentById(appointmentId, officialId);
 		assertNotNull(startedAppointment);
 	}
+	
+	@Test
+	public void testCancelAppointment()
+	{
+		int AppointmentId=1;
+		int testResult=appointmentService.cancelAppointment(AppointmentId);
+		assertTrue("Failed to cancel appointment ",testResult==1);
+	}
 
 }
