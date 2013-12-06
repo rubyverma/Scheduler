@@ -47,5 +47,7 @@ public interface AppointmentMapper {
 	int getAppointmentCount(@Param("department_id") int departmentId);
 	
 	int getAppointmentCountByUserId(@Param("userId") int userId);
+	
+	int getAppointmentCountByClientId(@Param("clientId") int clientId);
 
 }

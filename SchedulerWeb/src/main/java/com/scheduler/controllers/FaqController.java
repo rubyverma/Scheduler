@@ -35,6 +35,7 @@ public class FaqController extends SessionController{
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveFaq(@ModelAttribute("faq") Faq faq, Model model) {
 		//TODO would be fetched from the session variable;
+		addUserModel(model);
 		faq.setOfficialId(Integer.parseInt(sessionMap.get("id")));
 		faqService.addFaq(faq);
 		System.out.println(faq.getCategoryId());

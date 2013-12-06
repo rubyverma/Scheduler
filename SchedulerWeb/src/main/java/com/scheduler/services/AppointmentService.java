@@ -128,5 +128,9 @@ public class AppointmentService {
 	{
 		return appointmentMapper.getAppointmentCountByUserId(userId);
 	}
+	
+	public int getAppointmentCountByClientId(int clientId) {
+		return appointmentMapper.getAppointmentCountByClientId(clientId);
+	}
 
 }

@@ -112,8 +112,8 @@ public class MainActivity extends Activity {
 			startActivity(intent);
 		}
 		
-		String username = storage.GetPreferences("username");
-		tvWelcome.setText("Welcome, " + username);
+		String fullname = storage.GetPreferences("fullname");
+		tvWelcome.setText("Welcome, " + fullname);
 	}
 	
 	@Override

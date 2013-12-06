@@ -5,12 +5,17 @@
 		<h3>Today's Scheduled Appointments</h3>
 	</div>
 	<div class="col-xs-6 col-md-4">
-		<span class="pull-right"> <a data-toggle="modal"
-			href="#myModal" class="btn btn-primary">Broadcast Message</a>
+		<span class="pull-right"> 
+		<c:if test="${!empty appointmentList}">
+				<a data-toggle="modal" href="#myModal" class="btn btn-primary">Broadcast
+					Message</a>
+			</c:if>
 		</span>
+
 	</div>
 </div>
-<form:form action="/Scheduler/official/meeting/start" method="post" role="form">
+<form:form action="/Scheduler/official/meeting/start" method="post"
+	role="form">
 	<h3>Lists of Appointment From Database</h3>
 	<p><%=new java.util.Date()%></p>
 

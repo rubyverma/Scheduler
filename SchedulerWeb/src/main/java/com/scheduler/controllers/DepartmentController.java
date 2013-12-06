@@ -83,21 +83,24 @@ import com.scheduler.services.TimeslotService;
 	
 		@RequestMapping(value = "/new", method = RequestMethod.GET)
 		public String createNewDepartment(Model model) {
-			List<Campus> campuses = campusService.findAllCampuses(1);
-			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(1);			
+			addUserModel(model);
+			int campusId = Integer.parseInt(sessionMap.get("id"));
+			List<Campus> campuses = campusService.findAllCampuses(campusId);
+			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(campusId);			
 			
 			Department dept = new Department();
 			model.addAttribute("department", dept);
 			model.addAttribute("campuses", campuses);
 			model.addAttribute("timeslots", timeslots);
-			addUserModel(model);
 			return "department/edit";
 		}
 		
 		@RequestMapping(value = "/edit/{departmentId}", method = RequestMethod.GET)
 		public String editNewDepartment(@PathVariable("departmentId") int departmentId, Model model, HttpServletRequest request) {
-			List<Campus> campuses = campusService.findAllCampuses(1);
-			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(1);
+			addUserModel(model);
+			int campusId = Integer.parseInt(sessionMap.get("id"));
+			List<Campus> campuses = campusService.findAllCampuses(campusId);
+			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(campusId);
 			Department dept = departmentService.getDepartmentById(departmentId);
 			List<Departmenttimeslot> slots = departmentTimeslotService.getDepartmentTimeslot(departmentId);
 			
@@ -136,7 +139,8 @@ import com.scheduler.services.TimeslotService;
 		@RequestMapping(value = "/save", method = RequestMethod.POST)
 		public String saveDepartment(@ModelAttribute("department") Department department, Model model,
 				HttpServletRequest request) {
-			
+			addUserModel(model);
+			int clientId = Integer.parseInt(sessionMap.get("id"));
 			int i = -1;
 			int deptId = -1;
 			if(department.getDepartmentId() == 0) {
@@ -149,7 +153,7 @@ import com.scheduler.services.TimeslotService;
 			
 			departmentTimeslotService.deleteDepartmentTimeslot(deptId);
 			
-			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(1);
+			List<Timeslot> timeslots = timeslotService.GetAllTimeslots(clientId);
 			for (int index = 0; index < timeslots.size(); index++) {
 				Timeslot tsl = timeslots.get(index);
 				
@@ -185,7 +189,8 @@ import com.scheduler.services.TimeslotService;
 		public String viewAllStastics(Model model) {
 		
 			try {
-				int departmentID=1;
+				addUserModel(model);
+				int departmentID= Integer.parseInt(sessionMap.get("deptId"));
 				List<DepartmentStatistics> departmentStats= departmentService.getStatistics(departmentID);
 				model.addAttribute("departmentStatistics", departmentStats);
 			} catch (BadSqlGrammarException e) {

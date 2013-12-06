@@ -300,12 +300,14 @@ public class LoginActivity extends Activity {
 
 			String userId = jsonObject.getString("userId");
 			String username = jsonObject.getString("username");
+			String fullname = jsonObject.getString("fullname");
 
 			Log.d("SonnySP", "UserId: " + userId + ", Username: " + username);
 
 			SessionStorage storage = new SessionStorage(this);
 			storage.SavePreferences("userId", userId);
 			storage.SavePreferences("username", username);
+			storage.SavePreferences("fullname", fullname);
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
