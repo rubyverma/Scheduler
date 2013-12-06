@@ -31,11 +31,22 @@
 	<p><b>Department Description:</b></p>
 		<div class ="panel-body"> 
 			<p> ${department.departmentDescription}</p><br/>
-			<c:forEach items="${department.slots}" var="slot">
-			     <div class="row">
-			        <b>${slot.workingDays}:- ${slot.startTime} - ${slot.stopTime} (${slot.capacity})</b>
-  			   </div>
-			</c:forEach>	
+			<c:if test = "${!empty department.slots}">
+				<table class = "table">			
+				<tr>
+					<th>Day</th>
+					<th>Time Slot</th>
+					<th>Capacity</th>
+				</tr>			
+				<c:forEach items="${department.slots}" var="slot">
+				   <tr>
+				   	<td>${slot.workingDays}</td>
+				   	<td>${slot.startTime} - ${slot.stopTime}</td>
+				   	<td>${slot.capacity}</td>
+	  			   </tr>
+				</c:forEach>
+			</table>
+			</c:if>	
 		</div>
 	</div>
 	<br>

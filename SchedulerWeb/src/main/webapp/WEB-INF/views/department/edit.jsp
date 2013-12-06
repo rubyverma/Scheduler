@@ -3,6 +3,9 @@
 <%@page import="com.scheduler.models.Department"%>
 <%@ include file="../includes/header.jsp"%>
 
+<!-- Author - Ruby Verma
+	Usage - UI for editing and updating a department -->
+
 <title>Add Department</title>
 <h3>Add Department</h3>
 
