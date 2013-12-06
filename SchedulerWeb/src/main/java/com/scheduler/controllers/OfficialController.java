@@ -302,8 +302,13 @@ public class OfficialController extends SessionController {
 			@ModelAttribute("officialUser") OfficialUser officialUser,
 			Model model) {
 
+		addUserModel(model);
 		int i = officialUserService.updateOfficialUser(officialUser);
-		return "redirect:/official/users/view";
+		if(sessionMap.get("role").equals("CL")) {
+			return "redirect:/official/users/view";
+		} else {
+			return "redirect:/official/users/edit/" + sessionMap.get("id");
+		}
 	}
 
 	// Author - Devraj Valecha

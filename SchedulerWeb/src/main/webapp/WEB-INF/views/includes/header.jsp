@@ -53,6 +53,9 @@
 						<c:when test="${user.role == 'GU'}">
 							<li class="active"><a href="/Scheduler/generaluser/dashboard">Home</a></li>
 						</c:when>
+						<c:when test="${user.role != ''}">
+							<li class="active"><a href="/Scheduler/">Home</a></li>
+						</c:when>
 						<c:otherwise>
 							<li class="active"><a href="/Scheduler/login">Home</a></li>
 						</c:otherwise>
@@ -60,6 +63,7 @@
 
 					<li><a href="#about">About</a></li>
 					<li><a href="#contact">Contact</a></li>
+					<c:if test="${!empty user.id}">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">${user.name} <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -70,6 +74,7 @@
 							<li class="divider"></li>
 							<li><a href="/Scheduler/logout">Logout</a></li>
 						</ul></li>
+						</c:if>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -86,6 +91,8 @@
 		<div class="row">
 			<div class="col-md-3">
 				<!--  TODO: show only if user is logged in -->
-				<%@ include file="left_sidebar.jsp"%>
+				<c:if test="${!empty user.id}">
+					<%@ include file="left_sidebar.jsp"%>
+				</c:if>
 			</div>
 			<div class="col-md-9">

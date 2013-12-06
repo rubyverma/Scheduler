@@ -38,7 +38,7 @@
 	</div>
 
 	<div style="text-align: center;">
-		<a href="/Scheduler/generaluser/edit/${userId}" class="btn btn-danger">Back</a> 
+		<a href="/Scheduler/generaluser/edit" class="btn btn-danger">Back</a> 
 		<input type="submit"
 			name="Save" value="Save" class="btn btn-success" />
 	</div>

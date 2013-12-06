@@ -61,7 +61,10 @@
 			<td>${user.lastName}</td>
 			<td>${user.email}</td>
 			<td>${user.dateJoined}</td>
-			<td><a href="../users/edit/${user.officialId}" class="label label-warning">Update</a> <a href = "../users/delete/${user.officialId}" action="GET" class="label label-danger">Delete</a></td>
+			<td>
+				<a href="../users/edit/${user.officialId}" class="label label-warning">Update</a> 
+				<a href = "../users/delete/${user.officialId}" action="GET" class="label label-danger">Delete</a>
+			</td>
 		</tr>
 	</c:forEach>
 	</table>

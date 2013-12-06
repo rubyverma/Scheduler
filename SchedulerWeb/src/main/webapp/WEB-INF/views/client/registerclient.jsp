@@ -60,5 +60,5 @@
     </tr>
 </table>  
 </form:form>
-
+<a href="/Scheduler/generaluser/register">Signup as a Student</a>
 <%@ include file="../includes/footer.jsp"%>

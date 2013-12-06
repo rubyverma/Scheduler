@@ -50,7 +50,6 @@ public class GeneralUserController extends SessionController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
-		addUserModel(model);
 		model.addAttribute("generaluser", new GeneralUser());
 		return "generaluser/registergeneraluser";
 	}
@@ -201,7 +200,7 @@ public class GeneralUserController extends SessionController {
 		ra.addFlashAttribute("updated", "updated");
 		int result = generaluserService.updateUser(generaluser);
 		model.addAttribute("generaluser", result);
-		return "redirect:/generaluser/edit/" + generaluser.getUserId();
+		return "redirect:/generaluser/edit/";
 	}
 
 	@RequestMapping(value = "/editpassword/{userId}", method = RequestMethod.GET)
