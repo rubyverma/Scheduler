@@ -31,6 +31,7 @@ import com.schedulerapp.adapters.TimeSlotAdapter;
 import com.schedulerapp.models.Campus;
 import com.schedulerapp.models.Department;
 import com.schedulerapp.models.DepartmentTimeslotLinkage;
+import com.schedulerapp.preferences.SessionStorage;
 import com.schedulerapp.tasks.GetCampusesByClient;
 import com.schedulerapp.tasks.GetDepartementByCampus;
 import com.schedulerapp.tasks.GetDepartmentTimeSlot;
@@ -222,10 +223,12 @@ public class BookAppointment extends Activity {
 			return;
 		}		
 		final JSONObject jsonObjectUser = new JSONObject();
+		SessionStorage storage = new SessionStorage(this);
+		String userId = storage.GetPreferences("userId");
 		try {			
             jsonObjectUser.put("departmentTimeId", selectedDepartmentTimeslotLinkage.getDepartmentTimeId());
             jsonObjectUser.put("purposeOfVisit", txtPurpose.getText().toString());
-            jsonObjectUser.put("userId", "1");
+            jsonObjectUser.put("userId", userId);
             jsonObjectUser.put("meetingFinished", "N");
             jsonObjectUser.put("appointmentDate", sdf.format(c.getTime()));
 	    } catch (JSONException e) {

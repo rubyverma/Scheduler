@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.schedulerapp.models.Announcement;
+import com.schedulerapp.preferences.SessionStorage;
 
 public class ViewAnnouncement extends Activity {
 
@@ -25,9 +26,12 @@ public class ViewAnnouncement extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_announcement);
+
+		SessionStorage storage = new SessionStorage(this);
+		String userId = storage.GetPreferences("userId");
 		try {
 			GetAllAnnouncements task = new GetAllAnnouncements();
-			list = task.execute("1").get();
+			list = task.execute(userId).get();
 			
 			mainlist = (ListView) findViewById(R.id.mainlist);
 			mainlist.setAdapter(new announcementListAdapter(this));

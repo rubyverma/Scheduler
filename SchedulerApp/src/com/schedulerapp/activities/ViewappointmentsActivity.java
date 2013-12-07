@@ -12,9 +12,9 @@ import com.schedulerapp.httprequests.HttpClient;
 import com.schedulerapp.httprequests.HttpRequests;
 import com.schedulerapp.models.AppointmentDepartment;
 import com.schedulerapp.models.User;
+import com.schedulerapp.preferences.SessionStorage;
 
 import android.R.color;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,7 +42,8 @@ public class ViewappointmentsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewappointments);
-		String userId = "1";
+		SessionStorage storage = new SessionStorage(this);
+		String userId = storage.GetPreferences("userId");
 		GetAppointments task = new GetAppointments();
 		try {
 			appointments = task.execute(userId).get();

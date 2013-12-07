@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.schedulerapp.models.Notification;
+import com.schedulerapp.preferences.SessionStorage;
 
 public class ViewNotifications extends Activity {
 
@@ -26,10 +27,11 @@ public class ViewNotifications extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_notifications);
-		
+		SessionStorage storage = new SessionStorage(this);
+		String userId = storage.GetPreferences("userId");
 		try {
 			GetAllNotifications task = new GetAllNotifications();
-			list = task.execute("1").get();
+			list = task.execute(userId).get();
 			
 			mainlist = (ListView) findViewById(R.id.mainlist);
 			mainlist.setAdapter(new notificationListAdapter(this));
