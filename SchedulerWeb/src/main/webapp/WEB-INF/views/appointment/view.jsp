@@ -14,6 +14,7 @@
     <th>Purpose of Visit</th>
     <th>Meeting Notes</th>
     <th>Meeting Finished</th>
+    <th>Expected Meeting Time</th>
     <th>Actions</th>
 </tr>
 <c:forEach items="${appointments}" var="appointment">
@@ -43,6 +44,7 @@
   			<span class="label label-warning">Late</span>
 		</c:if>
 		</td>
+		<td>${appointment.expectedTime}</td>
 		<td>
 		<c:if test = "${appointment.meetingFinished.equals('N')}">
   			<a href="cancel/${appointment.appointmentId }">cancel</a>

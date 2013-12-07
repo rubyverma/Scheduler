@@ -172,9 +172,7 @@ public class LoginActivity extends Activity {
 
 				jsonObjectUser.put("username", mUsername);
 				jsonObjectUser.put("password", mPassword);
-				//jsonObjectUser.put("gcmRegId", gcmHandler.getRegistrationId(this));
-
-				jsonObjectUser.put("gcmRegId", "demoId");
+				jsonObjectUser.put("gcmRegId", gcmHandler.getRegistrationId(this));
 
 			} catch (JSONException e) {
 				e.printStackTrace();

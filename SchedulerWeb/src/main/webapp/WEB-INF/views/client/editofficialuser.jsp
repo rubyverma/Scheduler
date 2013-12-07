@@ -5,24 +5,53 @@
 %>
 <form:form method="POST" action="../update" modelAttribute="officialUserEdit">
 <h3> Edit a Official User </h3>
-				<div class="modal-body">
 				<form:input type="hidden" path="officialId" value = "${Id}"/>
-					<label>User Name:</label>
-					<form:input type="text" required="required" path="officialName"/>
-					<label>Password:</label>
-					<form:input type="password" required="required" path="password"/>
-					<br><br>
-					<label>Role:</label>
-					<form:select name="role" class="abc" id="role" path ="roleId">
+				<table>
+					<tr>
+					<td><label>User Name:</label></td>
+					<td><form:input type="text" required="required" path="officialName"/></td>
+					</tr>
+					<tr>
+					<td><label>Password:</label></td>
+					<td><form:input type="password" required="required" path="password"/></td>
+					</tr>
+					<tr>
+					<td><label>Role:</label></td>
+					<td><form:select name="role" class="abc" id="role" path ="roleId">
 						<c:forEach items="${roles}" var="role">
 							<form:option value ="${role.roleId}">${ role.roleName}</form:option>
 						</c:forEach>
-					</form:select>
-					<label>Department:</label>
-					<form:select name="department" class="abc" id="department" path="departmentId">
+					</form:select></td>
+					</tr>
+					<tr>
+					<td><label>Department:</label></td>
+					<td><form:select name="department" class="abc" id="department" path="departmentId">
 						<c:forEach items="${departments}" var="department">
 							<form:option value ="${department.departmentId}">${ department.departmentName }</form:option>
 						</c:forEach>
+					</form:select></td>
+					</tr>
+					<tr>
+					<td><label>First Name:</label></td>
+					<td><form:input type="text" required="required" path="firstName"/></td>
+					</tr>
+					<tr>
+					<td><label>Last Name:</label></td>
+					<td><form:input type="text" required="required" path="lastName"/></td>
+					</tr>
+					<tr>
+					<td><label>Email:</label></td>
+					<td><form:input type="email" required="required" path="email"/></td>
+					</tr>
+					<tr>
+					<td><label >Date Joined: </label></td>
+					<td><form:input type="text" id="dateJoined"  required="required" readonly="readonly" path="dateJoined"/></td>
+					</tr>
+					<tr>
+					<td><a href = "../../../official/users/view" class="btn btn-primary">Cancel</a></td>
+					<td><input type="submit" value="Update" class="btn btn-primary" /></td>
+					</tr>
+					</table>
 					</form:select>
 					<br><br>
 					<label>First Name:</label>
@@ -45,6 +74,7 @@
 					</c:choose>
 					<input type="submit" value="Update" class="btn btn-primary" />
 
+>>>>>>> refs/remotes/origin/master
 	</form:form>
 	
 	<%@ include file="../includes/footer.jsp"%>

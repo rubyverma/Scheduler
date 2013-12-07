@@ -35,10 +35,10 @@ public class ExpectedMeetingTimeService {
 		Appointment appointment = appointmentMapper.getAppointmentById(appointmentId);
 		DepartmentTimeslotLinkage bookedTimeslot = departmentTimeslotService.getTimeslotByAppointment(appointment.getDepartmentTimeId());
 		Date appointmentDate = appointment.getAppointmentDate();
-		
+		List<Appointment> unfinishedAppointments = appointmentMapper.getBeforeAppointments(appointment);
 		if (isCurrentDate(appointmentDate)) {
 			List<Appointment> finishedAppointments = appointmentMapper.getFinishedAppointments(appointment);
-			List<Appointment> unfinishedAppointments = appointmentMapper.getBeforeAppointments(appointment);
+			unfinishedAppointments = appointmentMapper.getBeforeAppointments(appointment);
 			System.out.println(finishedAppointments);
 			System.out.println(unfinishedAppointments);
 			System.out.println(isAfterBeforeTime(bookedTimeslot.getStartTime()));
@@ -54,6 +54,7 @@ public class ExpectedMeetingTimeService {
 				expectedMeetingTime = expectedTimeByCapacity(unfinishedAppointments,bookedTimeslot);
 			}
 		} else if (isPastFutureDate(appointmentDate)) {
+			expectedMeetingTime = expectedTimeByCapacity(unfinishedAppointments,bookedTimeslot);
 
 		} else {
 			expectedMeetingTime = "Past date appointment";

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -234,7 +235,9 @@ public class BookAppointment extends Activity {
 			String result = task.execute(jsonObjectUser).get();
 			
 			if(result.equals("success")) {
-				Toast.makeText(getApplicationContext(), "Record Updated", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Appointment Saved", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(BookAppointment.this, ViewappointmentsActivity.class);
+				startActivity(intent);
 			} else if(result.equals("fail")) {
 				Toast.makeText(getApplicationContext(), "Error Occurred", Toast.LENGTH_SHORT).show();
 			}

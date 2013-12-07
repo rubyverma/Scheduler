@@ -96,38 +96,58 @@
 					<h3 class="modal-title">Add a new Official User to the system</h3>
 				</div>
 				<div class="modal-body">
-					<label>User Name:</label>
-					<form:input type="text" path="officialName"/>
-					<label>Password:</label>
-					<form:input type="text" path="password"/>
-					<br><br>
-					<label>Role:</label>
-					<form:select name="role" class="abc" id="role" path ="roleId">
+					<table>
+					<tr>
+					<td><label>User Name:</label></td>
+					<td><form:input type="text" path="officialName"/></td>
+					</tr>
+					<tr>
+					<td><label>Password:</label></td>
+					<td><form:input type="text" path="password"/></td>
+					</tr>
+					<tr>
+					<td><label>Role:</label></td>
+					<td><form:select name="role" class="abc" id="role" path ="roleId">
 						<c:forEach items="${roles}" var="role">
 							<form:option value ="${role.roleId}">${ role.roleName}</form:option>
 						</c:forEach>
-					</form:select>
-					<label>Department:</label>
-					<form:select name="department" class="abc" id="department" path="departmentId">
+					</form:select></td>
+					</tr>
+					<tr>
+					<td><label>Department:</label></td>
+					<td><form:select name="department" class="abc" id="department" path="departmentId">
 						<c:forEach items="${departments}" var="department">
 							<form:option value ="${department.departmentId}">${ department.departmentName }</form:option>
 						</c:forEach>
-					</form:select>
-					<br><br>
-					<label>First Name:</label>
-					<form:input type="text" required="required" path="firstName"/>
-					<label>Last Name:</label>
-					<form:input type="text" required="required" path="lastName"/>
-					<br><br>
-					<label>Email:</label>
-					<form:input type="email" path="email"/>
-					<label >Date Joined: </label>
-					<form:input type="text" id="dateJoined"  required="required" readonly="readonly" path="dateJoined"/>
+					</form:select></td>
+					</tr>
+					<tr>
+					<td><label>First Name:</label></td>
+					<td><form:input type="text" required="required" path="firstName"/></td>
+					</tr>
+					<tr>
+					<td><label>Last Name:</label></td>
+					<td><form:input type="text" required="required" path="lastName"/></td>
+					</tr>
+					<tr>
+					<td><label>Email:</label></td>
+					<td><form:input type="email" path="email"/></td>
+					</tr>
+					<tr>
+					<td><label >Date Joined: </label></td>
+					<td><form:input type="date" id="dateJoined"  required="required" readonly="readonly" path="dateJoined"/></td>
+					</tr>
+					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<input type="submit" value="Save" class="btn btn-primary" />
+					<table>
+					<tr>
+					<td><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button></td>
+					<td><input type="submit" value="Save" class="btn btn-primary" /></td>
+					</tr>
+					</table>
 				</div>
+				
 			</div>
 			<!-- /.modal-content -->
 		</div>
