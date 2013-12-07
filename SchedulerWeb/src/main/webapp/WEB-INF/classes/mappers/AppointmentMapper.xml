@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scheduler.mappers.AppointmentMapper">
 
-<!--Author - Shalin Banjara  -->
-<!--Usage - To insert a new booked appointment in the database  -->
+	<!--Author - Shalin Banjara -->
+	<!--Usage - To insert a new booked appointment in the database -->
 	<insert id="saveAppointment" parameterType="com.scheduler.models.Appointment"
 		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into appointment(appointmentId, departmentTimeId,
@@ -20,7 +20,8 @@
 		set
 		endTime = CURTIME(),
 		meetingNotes=#{meetingNotes},
-		meetingFinished ='Y'
+		meetingFinished
+		='Y'
 		where appointmentId=#{appointmentId}
 	</update>
 
@@ -50,14 +51,20 @@
 		select
 		appointment.userId,appointment.purposeOfVisit,appointment.dateCreated,
 		appointment.appointmentId ,generaluser.firstName,
-		generaluser.lastName from appointment
-		inner join generaluser on appointment.userId=generaluser.userId
+		generaluser.lastName
+		from appointment
+		inner join generaluser on
+		appointment.userId=generaluser.userId
 		inner join departmenttimeslot on
 		departmenttimeslot.departmentTimeId=appointment.departmentTimeId
-		where departmenttimeslot.departmentId=#{departmentId}
-		and appointment.appointmentDate=curdate()
-		and appointment.meetingFinished='N'
-		order by time(appointment.dateCreated) asc;
+		where
+		departmenttimeslot.departmentId=#{departmentId}
+		and
+		appointment.appointmentDate=curdate()
+		and
+		appointment.meetingFinished='N'
+		order by time(appointment.dateCreated)
+		asc;
 	</select>
 
 	<select id="findAllUserAppointments" parameterType="int"
@@ -78,7 +85,8 @@
 		select departmentTimeId from departmenttimeslot where
 		departmentId=#{department_id})
 		and meetingFinished='N'
-		and appointmentDate=CURDATE()
+		and
+		appointmentDate=CURDATE()
 		order by
 		appointmentId ASC
 		Limit 0,1
@@ -104,7 +112,8 @@
 		statementType="PREPARED">
 		update appointment
 		set meetingFinished = 'C'
-		where appointmentId = #{appointmentId}
+		where
+		appointmentId = #{appointmentId}
 	</update>
 
 	<update id="userLate" parameterType="com.scheduler.models.Appointment"
@@ -115,15 +124,31 @@
 		where
 		appointmentId = #{appointmentId}
 	</update>
-	
+
 	<select id="getAppointmentCount" parameterType="int" resultType="int">
-		select count(*) from appointment where 
+		select count(*) from appointment where
 		departmentTimeId IN (select departmentTimeId from
 		departmenttimeslot
-		where departmentId = #{department_id})
+		where departmentId
+		= #{department_id})
 	</select>
-	
-	<select id="getAppointmentCountByUserId" parameterType="int" resultType="int">
+
+	<select id="getAppointmentCountByUserId" parameterType="int"
+		resultType="int">
 		select count(*) from appointment where userId = ${userId}
+	</select>
+
+	<select id="getFinishedAppointments" parameterType="com.scheduler.models.Appointment"
+		resultType="com.scheduler.models.Appointment">
+		select * from appointment WHERE appointmentDate = #{appointmentDate} AND
+		meetingFinished = 'Y' AND #{appointmentId} > appointmentId AND
+		departmentTimeId = #{departmentTimeId} ORDER BY appointmentId
+	</select>
+
+	<select id="getBeforeAppointments" parameterType="com.scheduler.models.Appointment"
+		resultType="com.scheduler.models.Appointment">
+		select * from appointment WHERE appointmentDate = #{appointmentDate} AND
+		#{appointmentId} > appointmentId AND departmentTimeId =
+		#{departmentTimeId} AND meetingFinished = 'N' ORDER BY appointmentId
 	</select>
 </mapper>

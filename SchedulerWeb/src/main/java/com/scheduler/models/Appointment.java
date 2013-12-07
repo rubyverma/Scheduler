@@ -23,5 +23,6 @@ public class Appointment implements Serializable {
         private String meetingFinished;
         private String meetingNotes;
         private Date dateCreated;
+        private String expectedTime;
 }
 

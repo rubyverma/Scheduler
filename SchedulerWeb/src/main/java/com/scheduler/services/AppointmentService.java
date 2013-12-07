@@ -26,6 +26,9 @@ public class AppointmentService {
 
 	@Autowired(required = true)
 	private NotificationService notificationService;
+	
+	@Autowired(required = true)
+	private ExpectedMeetingTimeService expectedMeetingTimeService;
 
 	@Autowired(required = true)
 	private SendPostRequest postRequest;
@@ -96,8 +99,11 @@ public class AppointmentService {
 
 	public List<AppointmentDepartment> findAllUserAppointments(int userId)
 			throws BadSqlGrammarException {
-		return appointmentMapper.findAllUserAppointments(userId);
-
+		List<AppointmentDepartment> appointments = appointmentMapper.findAllUserAppointments(userId) ;
+		for(AppointmentDepartment app:appointments){
+			app.setExpectedTime(expectedMeetingTimeService.getExpectedMeetingTime(app.getAppointmentId()));
+		}
+		return appointments;
 	}
 	
 	// finds which appointment is in the top of the queue

@@ -26,7 +26,4 @@ public interface DepartmentTimeslotMapper {
 	int saveDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException;
 	
 	int updateDepartmentTimeslot(Departmenttimeslot slot) throws BadSqlGrammarException;
-	
-	
-
 }
