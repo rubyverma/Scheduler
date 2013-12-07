@@ -40,7 +40,7 @@ $( "#datepicker" ).datepicker();
     </tr>
     <tr>
         <td><form:label path="dob">DOB</form:label></td>
-        <td><form:input type="text" id="datepicker" path="dob" value="1986-12-12" required="required" readonly="readonly"/></td>
+        <td><form:input type="date" id="datepicker" path="dob" value="1986-12-12" required="required" readonly="readonly"/></td>
         
     </tr>
     <tr>
@@ -55,5 +55,5 @@ $( "#datepicker" ).datepicker();
     </tr>
 </table>  
 </form:form>
-
+<a href="/Scheduler/client/register">Signup as a Client</a>
 <%@ include file="../includes/footer.jsp"%>

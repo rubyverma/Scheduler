@@ -1,7 +1,7 @@
 <%@ include file="../includes/header.jsp"%>
 <h1>Update Client Details</h1>
 
-<form:form method="POST" action="../update" modelAttribute="client" class="form-horizontal" role="form">
+<form:form method="POST" action="/Scheduler/client/update" modelAttribute="client" class="form-horizontal" role="form">
 	<form:input type = "hidden" path="clientId"/>
    <table>
     <tr>

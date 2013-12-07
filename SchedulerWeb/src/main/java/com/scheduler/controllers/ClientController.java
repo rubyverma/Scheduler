@@ -23,6 +23,7 @@ import com.scheduler.models.Client;
 import com.scheduler.models.Faq;
 import com.scheduler.models.DepartmentStatistics;
 import com.scheduler.request.MailMail;
+import com.scheduler.services.AppointmentService;
 import com.scheduler.services.CampusService;
 import com.scheduler.services.ClientService;
 import com.scheduler.services.DepartmentService;
@@ -39,6 +40,9 @@ public class ClientController extends SessionController {
 	
 	@Autowired(required = true)
 	private DepartmentService departmentService;
+	
+	@Autowired(required = true)
+	private AppointmentService appointmentService;
 	
 	/*
 	 * @Autowired private MailSender mailSender;
@@ -65,7 +69,7 @@ public class ClientController extends SessionController {
 		String clientname="";
 		if (client != null) {
 			String to = client.getEmail().toString();
-			cId=client.getClientId();
+			
 			clientname=client.getUserName();
 			ApplicationContext context = new ClassPathXmlApplicationContext(
 					"Spring-Mail.xml");
@@ -74,9 +78,9 @@ public class ClientController extends SessionController {
 			int mytoken = randomGenerator.nextInt(999999 - 100000) + 100000;
 			client.setToken("" + mytoken);
 			int result = clientService.saveClient(client);
-			
 			model.addAttribute("client", client);
 			System.out.println("client saved successfully");
+			cId=clientService.getClientId(to);
 			mm.sendMail(" "+clientname,
 					"Your Activation Link is http://localhost:8080/Scheduler/client/verify/"
 							+ cId + "/" + mytoken, to);
@@ -145,6 +149,7 @@ public class ClientController extends SessionController {
 		int clientId = Integer.parseInt(sessionMap.get("id"));
 		model.addAttribute("campusCount", campusService.findAllCampuses(clientId).size());
 		model.addAttribute("departmentCount", departmentService.departmentByClient(clientId).size());
+		model.addAttribute("appointmentCount", appointmentService.getAppointmentCountByClientId(clientId));
 		return "client/dashboard";
 	}
 

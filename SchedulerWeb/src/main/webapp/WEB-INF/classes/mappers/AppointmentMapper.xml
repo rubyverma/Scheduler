@@ -151,4 +151,12 @@
 		#{appointmentId} > appointmentId AND departmentTimeId =
 		#{departmentTimeId} AND meetingFinished = 'N' ORDER BY appointmentId
 	</select>
+
+	<select id="getAppointmentCountByClientId" parameterType="int"
+		resultType="int">
+		SELECT count(*) FROM appointment a, generaluser gu
+		where a.userId=gu.userId
+		and gu.clientId=${clientId}
+	</select>
+
 </mapper>

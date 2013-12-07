@@ -37,5 +37,11 @@ public class ClientServiceTest extends BaseTest {
 		assertTrue("Failed to Register a Client",testResult==1);
 		
 	}
+	
+	@Test
+	public void testViewStatistic() {
+		List<DepartmentStatistics> departmentStats = clientService.getStatistics();
+		assertTrue("Failed to View Statistics",departmentStats.isEmpty() == false);
+	}
 
 }

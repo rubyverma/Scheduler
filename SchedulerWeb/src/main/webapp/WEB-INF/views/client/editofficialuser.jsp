@@ -52,6 +52,29 @@
 					<td><input type="submit" value="Update" class="btn btn-primary" /></td>
 					</tr>
 					</table>
+					</form:select>
+					<br><br>
+					<label>First Name:</label>
+					<form:input type="text" required="required" path="firstName"/>
+					<label>Last Name:</label>
+					<form:input type="text" required="required" path="lastName"/>
+					<br><br>
+					<label>Email:</label>
+					<form:input type="email" required="required" path="email"/>
+					<label >Date Joined: </label>
+					<form:input type="text" id="dateJoined"  required="required" readonly="readonly" path="dateJoined"/>
+					<br><br>
+					<c:choose>
+						<c:when test="${user.role == 'CL'}">
+							<a href = "../../../official/users/view" class="btn btn-primary">Cancel</a>
+						</c:when>
+						<c:when test="${user.role == 'OU'}">
+							<a href = "/Scheduler/official/dashboard" class="btn btn-primary">Cancel</a>
+						</c:when>
+					</c:choose>
+					<input type="submit" value="Update" class="btn btn-primary" />
+
+>>>>>>> refs/remotes/origin/master
 	</form:form>
 	
 	<%@ include file="../includes/footer.jsp"%>

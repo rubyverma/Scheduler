@@ -145,6 +145,7 @@ public class RestController {
 			result.put("result", "success");
 			result.put("userId", Integer.toString(userResult.getUserId()));
 			result.put("username", userResult.getUsername());
+			result.put("fullname", userResult.getFirstName() + " " + userResult.getLastName());
 		} else {
 			result.put("result", "fail");
 		}

@@ -83,7 +83,7 @@
 	</div>
 
 	<div style="text-align: center;">
-		<a href="" class="btn btn-danger">Cancel</a>
+		<a href="/Scheduler/generaluser/dashboard" class="btn btn-danger">Cancel</a>
 		 <input type="submit" name="Save" value="Save" class="btn btn-success" />
 	</div>
 

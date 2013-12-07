@@ -6,7 +6,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">Total Appointments</div>
 			<div class="panel-body">
-				<h3>10250 Finished</h3>
+				<h3>${appointmentCount} Appointments</h3>
 			</div>
 		</div>
 	</div>

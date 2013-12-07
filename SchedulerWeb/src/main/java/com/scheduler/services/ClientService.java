@@ -90,4 +90,9 @@ public class ClientService {
 		return clientMapper.updateClientPasswordById(client);
 
 	}
+
+	public int getClientId(String to) {
+		// TODO Auto-generated method stub
+		return clientMapper.getClientId(to);
+	}
 }
