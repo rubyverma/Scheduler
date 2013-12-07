@@ -1,5 +1,7 @@
 package com.scheduler.mappers;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Component;
@@ -26,5 +28,6 @@ public interface GeneralUserMapper {
 	GeneralUser getGeneralUser(@Param("userId") int userId);
 	int updateUser(GeneralUser generaluser);
 	int updatePassword(GeneralUser generaluser);
+	List<Client> getClients();
 
 }

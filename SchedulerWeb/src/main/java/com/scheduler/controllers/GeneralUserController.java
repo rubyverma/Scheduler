@@ -2,6 +2,7 @@ package com.scheduler.controllers;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Random;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
+import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 import com.scheduler.request.MailMail;
 import com.scheduler.services.AnnouncementService;
 import com.scheduler.services.AppointmentService;
+import com.scheduler.services.ClientService;
+import com.scheduler.services.ClientServiceTest;
 import com.scheduler.services.GeneralUserService;
 import com.scheduler.services.NotificationService;
 
@@ -50,7 +54,9 @@ public class GeneralUserController extends SessionController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
+		List<Client> client = generaluserService.getClients();
 		model.addAttribute("generaluser", new GeneralUser());
+		model.addAttribute("client", client);
 		return "generaluser/registergeneraluser";
 	}
 

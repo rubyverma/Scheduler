@@ -1,59 +1,90 @@
 <%@ include file="../includes/header.jsp"%>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css" />
 <script>
-$(function() {
-$( "#datepicker" ).datepicker();
-});
+	$(function() {
+		$("#datepicker").datepicker();
+	});
 </script>
-<h1>
-	Register New User
-</h1>
+<h1>Register New User</h1>
+</br>
+<form:form class="form-horizontal" role="form" method="POST"
+	action="save" modelAttribute="generaluser">
 
-<form:form method="POST" action="save" modelAttribute="generaluser">
-   <table>
-    <tr>
-        <td><form:label path="firstName">First Name</form:label></td>
-        <td><form:input path="firstName" required="required"/></td>
-    </tr>
-    <tr>
-        <td><form:label path="lastName">Last Name</form:label></td>
-        <td><form:input path="lastName" required="required"/></td>
-    </tr>
-    <tr>
-        <td><form:label path="username">User Name</form:label></td>
-        <td><form:input path="username" required="required"/></td>
-    </tr>
-    <tr>
-        <td><form:label path="password">Password</form:label></td>
-        <td><form:input path="password" type="password" required="required"/></td>
-    </tr>
-    <tr>
-        <td><form:label path="email">Email</form:label></td>
-        <td><form:input path="email" required="required" type="email"/></td>
-    </tr>
-    <tr>
-        <td><form:label path="address">Address</form:label></td>
-        <td><form:input path="address" required="required"/></td>
-    </tr>
-    <tr>
-        <td><form:label path="dob">DOB</form:label></td>
-        <td><form:input type="date" id="datepicker" path="dob" value="1986-12-12" required="required" readonly="readonly"/></td>
-        
-    </tr>
-    <tr>
-        <td><form:label path="gender">Gender</form:label></td>
-        <td><form:radiobutton name="sex"  path="gender" value="Male"/>Male
-        <form:radiobutton name="sex"  path="gender" value="Female"/>Female</td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit" value="Submit" class="btn btn-primary" />
-        </td>
-    </tr>
-</table>  
+	<div class="form-group">
+		<label for="firstName" class="col-sm-2 control-label">First
+			Name</label>
+		<div class="col-sm-5">
+			<form:input path="firstName" class="form-control" required="required" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastName" class="col-sm-2 control-label">Last Name</label>
+		<div class="col-sm-5">
+			<form:input path="lastName" class="form-control" required="required" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">User Name</label>
+		<div class="col-sm-5">
+			<form:input path="username" class="form-control" required="required" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="password" class="col-sm-2 control-label">Password</label>
+		<div class="col-sm-5">
+			<form:input path="password" type="password" class="form-control"
+				required="required" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="col-sm-2 control-label">Email</label>
+		<div class="col-sm-5">
+			<form:input path="email" type="email" class="form-control"
+				required="required" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="address" class="col-sm-2 control-label">Address</label>
+		<div class="col-sm-5">
+			<form:input path="address" class="form-control" required="required" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="dob" class="col-sm-2 control-label">DOB</label>
+		<div class="col-sm-5">
+			<form:input type="date" class="form-control" id="datepicker"
+				path="dob" value="1986-12-12" required="required"
+				readonly="readonly" />
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="gender" class="col-sm-2 control-label">Gender</label>
+		<div class="col-sm-5">
+			<input type="radio" path="gender" value="Male"/>&nbsp Male 
+			<input type="radio" path="gender" value="Female"/>&nbsp Female
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="clientId" class="col-sm-2 control-label">Client</label>
+		<div class="col-sm-5">
+			<select name="clientId" id="clientCombo" class="form-control" >
+					<c:forEach items="${client}" var="client">
+						<option value="${client.clientId}">${client.clientName}</option>
+					</c:forEach>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+	<label for="dob" class="col-sm-2 control-label"></label>
+	<div class="col-sm-5">
+			<input type="submit" value="Submit"	class="btn btn-primary" />
+			</div>
+	</div>
 </form:form>
 <a href="/Scheduler/client/register">Signup as a Client</a>
 <%@ include file="../includes/footer.jsp"%>

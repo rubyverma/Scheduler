@@ -31,7 +31,7 @@
 		insert into generaluser(clientId,firstName,lastName, username,
 		password,email,address,dob,gender,token)
 		values
-		(1,#{firstName},#{lastName},#{username},
+		(#{clientId},#{firstName},#{lastName},#{username},
 		#{password},#{email},#{address},#{dob},#{gender},#{tocken})
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			select last_insert_id()
@@ -86,6 +86,10 @@
 		password = #{password}
 		where userId = #{userId}
 	</update>
+
+	<select id="getClients" resultType="com.scheduler.models.Client">
+		select * from client 
+	</select>
 
 
 </mapper>

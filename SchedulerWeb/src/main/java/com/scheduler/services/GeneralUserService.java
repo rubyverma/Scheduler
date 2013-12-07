@@ -1,5 +1,7 @@
 package com.scheduler.services;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.scheduler.mappers.GeneralUserMapper;
+import com.scheduler.models.Client;
 import com.scheduler.models.GeneralUser;
 
 @Component
@@ -91,6 +94,11 @@ public class GeneralUserService {
 	public int updatePassword(GeneralUser generaluser)
 	{
 	  return generalUserMapper.updatePassword(generaluser);
+	}
+
+	public List<Client> getClients() {
+		// TODO Auto-generated method stub
+		return generalUserMapper.getClients();
 	}
 
 }
