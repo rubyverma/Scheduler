@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Departmenttimeslot {
 
-	 public static String DAY_1 = "1000000";
-	 public static String DAY_2 = "0100000";
-	 public static String DAY_3 = "0010000";
-	 public static String DAY_4 = "0001000";
-	 public static String DAY_5 = "0000100";
+	 public static String DAY_1 = "0100000";
+	 public static String DAY_2 = "0010000";
+	 public static String DAY_3 = "0001000";
+	 public static String DAY_4 = "0000100";
+	 public static String DAY_5 = "0000010";
 	 
 	 private int departmentTimeId;
 	 private int departmentId;
