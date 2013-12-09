@@ -64,7 +64,7 @@ public class NotificationController extends SessionController {
 	public String sendNotification(
 			@ModelAttribute("notification") Notification notification,
 			Model model) {
-
+		addUserModel(model);
 		notification.setOfficialId(Integer.parseInt(sessionMap.get("id")));
 		//notification.setUserId(1);
 		System.out.println(generalUserService.getUserGCMregId(notification

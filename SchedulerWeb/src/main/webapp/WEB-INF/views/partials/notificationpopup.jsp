@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%--Author - Shalin Banjara --%>
 <%--Usage - A popup for offical user to send a notification to a particular user in the appointment queue --%>
-<form:form method="POST" action="http://localhost:8080/Scheduler/generaluser/send/notification/" modelAttribute="notification">
+<form:form method="POST" action="${pageContext.request.contextPath}/generaluser/send/notification/" modelAttribute="notification">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
